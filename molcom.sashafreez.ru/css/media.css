@@ -1,0 +1,66 @@
+/* 	Library Style Developer coder Alexander Moskvin  sasha-freez@mail.ru. for site http://sasha-freez.ru */
+/* media css */
+
+/* maket media screen css  */
+/* design 1200 to 960  body{width:1000px; margin:0 auto;}*/
+@media screen and (max-width:1150px){
+.b_popup .container{width:auto; min-width:none;}
+.b_popup .close{}
+
+
+header .company_task{padding:0;}
+.wrap_lr1{padding-left:30px; padding-right:30px;}
+.marg_lr1{margin-left:30px; margin-right:30px;}
+
+.icon_menu .row .name{height:30px;}
+.icon_menu .row > span img{height:130px;}
+
+.b_company .company_desc{font-size:16px;}
+
+.b_questions .l{width:360px; line-height:24px; margin-top:-5px;}
+.b_questions .tel{display:block;}
+
+.parallax_bg br{display:none;}
+
+.b_desc_two img{max-width:400px;}
+.b_desc_two .i-fix{margin:-111px 20px 0 0; max-width:300px;}
+.b_desc_two .i-fix_r{float:right; margin:-111px 20px 0 0; position:relative; z-index:1; max-width:300px;}
+
+.b_awards .cir_l{left:-60px;}
+.b_awards .cir_r{right:-60px;}
+
+.b_icon_row .row .icon{width:auto;}
+.b_icon_row .row .desc{width:auto; padding:0 10px;}
+
+
+.news-plist{width:295px;}
+
+.fm_logo{margin-right:23px;}
+.fm_call_you{margin:0 10px;}
+.fm_social .label{font-size:12px;}
+
+.p_map{}
+.p_map .imap{padding-left:30px;}
+.p_map .pl35{padding-left:30px;}
+.p_map .r .pl35{padding-right:30px;}
+
+}
+
+/* design 959 to 760 */
+@media screen and (max-width:2959px){ 
+
+}
+
+/* design 590 to 320 */
+@media screen and (max-width:2595px){
+
+}
+
+/* design 520 to 320 */
+@media screen and (max-width:2520px){ 
+
+}
+
+@media screen and (max-width:420px){ 
+
+}

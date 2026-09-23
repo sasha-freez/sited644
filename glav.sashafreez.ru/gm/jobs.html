@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="shortcut icon" href="favicon.ico"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Работы</title>
+	<meta name="description" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="MobileOptimized" content="100%"/>
+	<link rel="stylesheet" href="gotham/gotham.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="css/master.css?v=76218740" type="text/css" media="all" />
+	<link rel="stylesheet" href="css/media.css?v=76218740" type="text/css" media="all" />
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/main.js?v=76218740"></script>
+	<script type="text/javascript" src="scrollflow/jquery.scrollflow.min.js"></script>
+	
+	<link rel="stylesheet" href="owl.carousel/owlcarousel/assets/owl.carousel.min.css">
+    <script src="owl.carousel/owlcarousel/owl.carousel.js"></script>
+</head>
+<body class="p_jobs">
+	<div class="page_wrapper">
+		<header>
+			<div class="container">
+				<div class="imenu" id="imenu"><span></span></div>
+				<div class="logo">
+					<a href="/"></a> 
+				</div>
+				<div class="menu">
+					<nav>
+						<ul>
+							<li><a href="abouts.html">О нас</a></li>
+							<li><a href="index.html">Услуги</a></li>
+							<li class="active"><a href="jobs.html">Работы</a></li>
+							<li><a href="clients.html">Клиенты</a></li>
+							<li><a href="contacts.html">Контакты</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</header>
+		
+		<div class="page_jobs">
+			<video id="video_jobs" width="100%" height="600" style="position:fixed; width:100%; height:100%;" autoplay="autoplay" controls="controls" muted="muted" preload="none">
+				<source src="video/job_ud.mp4" type="video/mp4" data-quality="sHD"/>
+				<source src="video/job_hd.mp4" type="video/mp4" data-quality="HD"/>
+				<source src="video/job_sd.mp4" type="video/mp4" data-quality="SD"/>
+			</video>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.6/mediaelementplayer.css">
+			<link rel="stylesheet" href="mediaelement/video_style.css?v=76218741">
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.6/mediaelement-and-player.min.js"></script>
+			<script src="mediaelement/dist/quality/quality.js"></script>
+			<script>
+				var videoJobs = document.querySelector('#video_jobs');
+				var features = ['playpause','volume','progress','current','duration','fullscreen', 'quality'];
+				new MediaElementPlayer(videoJobs, {
+					autoRewind: false,
+					features: features,
+					autoplay: true,
+					videoVolume: 'horizontal',
+					hideVideoControlsOnLoad: true
+				});
+			</script>
+		</div>
+	</div>
+</body>
+</html>

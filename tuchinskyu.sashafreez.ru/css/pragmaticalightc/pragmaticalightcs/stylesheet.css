@@ -1,0 +1,8 @@
+
+@font-face {
+  font-family: 'PragmaticaLightC';
+  src: url('PragmaticaLightC.eot?#iefix') format('embedded-opentype'),  url('PragmaticaLightC.otf')  format('opentype'),
+	     url('PragmaticaLightC.woff') format('woff'), url('PragmaticaLightC.ttf')  format('truetype'), url('PragmaticaLightC.svg#PragmaticaLightC') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}

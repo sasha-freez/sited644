@@ -1,0 +1,126 @@
+/* 	Library Style Developer coder Alexander Moskvin  sasha-freez@mail.ru. for site http://sasha-freez.ru */
+body{font-family:Arial;font-size:13px;color:#000; margin:0px;padding:0px; background:url(../images/bg.png) repeat-x 0 0 #faede3;}
+html, body{min-height:100%; height:100%;}
+input, select{font-family:Arial;}
+
+a{color:#383838; text-decoration:none;}
+a:hover{text-decoration:none; color:#ff6f15;}
+h1, h2, h3, h4, h5{color:#FF6504; margin:0px; padding:0 0 15px 0px; font-weight:normal;}
+h1{font-size:22px;}
+h2{font-size:20px;}
+h3{font-size:20px;}
+h4{font-size:16px;}
+p{margin:0px; padding:0 0 10px 0px;}
+
+
+.containers{margin:0 auto; width:960px; padding:0 20px 0 20px}
+.main_container{min-height:100%;}
+.header{position:relative; width:100%; padding:20px 0 0 0px;}
+.header:after{content:""; clear:both; display:block;}
+.logo{float:left; width:240px;}
+.hright{float:right; width:500px;}
+#content{padding:0 0 45px 0px}
+.contacts{position:absolute; left:300px; top:29px;}
+.contacts .tel{font-size:16px; padding:0 10px 10px 0px; display:inline;}
+.contacts .mail{font-size:16px; padding:0 0 10px 0px; display:inline;}
+
+.footer{background:#000; height:45px; margin-top:-45px;}
+.copyright{padding:0 0 0 10px; line-height:45px; color:#FFF; font-size:12px;}
+
+
+.auth-loginza{padding:0 0 10px 0px}
+.auth-loginza:after{content:""; clear:both; display:block;}
+.auth-loginza a{margin:0 0 0 0px;}
+.auth-loginza .srv {display:inline-block; height:24px; width:24px; background-image:url(/vku/images/login_icons.png);}
+.auth-loginza .srv:hover {text-decoration:none;}
+.auth-loginza .login_text {color:#000; margin:0 10px 0 0;}
+.auth-loginza .icons_row {padding-top:8px;height:24px;}
+.auth-loginza .yandex {background-position:0px -186px;}
+.auth-loginza .yandex:hover {background-position:-24px -186px;}
+.auth-loginza .vkontakte {background-position:0px -29px;}
+.auth-loginza .vkontakte:hover {background-position:-24px -29px;}
+.auth-loginza .odnoklassniki {background-position:0px -55px;}
+.auth-loginza .odnoklassniki:hover {background-position:-24px -55px;}
+.auth-loginza .mailru {background-position:0px -81px;}
+.auth-loginza .mailru:hover {background-position:-24px -81px;}
+.auth-loginza .rambler {background-position:0px -264px;}
+.auth-loginza .rambler:hover {background-position:-24px -264px;}
+.auth-loginza .google {background-position:0px -160px;}
+.auth-loginza .google:hover {background-position:-24px -160px;}
+.auth-loginza .twitter {background-position:0px -134px;}
+.auth-loginza .twitter:hover {background-position:-24px -134px;}
+.auth-loginza .facebook {background-position:0px -108px;}
+.auth-loginza .facebook:hover {background-position:-24px -108px;} 
+
+#miniCart{}
+#miniCart:after{content:""; clear:both; display:block;}
+#cart_1, #cart_2{float:right; width:265px; background:url(/vku/images/carts.png) no-repeat 5px 5px #f3e3d8; padding:10px 15px 5px 40px; -webkit-border-radius:8px; border-radius:8px;}
+#cart_1 .title, #cart_2 .title{font-size:16px; padding:0 0 10px 0px;}
+#miniCart .right{float:right;}
+#miniCart .summ{float:right;}
+
+
+.tmenu{text-align:center; padding:10px 0 15px 0px; border-bottom:1px solid #000;}
+.tmenu ul{margin:0px; padding:0px; list-style:none;}
+.tmenu ul li{margin:0px; padding:0 10px; display:inline-block; vertical-align:top; font-size:18px;}
+.tmenu ul li a{}
+.tmenu ul li a:hover, .tmenu ul .active a{color:#ff6f15}
+
+.root-menu{float:left; width:200px;}
+.root-menu h2{padding:0px 0 10px 0px}
+.root-menu ul{margin:0px; padding:0px; list-style:none;}
+.root-menu ul li{margin:0px; padding:5px 0 5px 0px; border-bottom:1px solid #000;}
+.root-menu ul li a{font-size:14px;}
+.root-menu ul li a:hover{}
+
+.leftpadding{margin:15px 0 0 210px;}
+
+#msMenu{display:none;}
+.category{zoom:1;}
+.category h1{padding-left:15px;}
+.category:after{}
+.category .item{display:inline-block; width:220px; margin:0 0px 30px 15px; vertical-align:top;}
+.category .img{padding:0 0 10px 0px;}
+.category .img img{height:auto; width:220px; -webkit-border-radius:10px; border-radius:10px;}
+.category .name{height:32px; text-align:center; overflow: hidden;white-space: nowrap; text-overflow: ellipsis; -webkit-text-overflow: ellipsis; -o-text-overflow: ellipsis; -moz-binding: url('/static/text-overflow.xml#ellipsis');}
+.category .name a{text-decoration:none;}
+.category .name a:hover{text-decoration:none;}
+.category .car-param{text-align:center;}
+.category .price{display:inline-block; background:#f48900; -webkit-border-radius:4px; border-radius:4px; color:#fff; padding:0px 10px 0px 10px; height:21px; line-height:21px; vertical-align:middle;}
+.category .in-car{display:inline-block; vertical-align:middle;}
+.category .in-car a{display:block; width:100%; height:21px; padding:0 0 0 19px; line-height:21px; background:url(/vku/images/incar.png) no-repeat 0 0;}
+.category .in-car a:hover{background:url(/vku/images/incar-act.png) no-repeat 0 0;}
+
+
+
+#breadcrumb{ margin:0 0 10px 0px; padding:5px 20px 5px 15px; list-style:none; background:#000;}
+#breadcrumb li{display:inline-block; padding:0 10px 0 0px; color:#fff;}
+#breadcrumb a{color:#fff;}
+#breadcrumb a:hover{color:#b3b3b3;}
+
+.imgContainer img{width:100px; -webkit-border-radius:10px; border-radius:10px;}
+
+hr{margin:0 0 20px 0px; padding:0px; height:1px;}
+
+.goods h1{padding:0 0 10px 0px}
+.goods .span4 img{width:400px; height:auto;  -webkit-border-radius:10px; border-radius:10px;}
+.goods .span8{width:	560px;}
+.goods .span8 .span4{padding:0 0 0 0px; width:360px; font-size:14px;}
+.goods .span8 .show-grid .span4{padding:0 0 7px 0px}
+.goods .show-grid .span4{padding:0 0 20px 0px;}
+
+.addToCartLink{height:21px; padding:0 0 0 30px; line-height:21px; display:inline-block; background:url(/vku/images/incar.png) no-repeat 0 0; font-size:14px;}
+.addToCartLink:hover{background:url(/vku/images/incar-act.png) no-repeat 0 0;}
+.icon-barcode{display:none;}
+
+#Cart{width:100% !important;}
+#Cart td{border:1px solid #333; padding:5px 10px 5px 10px}
+#Cart .num{text-align:center;}
+#Cart .sum{text-align:center;}
+
+.error{color:red; padding:0 0 0 5px}
+
+.catalog-category{}
+.catalog-category .item{display:inline-block; width:220px; margin:0 0px 30px 15px; vertical-align:top; text-align:center;}
+.catalog-category .item img{width:220px; height:auto; -webkit-border-radius:10px; border-radius:10px;}
+.catalog-category .desc{height:35px;}

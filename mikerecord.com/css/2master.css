@@ -1,0 +1,148 @@
+/* 	Library Style Developer coder Alexander Moskvin  sasha-freez@mail.ru. for site http://sasha-freez.ru */
+/* Clear css */
+#editPanel{display:none !important;}
+
+*{margin:0;padding:0; outline:none;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0;}
+address,caption,cite,code,dfn,th,var{font-style:normal;font-weight:normal;}
+caption,th{text-align:left;}
+q:before,q:after{content:'';}
+abbr,acronym{border:0;}
+header,nav,section,article,aside,footer{display:block;margin:0;padding:0;}
+img{border:0; display:inline-block; vertical-align:top;}
+input{vertical-align:middle;}
+a{color:#fff; transition:all 0.3s ease 0s; outline:none;}
+a:hover{color:#bebebe;}
+p{margin:0; padding:0 0 10px 0;}
+button{cursor:pointer; transition:all 0.3s ease 0s;}
+button::-moz-focus-inner, input::-moz-focus-inner{padding:0;border:0;} /* firefox fix center text buttom */
+img{display:inline-block; vertical-align:top;}
+
+html,body{min-height:100%;}
+body{font-size:14px; font-family:'stolzlregular', Arial, Helvetica, sans-serif; color:#fff; background:#000; margin:0 auto;}
+button, select, input, textarea{font-family:'stolzlregular', Arial, Helvetica, sans-serif; color:#000; font-size:14px;}
+
+h1, .h1{font-size:36px;margin:0;padding:0 0 25px 0; color:#fff; text-transform:uppercase;}
+h2, .h2{font-size:24px;margin:0;padding:0 0 15px 0; color:#fff; text-transform:uppercase;}
+h3, .h3{font-size:22px;margin:0;padding:0 0 15px 0; color:#fff; text-transform:uppercase;}
+h4, .h4{font-size:18px;margin:0;padding:0 0 15px 0; color:#fff; text-transform:uppercase;}
+ul,ol{list-style:none; margin:0; padding:0;}
+
+/* default css */
+.container{max-width:1200px; margin:0 auto; box-sizing:border-box; padding:0 30px;}
+.container:after{content:"";display:block;clear:both;}
+
+.fff{outline:1px solid #fff !important;}
+
+.page_wrapper{height:100%; overflow:hidden;}
+
+.top_line{height:90px; background:#000; width:100%; position:absolute; top:0; left:0;}
+.top_line .logo{float:left; width:147px; padding:10px 0 0 0;}
+.top_line .logo a{display:block; height:70px; display:block;background:url(../images/logo.png) no-repeat 0 center;}
+.top_line .logo a:hover{opacity:0.8;}
+.top_line .socials{float:right; margin:25px -5px 0 0;}
+
+.tmenu{text-align:center; width:550px; margin:0 auto;}
+.tmenu ul{margin:0; list-style:none; padding:32px 0 0 0;}
+.tmenu ul li{margin:0; padding:0 15px; display:inline-block; vertical-align:top; font-size:22px; text-transform:uppercase;}
+.tmenu ul li a{color:#fff; text-decoration:none;}
+.tmenu ul li a:hover{color:#bebebe;}
+
+/* main head */
+header{background:url(../images/block_header_bg.jpg) no-repeat center 0; height:870px;}
+header .container{padding-top:90px;}
+.big_logo{float:left; margin:160px 0 0 -50px;}
+.head_right{float:right; width:429px; padding:30px 0 0 0;}
+.head_video{position:relative; margin:0 0 150px 0;}
+.head_video:after{display:none; content:""; position:absolute; top:50%; left:50%; margin:-62px 0 0 -95px; background:url(../images/play_video.png) no-repeat 0 0; width:190px; height:124px;}
+.head_video iframe{border:2px solid #fff; box-sizing:border-box;}
+.head_quote{font-size:16px; padding:0 0 85px 0; margin:0 -30px 0 0; position:relative;}
+.head_quote:after{display:none; content:""; position:absolute; top:-15px; left:0; background:url(../images/quote.png) no-repeat 0 0; width:35px; height:29px;}
+.head_progress{text-align:center;}
+.head_progress .row{display:inline-block; vertical-align:middle; padding:0 22px;}
+
+/* main bio */
+.block_bio{background:url(../images/block_bio.jpg) no-repeat center 0; height:1000px; background-attachment:fixed; overflow:hidden;}
+.bio_misha_bg{background:url(../images/bio/misha_bg.png) no-repeat center 0; background-size:100% auto; width:650px; height:944px; margin:56px 0 0 -145px; position:absolute;}
+.block_bio .b_right{float:right; width:550px;}
+.bio_txt{padding:45px 0 45px 0;}
+.bio_txt .h1{color:#fff; font-size:26px; line-height:42px;}
+.bio_txt .desc{color:#fff; font-size:16px; line-height:32px; padding:0 0 20px 0;}
+.bio_txt  .more{text-align:right; font-size:18px; text-transform:uppercase;}
+
+.bio_foto{font-size:0; line-height:0; margin-right:-10px; padding-bottom:45px; text-align:center;}
+.bio_foto .row{display:inline-block; vertical-align:middle; padding:0 10px;}
+.bio_foto .row img{width:260px; height:auto;border:2px solid #fff; box-sizing:border-box;}
+
+.bio_diploms{font-size:0; line-height:0; margin-right:-10px; padding-bottom:45px; text-align:center;}
+.bio_diploms .h3{text-align:center; line-height:normal; font-size:26px; padding:0 0 22px 0;}
+.bio_diploms .row{display:inline-block; vertical-align:middle; padding:0 10px;}
+.bio_diploms .row img{width:260px; height:auto; border:2px solid #fff; box-sizing:border-box;}
+
+/* main blog */
+.block_blog_list{background:url(../images/block_blog_bg.jpg) no-repeat center 0; height:1000px; overflow:hidden;}
+.blog_list{float:left; width:390px; padding:30px 0 0 0;}
+.blog_list a{text-decoration:none;}
+.blog_list .h1{text-align:center;}
+.blog_list .row{padding:0 0 30px 0; position:relative; top:0; transition:all 0.3s ease 0s;}
+.blog_list .row:hover{top:-12px; opacity:0.8;}
+
+
+.blog_list .row .img{height:200px; width:390px; overflow:hidden; margin:0 0 10px 0; border:2px solid #fff;}
+.blog_list .row .img img{width:100%; height:auto;}
+.blog_list .row .name{font-size:16px; line-height:22px; height:44px; overflow:hidden; text-shadow:1px 1px 1px #000;}
+.blog_misha_bg{float:right; margin-top:20px; background:url(../images/blog/misha_bg2.png) no-repeat center 0; width:600px; height:989px; background-size:100% auto; margin-top:95px; width:650px; height:735px;}
+  
+   
+/* main gallery album */
+.block_gal_album{background:url(../images/block_gal_album_bg.jpg) no-repeat center 0; height:900px; background-attachment:fixed; overflow:hidden;}
+.gal_album_list{padding:45px 0 0 0; text-align:center;}
+.gal_album_list .h1{text-align:center; padding:0 0 35px 0;}
+.gal_album_list .wrap{font-size:0; line-height:0; margin:0 -20px;}
+.gal_album_list .row{display:inline-block; vertical-align:top; margin:0 20px 40px;position:relative; top:0; transition:all 0.3s ease 0s;}
+.gal_album_list .row img{width:500px; height:auto;}
+.gal_album_list .row:hover{top:-12px; opacity:0.8;}
+
+
+
+/* main feedback */
+.block_contact{background:url(../images/block_contact_bg.jpg) no-repeat center 0; height:800px; padding:200px 0 0 0; background-attachment:fixed; overflow:hidden;}
+.feedback_form{width:800px; margin:0 auto; background:rgba(255,255,255,0.7) no-repeat 0 0; padding:20px 40px;}
+.feedback_form .h1{text-align:center; color:#000;}
+.feedback_form .wrap{overflow:hidden;}
+.feedback_form .input{float:left; width:390px;}
+.feedback_form .mess{float:right;}
+.feedback_form input{background:#000; height:40px; border:none; color:#fff; width:100%; padding:0 10px; box-sizing:border-box; margin:0 0 20px 0;}
+.feedback_form textarea{background:#000; height:40px; border:none;color:#fff; width:100%; padding:10px 10px 0; box-sizing:border-box; margin:0 0 20px 0; height:100px;}
+.feedback_form  .submit_btn{text-align:right; padding:0 0 20px 0;}
+.feedback_form  .submit_btn .submit{background:#000; height:45px; border:none; color:#fff; text-transform:uppercase; text-align:center; font-size:16px; width:200px;}
+
+
+/* footer */
+footer{margin-top:-130px; height:130px; background:#000;}
+footer .socials{text-align:center; padding:30px 0 20px 0;}
+footer .tmenu ul{padding:0 0 15px 0;}
+footer .tmenu ul li{font-size:14px;}
+footer .copyright{font-size:11px; text-align:center;}
+
+/* block css */
+.socials a{width:40px; height:40px; display:inline-block; vertical-align:top; margin:0 5px; background:url(../images/social/vk.png) no-repeat 0 center; background-size:100% auto;}
+.socials a:hover{opacity:0.8;}
+.socials .vk{background-image:url(../images/social/vk.png);}
+.socials .face{background-image:url(../images/social/face.png);}
+.socials .inst{background-image:url(../images/social/inst.png);}
+.socials .youtube{background-image:url(../images/social/youtube.png);}
+
+/* default css */
+.dnone{display:none;}
+
+.inner_head{height:350px; background-position: center -100px; background-size: 1400px auto;}
+.inner_misha{float:left;  width:380px;
+margin: 23px 0 0 175px;}
+.inner_misha img{width:100%; height:auto;}
+.inner_logo{float: left;
+width: 300px;
+margin: 62px 0 0 100px;}
+.inner_logo img{width:100%; height:auto;}

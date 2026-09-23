@@ -1,0 +1,220 @@
+body 		{
+			margin-top: 0px;
+			padding:0px;
+			background-color:#17323b;}
+			
+img {border:0px}
+
+#shapka
+{
+			margin-top: 0px;
+			padding:0px;
+			background-image:url(img/not3.jpg);
+			background-repeat:no-repeat;
+			background-position:top, left;
+			height:306px}
+			
+#toptel
+{
+	text-align:right;
+	padding-right:10px;
+	color:#17323b
+}
+
+#kniga
+{
+			margin-top: 0px;
+			padding:0px;
+			background-image:url(img/topleft.jpg);
+			background-repeat:no-repeat;
+			background-position:top, left}
+
+#left 
+{
+background-image:url(img/leftfon.jpg);
+background-position:top;
+background-repeat:no-repeat;
+text-align:center
+}
+
+#logo
+{
+	text-align:center;
+	font-family:arial;
+	font-size:30px;
+	font-weight:bold;
+	color:#CCFFCC;
+	padding-top:40px;
+	padding-bottom:30px;
+
+}
+
+#uslugi
+{
+	text-align:left;
+	font-family:arial;
+	font-size:15px;
+	font-weight:bold;
+	color:#ffffff;
+	padding-left:15px;
+}
+
+h1
+{
+	text-align:center;
+	font-family:arial;
+	font-size:20px;
+	font-weight:bold;
+	color:#ffffff;
+}
+
+h2
+{
+	text-align:center;
+	font-family:arial;
+	font-size:20px;
+	font-weight:bold;
+	color:#ffffff;
+}
+
+h3
+{
+	text-align:left;
+	font-family:arial;
+	font-size:15px;
+	font-weight:bold;
+	color:#ffffff;
+}
+
+ul
+{
+	padding-left:15px;
+	color:#FFF
+}
+
+
+p
+{text-align:justify;
+font-size:13px;
+color:#ffffff; font-family:tahoma
+}
+
+#tab
+{text-align:justify;
+font-size:13px;
+color:#ffffff; font-family:tahoma
+}
+
+#menutop
+{
+	text-align:left;
+	font-family:arial;
+	font-size:20px;
+	font-weight:bold;
+	color:#ffffff;
+	padding-top:20px;
+	padding-left:20px;
+	padding-bottom:20px;
+}
+         
+
+a:link {
+     color: #ffffff; text-decoration:underline; font-family:arial; font-size:13px; font-weight:bold; text-align:center
+}
+a:visited {
+     color: #ffffff; text-decoration:underline; font-family:arial; font-size:13px; font-weight:bold; text-align:center
+}
+a:hover {
+     color: #ffffff; text-decoration:none; font-family:arial; font-size:13px; font-weight:bold;
+	 text-align:center
+}
+a:active {
+     color: #ffffff; text-decoration:underline; font-family:arial; font-size:13px; font-weight:bold; text-align:center}
+
+
+
+a:link.menu {
+     color: #ffffff; text-decoration:underline; font-family:arial; font-size:13px; font-weight:bold
+}
+
+a:visited.menu {
+     color: #ffffff; text-decoration:underline; font-family:arial; font-size:13px; font-weight:bold
+}
+a:hover.menu {
+     color: #ffffff; text-decoration:none; font-family:arial; font-size:13px; font-weight:bold
+}
+a:active.menu {
+     color: #ffffff; text-decoration:underline; font-family:arial; font-size:13px; font-weight:bold}
+	 
+	 
+	 
+a:link.menu2 {
+     color: #CCFFCC; text-decoration:none; font-family:arial; font-size:13px; font-weight:bold
+}
+
+a:visited.menu2 {
+     color: #CCFFCC; text-decoration:none; font-family:arial; font-size:13px; font-weight:bold
+}
+a:hover.menu2 {
+     color: #CCFFCC; text-decoration:none; font-family:arial; font-size:13px; font-weight:bold
+}
+a:active.menu2 {
+     color: #CCFFCC; text-decoration:none; font-family:arial; font-size:13px; font-weight:bold}
+	 
+	 
+	 
+	 
+#kont {
+	color: #ffffff; text-decoration:none; font-family:arial; font-size:13px; font-weight:bold; text-align:right; padding-right:220px; padding-top:20px
+}
+
+#telefon {
+	color: #17323b; text-decoration:none; font-family:arial; font-size:20px; font-weight:bold; text-align:left; padding-left:0px; padding-top:20px
+}
+
+#menuleft
+{padding-left:50px
+	
+a:link.kont
+{
+     color:#ffffff; text-decoration:underline; font-family:arial; font-size:13px; font-weight:bold
+}
+
+a:visited.kont {
+     color: #ffffff; text-decoration:underline; font-family:arial; font-size:13px; font-weight:bold
+}
+a:hover.kont {
+     color: #ffffff; text-decoration:none; font-family:arial; font-size:13px; font-weight:bold
+}
+a:active.kont {
+     color: #ffffff; text-decoration:underline; font-family:arial; font-size:13px; font-weight:bold}
+	 
+	 
+a:link.kont2
+{
+     color:#17323b; text-decoration:underline; font-family:arial; font-size:13px; font-weight:bold
+}
+
+a:visited.kont2 {
+     color: #17323b; text-decoration:underline; font-family:arial; font-size:13px; font-weight:bold
+}
+a:hover.kont2 {
+     color: #17323b; text-decoration:none; font-family:arial; font-size:13px; font-weight:bold
+}
+a:active.kont {
+     color: #17323b; text-decoration:underline; font-family:arial; font-size:13px; font-weight:bold}
+	 
+	 
+
+a:link.mail {
+     color: #ffffff; text-decoration:underline; font-family:tahoma; font-size:10px; font-weight:bold
+}
+
+a:visited.mail {
+     color: #ffffff; text-decoration:underline; font-family:arial; font-size:10px; font-weight:bold
+}
+a:hover.mail {
+     color: #ffffff; text-decoration:none; font-family:arial; font-size:10px; font-weight:bold
+}
+a:active.mail {
+     color: #ffffff; text-decoration:underline; font-family:arial; font-size:10px; font-weight:bold}

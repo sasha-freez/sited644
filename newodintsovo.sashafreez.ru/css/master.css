@@ -1,0 +1,149 @@
+/* 	Library Style Developer coder Alexander Moskvin  sasha-freez@mail.ru. for site http://sasha-freez.ru */
+body{font-family:Verdana; background:#fff; padding:0px; margin:0; font-size:13px;}
+input, select, textarea, button{font-family:Verdana;}
+
+a{color:#111A42; text-decoration:underline;}
+a:hover{text-decoration:none;}
+h1, h2, h3, h4{padding:0 0 15px 0; margin:0; font-weight:normal; color:#000;}
+h1{font-size:22px;}
+h2{font-size:18px; padding-bottom:15px;}
+h3{font-size:16px;}
+h4{font-size:14px;}
+p{margin:0px; padding:0 0 10px 0; line-height:18px;}
+
+
+.container{margin:0 auto; width:1003px;}
+.container:after{content:""; clear:both; display:block;}
+
+.header{background:#F2F2F3; padding:0px 0 0px 0; margin:0 0 15px 0;}
+.header:after{content:""; clear:both; display:block;}
+.header .logo{float:left; padding:0; width:280px;}
+.header .logo img{margin:0 0 0 20px;}
+.header .site-name{font-size:22px; text-align:center; padding:34px 0 0 0;}
+
+
+/* slider */
+.slider{position:relative; width:100%; height:370px; overflow:hidden; background:#cde0fb; border-bottom:1px solid #8993ae; -webkit-box-shadow:#c0cadd 0px 1px 0px; box-shadow:#c0cadd 0px 1px 0px;}
+#slider{width:721px; height:314px; margin:20px auto 0 auto; position:relative; -webkit-box-shadow:#999 0px 1px 14px; box-shadow:#999 0px 1px 14px;}
+
+.nivo-caption{position:absolute; right:40px; top:35px; width:400px; color:#FFF; font-size:15px; text-align:justify; z-index:100;}
+.nivo-slice{position:absolute; top:0px; left:0px;}
+.nivo-controlNav{position:absolute; left:0px; bottom:-23px; z-index:100; width:100%; text-align:center;}
+.nivo-controlNav a{width:10px; height:10px; margin-left:10px; cursor:pointer; background:url(../images/i_slider_arrow.png) no-repeat 0 0; text-indent:-9999px;
+display:-moz-inline-stack;display:inline-block;}
+.nivo-controlNav a:hover, .nivo-controlNav .active{background-position:-18px 0px;}
+
+
+.middle{background:#697c9a;}
+
+
+
+.content{padding:25px 0 20px 0; background:url(../images/bg_content.png) no-repeat center bottom; min-height:550px;}
+.content a{text-decoration:underline;}
+.content a:hover{text-decoration:none;}
+
+.content .wrapper{position:relative;}
+.content .img_triagle{position:absolute; top:-26px; left:-125px;}
+.b_top_txt{padding:0 0 25px 0;width:776px; margin:0 auto;}
+.b_top_txt:after{content:""; clear:both; display:block;}
+.b_top_txt .row{float:left; margin:0 28px 0 28px;}
+
+.b_left{float:left; width:250px;}
+.b_right{float:right; width:700px; font-family:Verdana;}
+
+.b_box_premiere{background:url(../images/bg_line_tr.png) repeat 0 0 #d2dbe9; padding:15px 20px 10px 20px; margin:0 0 25px 0;}
+.b_box_premiere ul{margin:0px; padding:0; list-style:none;}
+.b_box_premiere ul li{font-size:16px; padding:0 0 3px 0;}
+.b_box_premiere ul li a{background:url(../images/i_ar_b.png) no-repeat 0 9px; padding:0 0 0 20px;}
+.b_box_premiere ul li a:hover{background:url(../images/i_ar_w.png) no-repeat 0 9px; color:#040b2a;}
+
+.footer{background:url(../images/bg_footer.png) repeat 0 0 #455876; border-top:1px solid #a8b1bf; -webkit-box-shadow:#455876 0px -1px 0px; box-shadow:#455876 0px -1px 0px; padding:20px 0 15px 0; margin:20px 0 0 0;}
+.footer:after{content:""; clear:both; display:block;}
+.footer .flogo{float:left; width:240px; padding:10px 0 0 0px;}
+.footer .flogo a{color:#fff;}
+.footer .copyright{color:#fff; padding:0 0 0px 0px; margin:0 0 0 0px; font-size:11px;} 
+.footer .counters{float:right;}
+
+.fmenu{padding:0 10px 25px 0; text-align:center}
+.fmenu ul{margin:0; padding:0; list-style:none;}
+.fmenu ul li{margin:0; padding:0 10px 15px 10px; font-size:12px; display:inline;}
+.fmenu ul li a{color:#fff; text-transform:uppercase;}
+.fmenu ul li a:hover{color:#fff;}
+
+
+*:first-child+html li{zoom:1;}
+a img{border:none medium;}
+/* padding txt */
+
+.bh{font-size:28px; text-align:center;}
+
+.awards{padding:0 0 20px 0;}
+.awards:after{content:""; clear:both; display:block;}
+.awards .img{float:left; padding:5px; border: 1px solid #D0D0D0;}
+.awards .img img{height:220px;}
+.awards .desc{margin:0 0 0 175px; font-size:18px; padding:40px 0 0 0;}
+.awards .desc li{padding-bottom:15px; line-height:18px;}
+
+
+.style22 .m_pl{font-weight:bold; color:#DE0019; font-size:13px;}
+
+.download{}
+.download p{padding:0 0 15px 0; font-size:14px;}
+.pdf{padding:3px 0 4px 35px; margin:7px 0 0 0; background:url('/images/pdf.png') no-repeat 0 0; color:#DE0019; display:inline-block; font-size:11px;}
+
+.zk_menu{padding:0 10px 25px 0; text-align:center;}
+.zk_menu ul{margin:0; padding:0; list-style:none;}
+.zk_menu ul li{margin:0; padding:0 10px 15px 10px; font-size:15px; display:inline;}
+.zk_menu ul li a{color:#4F83C4; text-transform:uppercase;}
+.zk_menu ul li a:hover{color:#4F83C4;}
+
+
+
+.zk_rub{}
+.zk_rub .bl_left{float:left; width:730px;}
+.zk_rub .bl_right{float:right; width:250px;}
+
+.zk_txt{}
+.zk_txt p{border-bottom:1px dotted #a1a1a8; padding:0 0 10px 0; margin:0 0 10px 0;}
+.zk_txt p:last-child{border-bottom:none medium;}
+
+.form{background:url(../images/bg/binding_light.png) repeat 0 0; border:1px solid #d0d0d0;-webkit-border-radius:4px;border-radius:4px; padding:10px 20px 10px 20px;}
+.form1{margin:0 0 30px 0;}
+.form .title{text-align:center; font-size:16px; padding:0 0 10px 0px; line-height:22px; margin:0 -10px;}
+.form .input{background:url(../images/bg/input.png) repeat-x 0 0 #ededed; margin:0 0 10px 0px; padding:0 20px 0 35px; border-left:1px solid #cccccc;border-top:1px solid #cccccc;border-right:1px solid #ffffff;border-bottom:1px solid #ffffff; position:relative;
+-webkit-border-radius:6px;border-radius:6px;}
+.form .input input{border:none medium; color:#575759; font-size:12px; background:transparent; width:100%; height:30px; line-height:30px; resize:none; outline:none;}
+.form .error{border-color:#C52B2B;}
+
+.form .textarea{background:url(../images/bg/textarea.png) repeat-x 0 0 #ededed; margin:0 0 10px 0px; padding:10px 0px 10px 35px; border-left:1px solid #cccccc;border-top:1px solid #cccccc;border-right:1px solid #ffffff;border-bottom:1px solid #ffffff; position:relative;
+-webkit-border-radius:6px;border-radius:6px;}
+.form .textarea textarea{border:none medium; color:#575759; font-size:12px; background:transparent; width:100%; outline:none; resize:none;}
+.form .error{border-color:#C52B2B;}
+
+
+.form .input .icon, .form .textarea .icon{position:absolute; left:10px; top:8px; width:20px; height:20px; z-index:80;}
+.form .name .icon{background:url(../images/icon/form-icon1.png) no-repeat 0px 1px;}
+.form .phone .icon{background:url(../images/icon/form-icon2.png) no-repeat 3px 1px ;}
+.form .mail .icon{background:url(../images/icon/form-icon3.png) no-repeat 2px 2px;}
+.form .mess .icon{background:url(../images/icon/form-icon5.png) no-repeat 1px 2px;}
+.form .infos{font-size:9px; background:url(../images/icon/form-icon4.png) no-repeat 14px 0; padding:0 0 0 38px;}
+
+.form .btn{text-align:center; color:#fffefe; font-weight:bold; font-size:14px; padding:0px; margin:0px; background:transparent; border:none medium; background:#c52b2b; cursor:pointer; border-bottom:3px solid #8a1e1e;-webkit-border-radius:3px;border-radius:3px;}
+.form .btn:hover{background:#a82525;}
+.form .btn-small{padding:2px 10px 1px 10px;}
+.form .btn-18{padding:2px 10px 1px 10px; font-size:18px;}
+.form .btn{position:relative; bottom:-14px; left:29px; text-decoration:none;} 
+
+
+
+.form_popup{background:url(../images/bg/binding_light.png) repeat 0 0; border:1px solid #464646;-webkit-border-radius:10px;border-radius:10px; width:280px; position:absolute; z-index:999; top:0px; display:none; padding:10px 40px 20px 40px; position:fixed; top:50%; left:50%; margin:-180px 0 0 -180px;
+-webkit-box-shadow:0px 0px 1px 8px rgba(116, 116, 116, 0.6);
+box-shadow:0px 0px 1px 8px rgba(116, 116, 116, 0.6);
+}
+
+.overlay{min-height:100%; background:#000; opacity:0.6; position:fixed; left:0px; top:0px; width:100%; z-index:998; display:none; cursor:pointer;}
+.tip_over{background:transparent;}
+.close{background:url(../images/bg/close_all.png) no-repeat 0 0; width:26px; height:26px; position:absolute; right:10px; top:10px; z-index:998; cursor:pointer;}
+.close:hover{background-position:-40px 0;} 
+
+.counters{position:absolute; left:-9999px; top:-9999px;}

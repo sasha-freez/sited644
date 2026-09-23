@@ -1,0 +1,82 @@
+
+/* maket media screen css  */
+/* design 1200 to 960 */
+@media screen and (max-width:1200px){
+
+}
+
+/* design 959 to 760 */
+@media screen and (max-width:959px){ 
+
+
+}
+/* design 719 to 320 */
+@media screen and (max-width:719px){
+
+
+}
+/* design 420 - 320 */
+@media screen and (max-width:420px){
+
+}
+
+
+
+
+
+/* 	Library Style Developer coder Alexander Moskvin  sasha-freez@mail.ru. for site http://sasha-freez.ru */
+/* media css */
+
+/* width 1200 to all */
+@media (min-width:1280px){
+.banner_t{text-align:center;}
+.bl_left{width:940px;}
+
+footer .fmenu ul{text-align:center;}
+footer .partners{text-align:center;}
+}
+
+/* width 1200 to 1000 
+@media (max-width:860px){
+.container{width:auto; min-width:0; max-width:860px;}
+.bl_left{width:600px;}
+}
+*/
+
+/* width 640 to 800 */
+@media (max-width:800px){
+
+.container{width:auto; min-width:0; max-width:640px;}
+.menu ul li{padding-left:4px; padding-right:4px; font-size:1.12em;}
+.menu ul .m10{padding-left:4px; padding-right:0; background:none;}
+
+header .search{float:left; width:100%; padding:5px 0 0 0;}
+
+.banner_t{text-align:center;}
+.banner_t img{width:100%; height:auto;}
+
+.bl_left{width:100%;}
+.bl_right{width:100%;}
+
+.bdetails .bimg img{width:100%; height:auto;}
+
+.relative_news{text-align:center;}
+.others_news{text-align:center;}
+.others_news .row{padding:0 0 0 50px; display:inline-block; vertical-align:top; width:275px;}
+.others_news .row{padding:0 0 25px 0; overflow:hidden;}
+
+
+.banners_r{overflow:hidden; margin:0 -5px; text-align:center;}
+.banners_r > div{display:inline; padding:0 5px;}
+
+footer .fline .copyright{margin:0; float:left; width:100%; padding:5px 0 0 0;}
+footer .fmenu ul{text-align:center;}
+footer .partners{text-align:center;}
+}
+
+@media (max-width:639px){
+.container{width:640px; min-width:0; max-width:640px;}
+}
+/* width do 420 */
+
+*{border:0px solid #000;}

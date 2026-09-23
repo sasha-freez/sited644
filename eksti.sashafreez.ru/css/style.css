@@ -1,0 +1,155 @@
+body {margin:0; padding:0; background:#EEF3FA; font-size:14px; font-family:Arial;}
+#wrapper {width:1000px; margin:0 auto; background:#FFFFFF;}
+#inner_wrapper {width: 960px; margin:20px auto;}
+#spacer {height:5px; background:#07111D;}
+#header {height:100px; background: url('/images/dash.png') repeat-x bottom;}
+#header a.logo {display:block; width:200px; height:85px; background: url('/images/logo_eksti.jpg') no-repeat; float:left;}
+#header_menu {width:280px; height:70px; border-right:1px solid #07111D; float:left; margin:5px 0 0 0;}
+#header_menu ul {list-style:none; margin:0; padding:0 10px 0 30px;}
+#header_menu ul li {width:49%; float:left;}
+#header_menu ul li a{height:35px; line-height:35px; font-size:14px; padding:0 0 0 16px; background: url('/images/li.png') no-repeat left center; font-weight:bold;}
+#header_menu ul li a:hover, #header_menu ul li.active a {color:#7A9512;}
+.clear {clear:both;}
+a:link, a:visited {color:#19232D; text-decoration:none;}
+a:hover, a:active {color:#7A9512; text-decoration:none;}
+#left_column {float:left; width:234px; padding:10px 0 10px 0;}
+ul#left_menu {list-style:none; padding:0; border-right:1px solid #E4E6E5;}
+#left_menu li {margin:16px 9px 0 0;}
+#left_menu li a{display:block; padding:0 20px 0 0; margin:0; color:#0E3159; font-weight:bold; text-align:right; background: url('/images/lli.png') no-repeat right;}
+#left_menu li ul{list-style:none; margin:0 0 16px 0; padding:0; border:none;}
+#left_menu li ul li{margin:0;}
+#left_menu li ul li a{color:#727272; height:16px; font-weight:normal; background:none;}
+#left_column .left_column_block{margin:0 0 0 10px; border:1px solid #E4E6E5;}
+
+#center_column {margin:0 0 0 260px; padding: 20px 0 0 0; font-size:12px;}
+#center_column td{padding:0 5px; font-size:12px;}
+#center_column a:link, #center_column a:visited {text-decoration:underline;}
+
+#footer {height:90px; background: #FFFFFF;}
+#footer a.logo {display:block; width:120px; height:60px; background: url('/images/logo2.png') no-repeat center center; float:left; margin:5px 0 0 0;}
+#footer .yashare-auto-init {float: left; margin: 20px 0 0 250px;}
+#footer .counter {height:20px; width:88px; float:right; margin:22px 20px 0 0;}
+
+.online {padding:60px 0 0 0; background: url('/images/online_block.png') center top no-repeat;}
+.online form {width:170px; margin:0 auto; display;block; line-height:26px;}
+.online form textarea, .online form input[type=text]{width:100%; padding:0 5px; border:1px solid #E4E6E5; margin:5px 0 10px 0;}
+.online form b{text-align:center; display:block;}
+.online form input[type=submit]{background:#04223C; height:25px; line-height:25px; border:none; color:#FFFFFF; margin:5px auto 15px auto; width:100px; display:block;}
+.online2 {padding:60px 0 0 0; background: url('/images/online_block.png') center top no-repeat;}
+.online2 form {width:450px; margin:0 auto; display;block; line-height:26px;}
+.online2 form textarea, .online form input[type=text]{width:100%; padding:0 5px; border:1px solid #E4E6E5; margin:5px 0 10px 0;}
+.online2 form b{text-align:center; display:block;}
+.online2 form input[type=submit]{background:#04223C; height:25px; margin:130px auto 0 auto; line-height:25px; border:none; color:#FFFFFF; width:100px; display:block;}
+.online2 form input[disabled] {background:#CCC;}
+
+.news-left-item {margin:15px 0 0 0; border-bottom:1px dashed #595959; color:#595959;}
+.news-left-item .date_day{display:inline-block; width:30px; height:30px; background:#03233A; color:#B1CF3D; text-align:center; line-height:30px; font-weight:bold; font-size:16px;}
+.news-left-item .date_month{display:inline-block; height:30px; padding:0 0 0 20px; line-height:30px; color:#03233A;}
+.news-left-item .title {font-weight:bold; margin:20px 0 0 0;}
+
+#left_column a.title, #left_column a.title:active, #left_column a.title:visited {color:#000000; font-size:16px; text-decoration:none; font-weight:bold; margin:40px 0 0 0; display:block; border-bottom:1px solid #BFBFBF; line-height:30px;}
+#left_column a.title:hover {text-decoration:underline;}
+
+#header_right {width: 459px; float:left; margin:0 0 0 20px;}
+#header_right .column{width:30%; padding:0 5px; display:inline-block; vertical-align:top; font-weight:bold;}
+#header_right .column2{width:30%; padding:0 5px; display:inline-block; vertical-align:top; font-weight:bold; color:#999999;}
+#header_right .column p {margin:15px 0 18px 0;}
+/* -------- site head (banner) -------- */
+body .blueberry {
+  position: relative;
+  margin:25px 0 0 -20px;
+  width: 727px;
+}
+body .blueberry .right-bg {
+  width: 391px;
+  height: 256px;
+  background: url(../images/bg/black-bg.png) right top no-repeat;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+body .blueberry .slides {
+  height: 256px;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+body .blueberry .slides li {
+  height: 100%;
+  position: relative;
+  float: left;
+}
+body .blueberry .slides li .text {
+  position: absolute;
+  top: 112px;
+  right: 22px;
+  z-index: 999;
+  width: 280px;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+  overflow: hidden;
+}
+body .blueberry .slides li .text h1 {
+  font-size: 24px;
+  color: #b1ce3a;
+  margin: 0;
+  font-family: arial;
+  text-overflow:ellipsis;
+  overflow: hidden;
+}
+
+body .blueberry .slides li .text p {
+  color: #fff;
+  font-size: 14px;
+  margin: 0;
+  font-family: arial;
+  text-overflow:ellipsis;
+  overflow: hidden;
+}
+#slih {
+  font-size: 24px;
+  color: #b1ce3a;
+  margin: 0;
+  font-family: arial;
+  text-overflow:ellipsis;
+  overflow: hidden;
+}
+body .blueberry .slides li img {
+  height: 100%;
+}
+body .blueberry .dots {
+  position: absolute;
+  bottom: 8%;
+  left: 420px;
+  padding: 0;
+  height: auto;
+  z-index: 999;
+}
+body .blueberry .dots li {
+  margin: 0 7px;
+  padding: 0;
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border-radius: 25px;
+  -moz-border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -o-border-radius: 25px;
+  float:left;
+  font-size: 0;
+  text-indent:-9999px;
+  cursor: pointer;
+}
+
+body .blueberry .dots li.active  {
+  background: #b1ce3a;
+}
+div.ds-loading {
+ background-image: url("../images/fancybox/fancybox_loading@2x.gif");
+ background-repeat: no-repeat;
+ position: fixed;
+ width: 126px;
+ height: 50px;
+ z-index: 11111;
+}

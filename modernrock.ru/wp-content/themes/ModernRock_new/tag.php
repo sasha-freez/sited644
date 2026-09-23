@@ -1,0 +1,50 @@
+<?php get_header(); ?>
+<div class="block_left">
+	<?php include('sn_breadcrumbs.php'); ?>
+	<h1 style="padding-bottom: 0px;" class="seo_tag"><?php wp_title(''); ?></h1>
+	<div class="tag_subtitle" style="margin-bottom: 25px;">Читайте все последние новости, слухи и другие материалы</div>
+	<div class="section_list section_tag">
+		<ul class="tiles">
+			<?php
+				$i=-1;
+				$j=0;
+			?>
+			<?php if (have_posts()) : ?>
+			<?php while (have_posts()) : the_post(); ?>
+			<?php 
+				$large = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full');
+				if ($large[0]=='') $large[0]='/wp-content/uploads/2012/11/small_'.get_post_meta(get_the_ID(), 'attached_img', true);
+				if ($j==0){
+					$limit=180;
+				}
+				else{
+					$limit=180;
+				}
+			?>
+			<li>
+				<div class="row<?php if ($j==0){echo ' main';}?>" <?php if ($i>=1){echo 'style=""'; $i=-1;}?>>
+					<div class="img"><a href="<?php the_permalink(); ?>"><img src="<?php if(preg_match('!\.(gif)$!i', $large[0])){echo $large[0];}else{echo kama_thumb_src('w=275&h=160',$large[0]);} ?>" alt="<?php the_title();?>" /></a></div>
+					<div class="date"><?php the_time('d.m.Y') ?></div>
+					<div class="name"><a href="<?php the_permalink(); ?>" title=" <?php the_title_attribute(); ?>"><?php the_title();?></a></div>
+					<div class="intro"><?php the_content_limit($limit, ""); ?></div>
+				</div>
+			</li>
+			<?php $i++;$j++; endwhile; ?>
+			<?php endif; ?>							
+		</ul>
+	</div>
+	<div class="pagination"><?php if(function_exists('wp_pagenavi')){ wp_pagenavi();}?></div>
+</div>
+<aside class="block_right">
+	<?php include('sn_recommend.php'); ?>
+	<?php include('sn_adv_google.php'); ?>
+	<?php include('sn_banners_r.php'); ?>
+	<?php include('sn_subscribe.php'); ?>
+</aside>
+<script>
+	var h1 = document.querySelector('.seo_tag')
+	var year = new Date().getFullYear();
+	var h1_mod = h1.innerHTML.replace('новости на ModernRock','новости за '+year)
+	h1.innerHTML = h1_mod
+</script>
+<?php get_footer(); ?>

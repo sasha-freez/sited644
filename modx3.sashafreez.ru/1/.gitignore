@@ -1,0 +1,11 @@
+#Ignore files in cache folder
+cache/*
+
+#Don't ignore .htaccess in cahce folder
+!cache/.htaccess
+
+#Ignore alternative settings for mysql connect
+mysql.config.php
+
+#Ignore tab
+tabs/test_tab.php

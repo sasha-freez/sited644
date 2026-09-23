@@ -1,0 +1,13 @@
+    User-agent: *
+    Disallow: /admin/
+    Disallow: /assets/docs/
+    Disallow: /assets/
+    Disallow: /assets/
+    Disallow: /core/
+    Disallow: /assets/plugins/
+    Disallow: /assets/snippets/
+    Disallow: /install/
+    Disallow: /manager/
+
+    Host: http://firstodin.ru/
+    Sitemap: http://firstodin.ru/sitemap.xml

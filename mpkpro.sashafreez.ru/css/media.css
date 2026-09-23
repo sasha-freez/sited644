@@ -1,0 +1,136 @@
+/* 	Library Style Developer coder Alexander Moskvin  sasha-freez@mail.ru. for site http://sasha-freez.ru */
+/* media css */
+
+/* maket media screen css  */
+/* design 1200 to 960 */
+@media screen and (max-width:1200px){
+
+}
+
+@media screen and (max-width:1180px){
+	body{font-size:12px;}
+
+	h1{font-size:18px; padding:0 0 15px 0;}
+	h2{font-size:18px; padding:0 0 15px 0;}
+
+	.container{width:878px;}
+	.t_right .t_tel{font-size:18px;}
+	
+	.menu{padding:5px 0 0 0}
+	
+	.two_block .l{float:none; width:auto;}
+	.two_block .r{float:none; width:auto;}
+	
+	.two_block.t_line2 .l{float:left; width:262px;}
+	.two_block.t_line2 .r{float:right; width:600px;}
+	.menu_v{margin-right:0; min-height:231px; text-align:center; margin-bottom:0;}
+	.menu_v ul li{font-size:12px; padding:0;}
+	.menu_v ul li a{padding-top:5px; padding-bottom:5px;}
+	.menu_v ul li a::after{top:8px;}
+	.menu_v ul ul{margin-bottom:0;}
+	.menu_v ul ul li a{font-size:12px; line-height:18px;}
+	
+	.t_banner img{max-width:100%;}
+	.t_banner .txt > span{line-height:23px;}
+	.t_banner .txt{left:110px; top:140px;}
+	.t_banner .txt .t1{font-size:18px;}
+	.t_banner .txt .t2{font-size:28px;}
+	.t_banner .txt .t3{font-size:12px;}
+	
+	
+	.b_left{float:none; width:auto}
+	.b_right{float:none; width:auto;}
+	
+	.cat_list .row{width:auto;}
+	.cat_list .row img{max-width:250px;}
+	.stock_list .item{display:inline-block; vertical-align:top; width:165px; margin-right:26px;}
+	
+	.news_list .wrap{margin:0 auto;}
+	.news_list .item{display:inline-block; vertical-align:top; float:none; margin-left:0;}
+	
+	.two_block.f_line1 .l{float:left; width:138px;}
+	.two_block.f_line1 .r{float:left; width:740px;}
+
+	.fmenu{padding-top:6px;}
+	.fmenu ul li{font-size:13px;}
+	.fmenu ul li a{padding:7px 11px}
+	
+	.idx_content{font-size:12px;}
+	.sasha_validate{width:100%; box-sizing: border-box;}
+	
+	
+}
+
+
+/* design 959 to 760 */
+@media screen and (max-width:879px){ 
+	body{background:none; min-width:auto;}
+	.container{position:relative; width:auto; margin:0 10px;}
+
+	.t_right{float:none; width:auto; padding:84px 0 0 0; text-align:center;}
+	.t_right .t_tel{float:none; margin:0 0 15px 0; text-align:center; display:block;}
+	.t_right .t_contant{width:auto; text-align:center;}
+	.t_right .t_contant strong{color:#013d74;}
+	
+	.t_line1{padding-top:10px;}
+	
+	.logo{position:absolute; top:10px; left:50%; margin-left:-50px;}
+	.logo img{max-width:100px;}
+	
+	
+	
+	.menu ul li{float:none; width:auto; text-align:center;}
+	.two_block.t_line2 .l{float:none; width:auto;}
+	.two_block.t_line2 .r{float:none; width:auto;}
+	.t_banner{margin:20px -10px 0 -10px; text-align:center;}
+	.t_banner .txt{left:19px; top:68px;}
+	.t_banner .txt > span{line-height:normal;}
+	.t_banner .txt .t1{font-size:11px;}
+	.t_banner .txt .t2{font-size:13px;}
+	.t_banner .txt .t3{font-size:9px;}
+	
+	.menu_v{margin-right:0; min-height:231px; padding-right:18px;}
+	.menu_v ul li{font-size:13px; padding:0;}
+	.menu_v ul li a{padding-top:6px; padding-bottom:6px;}
+	.menu_v ul li a::after{top:8px;}
+	.menu_v ul ul{margin-bottom:0;}
+	.menu_v ul ul li a{font-size:13px; line-height:normal; padding-left:0;}
+	
+	.stock_list{margin:0 auto; width:165px;}
+	
+	footer{background-repeat:repeat; height:auto; padding:0;}
+	.two_block.f_line1 .l{float:none; width:auto;}
+	.two_block.f_line1 .r{float:none; width:auto;}
+	.fmenu ul{text-align:center;}
+	.fmenu ul li{float:none;}
+	
+	.cat_list .row{float:none;  margin:0 auto 20px auto; width:auto; padding:0; display:block; width:200px;}
+	.cat_list .row img{max-width:200px;}
+	
+	.desc_list .item .img{float:none; display:block; margin:0 auto 5px auto; width:155px;}
+	
+	.f_line1{position:relative;}
+	.f_line1 .flogo{text-align:center;}
+	.f_line1 .flogo img{max-height:40px;}
+	.f_line1 .t_right{width:auto; text-align:left; padding-top:10px;}
+	
+	.f_line1 .copyright{position:absolute; bottom:0; left:0; text-align:center; width:100%;}
+	.f_line1 .t_right .t_tel{padding:20px 0 20px 0;}
+	.fmenu_v{text-align:center; padding:0 0 50px 0;}
+	.fmenu_v ul li{display:block; width:auto;}
+	.fmenu_v ul li a{padding-left:0;}
+	.fmenu_v ul li a:after{display:none;}
+	table td{font-size:9px !important; padding:0 !important;}
+	.menu ul li, .fmenu_v ul li, .fmenu ul li{display:inline-block; width:49%; vertical-align:top;}
+	
+}
+/* design 719 to 320 */
+@media screen and (max-width:430px){
+.container{width:320px; margin:0 auto;}
+table td{font-size:7px !important;}
+
+}
+/* design 420 - 320 */
+@media screen and (max-width:420px){
+
+}

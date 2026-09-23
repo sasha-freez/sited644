@@ -1,0 +1,1 @@
+<div class="banner_r br2"><!-- noindex --><?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('AdHub_Banner_9804') ) : endif;?><!-- /noindex --></div>

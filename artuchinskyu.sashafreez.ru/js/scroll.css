@@ -1,0 +1,11 @@
+.scroll-pane{ width: 234px; overflow: auto; padding-right: 10px; height: 400px; }
+
+.bottomshadow{ position: absolute; top: 375px; left: -47px; z-index: 9999; }
+
+.jScrollPaneContainer{ position: relative; overflow: hidden; z-index: 1; }
+
+.jScrollPaneTrack 		{ position: absolute; cursor: pointer; right: -0px; top: 0; height: 100%;
+						  background:url(scroll/bar.png) top center repeat-y; padding: 3px; }
+
+.jScrollPaneDrag	{ position: absolute; background: url(scroll/ball.png) center center no-repeat;
+					  cursor: pointer; overflow: hidden; }

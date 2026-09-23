@@ -1,0 +1,85 @@
+/* 	Library Style Developer coder Alexander Moskvin  sasha-freez@mail.ru. for site http://sasha-freez.ru */
+/* media css */
+
+/* maket media screen css  */
+/* design 1200 to 960 */
+.close-menu-btn {
+    display: none;
+}
+@media screen and (max-width:1200px){
+.container{width:930px;}
+
+.sliders{height:363px; margin-bottom:25px;}
+.sliders .slide{background-size:100% auto; height:323px;}
+
+.goods_list{margin-left:-21px; margin-right:-21px;}
+.goods_list .item{width:200px; margin:0 21px; min-height:290px;}
+.goods_list .item .img img{width:200px;}
+
+.buyers_list{margin-left:-21px; margin-right:-21px;}
+.buyers_list .item{width:200px; margin:0 21px; min-height:290px;}
+.buyers_list .item .img img{width:200px;}
+
+.bl_content{     width: 100%; }
+.more-ajax{width:726px;}
+.rows-center{width:684px; padding:0 21px;}
+
+.goods-details .goods-desc{margin-right:0;}
+.goods-details .goods-img img{max-width:300px; height:auto;}
+
+.goods-details .goods-img{margin-right:20px;}
+.goods-details .goods-desc .goods-select .btn-h36{width:126px; font-size:14px;}
+.goods-details .goods-desc .goods-select .select{margin-right:10px; width:114px; font-size:14px;}
+.goods-details .sel-size label{width:65px;}
+.goods-details .sel-color label{width:40px;}
+
+#cuselFrame-cusize .cuselText{padding-left:76px;}
+#cuselFrame-cucolor .cuselText:after{left:11px;}
+/* car */
+.line-steps .step{width:295px;}
+
+.cars-list{width:590px;}
+.cars-list .row .goods-img{margin-right:25px;}
+.cars-list .row .desc .it{font-size:13px;}
+.cars-list .row .price{width:105px; font-size:24px; line-height:18px;}
+
+.car-total{width:295px;}
+.car-total .total-txt{width:255px; height:60px; padding:10px 15px 0 0; background-size:270px 70px;}
+
+/* car st2 */
+.cr2 .l{width:433px;}
+.step-content input[type="text"]{width:345px;}
+
+.step2 .car-total .total-txt .txt, .step3 .car-total .total-txt .txt{width:140px; font-size:12px; padding-left:15px;}
+.step2 .car-total .total-txt .summ, .step3 .car-total .total-txt .summ{font-size:22px;}
+
+.others-desc{width:684px; background-size:684px 63px; padding:10px 0; font-size:13px;}
+
+.i-delivery .r1{padding-right:100px;}
+.i-payment .r2{padding-left:0;}
+.i-delivery .r1:before{right:38px;}
+}
+
+/* design 959 to 760 */
+@media screen and (max-width:959px){ 
+.artist-wrap {
+   
+    flex-wrap: wrap;
+}
+.artist-img {
+    margin: 0 0px 20px 0;
+}
+.artist-info .sort {
+   
+    bottom: -40px;
+}
+}
+/* design 719 to 320 */
+@media screen and (max-width:719px){
+
+
+}
+/* design 420 - 320 */
+@media screen and (max-width:420px){
+
+}

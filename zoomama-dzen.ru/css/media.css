@@ -1,0 +1,132 @@
+/* 	Library Style Developer coder Alexander Moskvin  sasha-freez@mail.ru. for site http://sasha-freez.ru */
+/* media css */
+/* maket media screen css  */
+@media screen and (max-width:1180px){
+.container{margin:0 15px; max-width:1500px;}
+.ttop .logo{width:47px; height:49px; margin-top:3px; margin-right:25px;}
+.ttop .slogan{width:200px; margin:18px 0}
+.ttop .bl_search{width:260px;}
+.ttop .ml_r{width:340px;}
+
+.b_carcat{margin-left:20px; margin-right:20px;}
+
+.rbanner .txt .b_title{font-size:30px;}
+.rbanner .txt .b_desc{font-size:22px; padding:0 0 20px 0;}
+	
+}
+@media screen and (max-width:1080px){
+	.ttop .slogan{width:180px;}
+	.ttop .bl_search{width:240px;}
+
+	.rbanner .txt .b_title{font-size:27px;}
+	.rbanner .txt .b_desc{font-size:20px; padding:0 0 15px 0;}
+	.rbanner .img img{margin-left:-100px;}
+}
+
+/* design 995 */
+@media screen and (max-width:995px){
+	.ttop{padding:15px 0 10px 0;}
+	.lswrap{display:block; float:left; width:100%; text-align:center;}
+	.ttop .logo{float:none; display:inline-block; vertical-align:top;}
+	.ttop .slogan{float:none; display:inline-block; vertical-align:top; text-align:left; width:auto;}
+	.ttop .bl_search{width:280px;}
+	
+	.mobile_menu{display:block; margin-left:-15px;}
+	.bl_menu{text-align:left;}
+	.bl_menu nav{display:none;}
+	.menu ul li{display:block; margin:0 -15px;}
+	.menu ul li a{padding:0 15px;}
+	.menu ul li a:after{display:none;}
+	.menu ul li ul{display:block !important; width:auto !important; position:static; background:#734936;}
+
+	.ftop .row{float:none; width:380px; margin:0 auto;}
+	
+	.b_banner_idx .lmenu{float:none; width:auto;}
+	.rbanner{max-width:847px; margin:20px auto 0 auto;}
+	.rbanner .txt .b_title{font-size:35px;}
+	.rbanner .txt .b_desc{font-size:25px; padding:0 0 40px 0;}
+	.rbanner .img img{margin-left:0;}
+}
+
+@media screen and (max-width:900px){
+	.section_wrap .section_content{padding:0 0 10px 0;}
+	.section_wrap .lmenu{position:static; padding:0 0 35px 0;}
+	
+	.rbanner .txt .b_title{font-size:30px;}
+	.rbanner .txt .b_desc{font-size:22px; padding:0 0 20px 0;}
+}
+
+@media screen and (max-width:770px){
+	.rbanner .img img{margin-left:-80px;}
+}
+
+@media screen and (max-width:710px){
+	.section_questions .input{display:block; margin:0 auto 10px; padding:0;}
+	.section_questions .btn-red{display:block; padding:0;}
+	.section_questions .btn-red > *{margin:0 auto 5px; width:210px;}
+	.rbanner .txt{left:15px; top:15px;}
+	.rbanner .txt .b_title{font-size:22px;}
+	.rbanner .txt .b_desc{font-size:18px;}
+	.rbanner .img{overflow:hidden;}
+	.rbanner .img img{margin-left:0; width:auto; height:300px;}
+	
+	.b_abouts .img_r{margin:0 0 20px 0; text-align:center; float:none;}
+
+	.lswrap{float:none;}
+	.ttop .bl_search{float:none; margin:0 auto 15px; width:100%;}
+	.ttop .ml_r{float:none; overflow:hidden; margin:0 auto 5px;}
+}
+
+@media screen and (max-width:590px){
+	.container{margin:0 10px;}
+	.b_carcat{margin-left:30px; margin-right:30px;}
+	.mobile_menu{margin-left:-10px;}
+	.menu ul li{margin:0 -10px;}
+	.bl_menu .btn-red{margin-right:10px;}
+	
+	.form_popup{width:100%; box-sizing:border-box; left:0; margin-left:0; height:400px;}
+	.form_order{padding:10px 15px;}
+	.form_order .hform{font-size:28px; padding:10px 0 15px 0;}
+	
+	.img_l{float:none; margin:0 auto 20px; display:block;}
+	.img_r{float:none; margin:0 auto 20px; display:block;}
+	.section_content img{max-width:280px; height:auto; width:auto;}
+	
+	.rbanner .img img{margin-left:-120px;}
+	.rbanner .txt{left:10px; top:10px;}
+	.rbanner .txt .b_title{font-size:18px;}
+	.rbanner .txt .b_desc{font-size:15px;}
+	.rbanner .txt .btn-red{width:auto; margin-right:15px;}
+	.btn-red  > *{font-size:12px;}
+}
+
+@media screen and (max-width:530px){
+	.b_news_list .wrap{margin:0}
+	.b_news_list .item{margin-left:0; margin-right:0;}
+	
+	.fbottom{text-align:center;}
+	.fbottom .copyright{display:block; float:none; padding:0 0 15px 0;}
+	.fbottom .site_create{display:block; float:none;}
+}
+
+/* design 455 to 320 */
+@media screen and (max-width:430px){
+	.container{margin:0 10px;}
+	.mobile_menu{margin-left:-10px;}
+	.menu ul li{margin:0 -10px;}
+	.ftop .row{width:auto;}
+	
+	.b_abouts .img_r img{max-width:280px; width:auto; height:auto;}
+	
+	.rbanner{margin-left:-10px; margin-right:-10px;}
+	.rbanner .txt{padding:4%;}
+	.rbanner .txt .b_title{font-size:16px;}
+	.rbanner .txt .b_desc{font-size:13px; padding-bottom:10px;}
+	.btn-red  > *{height:24px; line-height:24px;}
+}
+
+
+@media screen and (max-width:370px){ 
+	.ttop .ml_r{width:auto;}
+	.ttop .ml_r .email, .ttop .ml_r .tel{font-size:14px;}
+}

@@ -1,0 +1,79 @@
+/* calc */
+table.services {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+table.services  tr{
+	margin: 0;
+	padding: 0;
+}
+
+table.services td {
+	vertical-align: middle;
+	text-align: left;
+	padding: 5px 8px;
+	/*border-left: 1px solid gray;
+	border-right: 1px solid gray;
+	border-bottom: 1px solid gray;*/
+	white-space: nowrap;
+	background: #f1f1f1;
+	border-bottom: 1px solid #dddddd;
+	margin: 0;
+}
+
+table.services th {
+	padding: 5px 8px;
+	/*border-left: 1px solid gray;
+	border-right: 1px solid gray;
+	border-bottom: 1px solid gray;*/
+}
+
+table.services td.dark {
+	padding: 5px 8px;
+	/*border-left: 1px solid gray;
+	border-right: 1px solid gray;
+	border-bottom: 2px solid black;*/
+	background: #E8E8E8;
+}
+
+table.services td.center {
+	text-align: center;
+}
+
+table.services td.right {
+	text-align: right;
+}
+table.services td.notop {
+	border-top: none;
+}
+
+table.services td.nobottom {
+	border-bottom: none;
+}
+
+table.services select {
+	width: 200px;
+	border: 1px solid #bbb;
+}
+
+table.rating {
+	width: 555px;
+	margin: 10px 0;
+}
+
+table.rating th {
+	font-weight: normal;
+	background: #EaEaEa !important;
+	border: 1px solid #bbb;
+}
+
+table.rating td {
+	padding: 5px;
+	white-space: normal; 
+	font-size: 12px;
+	background: none;
+	border: 1px solid #dddddd;
+}
+/* end calc */
+#graf-menu a {display:block}

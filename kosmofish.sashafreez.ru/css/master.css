@@ -1,0 +1,103 @@
+/* 	Library Style Developer coder Alexander Moskvin  sasha-freez@mail.ru. */
+
+/* main css */
+/* Default css style for xhtml tag */
+body{font-family:Arial; font-size: 12px; color: #000; margin: 0px;padding: 0px;}
+
+a{color:#000;}
+a:hover{text-decoration:none;}
+
+h1{font-size: 21px; color:#000000; margin: 0px; padding:0 0 15px 0px; font-family:Georgia; font-size:29px; font-style:italic;}
+h2{font-size: 16px; color:#000000; margin: 0px; padding:0 0 20px 0px;}
+h3{font-size: 15px; color:#000000; margin: 0px; padding:0 0 15px 0px;}
+h4{font-size: 14px; color:#000000; margin: 0px; padding:0 0 15px 0px;}
+h5{font-size: 12px; color:#000000; margin: 0px; padding:0 0 15px 0px;}
+
+p{font-size: 12px; margin:0px; padding:6px 0px;}
+ol{}
+ul{}
+li{}
+
+/* /Default css style for xhtml tag */
+
+/* content */
+.container{width:950px; margin:0 auto; padding:0 20px;}
+/* /content */
+
+.header{border-bottom:1px solid #666666; padding:20px 0 20px 0px;}
+.header:after{content:""; clear:both; display:block;}
+.header .site_name{font-size:16px; font-family:Helvetica, Arial; font-weight:bold; float:left; white-space:nowrap;}
+.header .contant{float:right; white-space:nowrap; color:#333333;}
+.header .contant p{display:inline; padding:0 0px 0 30px;}
+
+.content{padding:0 0 20px 0px;}
+.footer{border-top:1px solid #666666; padding:15px 0 20px 0; position:relative;}
+.flogo{position:absolute; right:0px; top:-8px;}
+/* Used regularly css */
+form{padding:0px; margin:0px;}
+.pngfix{}
+* strong, * b{font-weight:bold;}
+* i, * em{font-style: italic;}
+html{font-size:100.01%;}
+.fleft{float:left;}
+.fright{float:right;}
+.clear{clear:both;}
+.clear_right{clear:right;}
+/* Default css style for regular block */
+
+.menu{padding:30px 0 10px 0px; margin:0 0 20px 0px; border-bottom:1px solid #666;}
+.menu:after{content:""; clear:both; display:block;}
+.menu ul{margin:0px; padding:0px; list-style:none;}
+.menu ul li{margin:0 25px 0 25px; padding:0px; float:left; width:200px; font-size:15px; font-weight:bold;}
+.menu ul li a{color:#000000; text-decoration:none; display:block; padding-bottom:20px;}
+.menu ul li a:hover{color:#0099cc; text-decoration:underline;}
+.menu ul .active a{color:#0099cc;text-decoration:underline; background:url(/images/idx/arrow.png) no-repeat 0 bottom;}
+.menu ul li a span{display:block; padding:10px 0 0 0px; text-transform:uppercase;}
+
+.mard{margin:0 -25px 0 -25px;}
+.portfolio{}
+.portfolio:after{ content:""; clear:both; display:block;}
+.portfolio .item{width:100%; padding:0 0 30px 0px; margin:0 23px 0 23px;
+display: -moz-inline-stack;display: inline-block;vertical-align: top;zoom: 1;*display: inline;}
+.portfolio .item img{margin-bottom:15px;}
+.portfolio .item a{text-decoration:none; color:#333333; padding:10px 0 0 0px; font-size:16px; font-family:Georgia; font-style:italic;}
+.portfolio .item a:hover{}
+.portfolio .item a span{display:block;}
+.portfolio .more{margin:0 auto;width:45px;}
+.portfolio .more a{display:block; color:#cc0000; font-size:16px; background:url(../images/arrow.png) no-repeat right 7px; }
+
+.fmenu{padding:0px; margin:0px;}
+.fmenu ul{margin:0px; padding:0px; list-style:none;}
+.fmenu ul li{margin:0px; padding:0 30px 0 0px; font-size:15px; font-family:Helvetica, Arial; font-weight:bold; display:inline;}
+.fmenu ul li a{color:#000000; text-decoration:none;}
+.fmenu ul li a:hover, .fmenu ul .active a{color:#0099cc; text-decoration:underline;}
+.fmenu ul li a span{display:block; padding:10px 0 0 0px;}
+
+.inner_menu{padding:15px 0 15px 0px; margin:0 0 15px 0px; border-bottom:1px solid #666666;}
+.inner_menu ul{margin:0 0 0 25px; padding:0px; list-style:none;}
+.inner_menu ul li{margin:0px; font-size:12px; font-weight:bold; display:inline; padding:0 20px 0 0px;}
+.inner_menu ul li a{color:#000000; text-decoration:none;}
+.inner_menu ul li a:hover{color:#0099cc; text-decoration:underline;}
+.inner_menu ul li a span{}
+
+/* slider */
+.slider{ position:relative; width:100%; height:740px; overflow:hidden; margin-bottom:30px; margin-top:20px;}
+.slider .txt{ display:none;}
+#slider{height:380px; overflow:hidden; position:relative; width:735px;}
+.nivo-caption{position:absolute; right:40px; top:35px; width:400px; color:#FFF; font-size:15px; text-align:justify; z-index:100;}
+.nivo-slice{ position:absolute; top:0px; left:0px;}
+.nivo-controlNav{ position:absolute; right:40px; bottom:25px; z-index:100;}
+.nivo-controlNav a{width:21px; height:23px; margin-left:20px; cursor:pointer; background:url(/images/icon/slider_nav.png) no-repeat 0 0; text-indent:-1000px; display: -moz-inline-stack;display: inline-block;vertical-align: top;zoom: 1;*display: inline;}
+.nivo-controlNav a:hover, .nivo-controlNav .active{ background-position:0 -27px;}
+.nivo-directionNav{ display:none !important;}
+
+.pagination{margin:0px; padding:25px 0 0 0px; text-align:center; list-style:none;}
+.pagination li{margin:0px; padding:0px; display:inline-block; padding:0 5px 0 5px;}
+.pagination li a{ border:1px solid #666; text-decoration:none; display:block; padding:5px 10px;
+-webkit-border-radius: 6px;
+-moz-border-radius: 6px;
+border-radius: 6px;
+behavior: url(/pie/pie.htc);
+
+}
+.pagination li a:hover, .pagination li .active{background:#666; color:#FFF;}

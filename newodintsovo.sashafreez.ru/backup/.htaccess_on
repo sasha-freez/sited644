@@ -1,0 +1,18 @@
+php_value error_reporting 7
+php_value display_error on
+
+adddefaultcharset windows-1251
+
+AddType application/x-httpd-php .php
+
+DirectoryIndex index.php index.html
+ErrorDocument 404 /not_found.php
+
+php_flag register_globals on
+
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www\.newodintsovo\.ru$ [NC]
+RewriteRule ^(.*)$ http://newodintsovo.ru/$1 [R=301,L]
+
+

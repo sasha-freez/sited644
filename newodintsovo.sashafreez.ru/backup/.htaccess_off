@@ -1,0 +1,37 @@
+
+<files *.pdf> 
+forceType application/octet-stream 
+Header set Content-Disposition attachment 
+</files>
+
+php_value error_reporting 7
+php_value display_error on
+
+php_flag display_errors off
+
+
+adddefaultcharset windows-1251
+
+AddType application/x-httpd-php .php
+
+DirectoryIndex index.php index.html
+ErrorDocument 404 /not_found.php
+
+php_flag register_globals on
+
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www\.newodintsovo\.ru$ [NC]
+RewriteRule ^(.*)$ http://firstodin.ru/$1 [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^www\.odinfirst\.ru$ [NC]
+RewriteRule ^(.*)$ http://firstodin.ru/$1 [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^www\.firstodin\.ru$ [NC]
+RewriteRule ^(.*)$ http://firstodin.ru/$1 [R=301,L]
+
+RewriteCond %{HTTP_HOST} newodintsovo\.ru$ [NC]
+RewriteRule ^(.*)$ http://firstodin.ru/$1 [R=301,L]
+
+RewriteCond %{HTTP_HOST} odinfirst\.ru$ [NC]
+RewriteRule ^(.*)$ http://firstodin.ru/$1 [R=301,L]

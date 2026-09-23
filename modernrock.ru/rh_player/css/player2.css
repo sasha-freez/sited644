@@ -1,0 +1,130 @@
+.player-container {
+    height: 49px;
+    width: 250px;
+    overflow: hidden;
+}
+
+
+.jp-play, .jp-pause1 {
+    width: 40px;
+    height: 40px;
+    display: block;
+    overflow: hidden;
+    text-indent: -9999px;
+	cursor: pointer;
+    margin-left:8px;
+    margin-top:5px;
+    -webkit-transition-property: background;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease;
+    -moz-transition-property: background;
+    -moz-transition-duration: 0.5s;
+    -moz-transition-timing-function: ease;
+    -o-transition-property: background;
+    -o-transition-duration: 0.5s;
+    -o-transition-timing-function: ease;
+    transition-property: background;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+}
+
+.jp-play {
+    background-image: url("img/play.png");
+}
+
+.jp-play:hover {
+    background: url("img/play_hover.png");
+}
+
+.jp-play:active {
+    background: url("img/play_active.png");
+}
+
+.jp-pause1 {
+    background: url("img/pause.png");
+    display: none;
+}
+
+.jp-pause1:hover {
+    background: url("img/pause_hover.png");
+}
+
+.jp-pause1:active {
+    background: url("img/pause_active.png");
+}
+
+div.jp-volume-bar {
+    overflow: hidden;
+    position:absolute;
+    width: 62px;
+    height: 5px;
+    cursor: pointer;
+    /*background: url("img/volume.png"); */
+    background: #dadada;
+    margin-top:-14px;
+    margin-left:65px;
+    border-radius:2px;
+}
+
+div.jp-volume-bar-value {
+    background: #939393;
+	border-radius:2px;
+    height: 5px;
+    -webkit-transition-property: background;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease;
+    -moz-transition-property: background;
+    -moz-transition-duration: 0.5s;
+    -moz-transition-timing-function: ease;
+    -o-transition-property: background;
+    -o-transition-duration: 0.5s;
+    -o-transition-timing-function: ease;
+    transition-property: background;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+}
+div.jp-volume-bar-value:hover
+{
+  background: #b0b0b0;
+}
+div.jp-volume-bar-value:active
+{
+  background: #b0b0b0;
+}
+.player-container p span.play-channel-name, .player-container p span.play-track-name {
+    color: #CC0090;
+}
+.jp-mute
+{
+   background: url("img/mute.png");
+   width:7px;
+   height:11px;
+   position:absolute;
+   top:28px;
+   left:52px;
+}
+.jp-unmute
+{
+   background: url("img/muteactive.png");
+   width:7px;
+   height:11px;
+   position:absolute;
+   top:28px;
+   left:52;
+}
+.song
+{
+  position:absolute;
+  font-family:"Trebuchet MS",Helvetica,sans-serif;
+  font-size:14px;
+  color:#5a5a5a;
+  width:200px;
+  height:20px;
+  overflow:hidden;
+  margin-top:-34px;
+  margin-left:52px;
+}
+
+#player{position:relative;}
+.first{}
+.jp-mute, .jp-unmute, .jp-volume-bar{display:none !important;}

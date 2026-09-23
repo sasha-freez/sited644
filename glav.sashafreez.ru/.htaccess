@@ -1,0 +1,144 @@
+# MODX supports Friendly URLs via this .htaccess file. You must serve web
+# pages via Apache with mod_rewrite to use this functionality, and you must
+# change the file name from ht.access to .htaccess.
+#
+# Make sure RewriteBase points to the directory where you installed MODX.
+# E.g., "/modx" if your installation is in a "modx" subdirectory.
+#
+# You may choose to make your URLs non-case-sensitive by adding a NC directive
+# to your rule: RewriteRule ^(.*)$ index.php?q=$1 [L,QSA,NC]
+
+RewriteEngine On
+RewriteBase /
+
+RewriteRule ^fotogalereya.html$ /galereya/ [L,R=301]
+RewriteRule ^maketyi.html$ /maketyi/ [L,R=301]
+RewriteRule ^poleznoe.html$ /price/ [L,R=301]
+RewriteRule ^contacts.html$ /contacts/ [L,R=301]
+
+RewriteRule ^nashi-uslugi/ofsetnaya-pechat.html$ /services/ofsetnaya-pechat/ [L,R=301] 
+RewriteRule ^nashi-uslugi/laminirovanie.html$ /services/laminirovanie/ [L,R=301]
+RewriteRule ^nashi-uslugi/vyirubka-bumazhnyix-paketov.html$ /services/vyirubka/ [L,R=301]
+RewriteRule ^nashi-uslugi/tisnenie/$ /services/tisnenie/ [L,R=301]
+RewriteRule ^nashi-uslugi/tisnenie/tisnenie-na-kozhe.html$ /services/tisnenie/tisnenie-na-izdeliyax-iz-kozhi.html [L,R=301]
+RewriteRule ^nashi-uslugi/tisnenie/tisnenie-zolotom.html$ /services/tisnenie/ploskoe-i-relefnoe-zolotoe-tisnenie.html [L,R=301]
+RewriteRule ^nashi-uslugi/tisnenie/priglasheniya-i-otkryitki-s-tisneniem.html$ /services/tisnenie/tisnenie-na-priglasitelnyix-i-otkryitkax.html [L,R=301]
+RewriteRule ^nashi-uslugi/tisnenie/tisnenie-na-ezhednevnikax-i-kalendaryax.html$ /services/tisnenie/tisnenie-na-firmennyix-kalendaryax-i-ezhednevnikax.html [L,R=301]
+RewriteRule ^nashi-uslugi/tisnenie/tisnenie-blint.html$ /services/tisnenie/blintovoe-tisnenie.html [L,R=301]
+RewriteRule ^nashi-uslugi/tisnenie/tisnenie-kongrev.html$ /services/tisnenie/tisnenie-kongrevom-vidyi-i-materialyi.html [L,R=301]
+RewriteRule ^nashi-uslugi/tisnenie/tisnenie-folgoj.html$ /services/tisnenie/tisnenie-folgoj-dlya-dekora-pechatnoj-produkczii.html [L,R=301]
+RewriteRule ^nashi-uslugi/tisnenie/proizvodstvo-tisneniya.html$ /services/tisnenie/vidyi-tisneniya-na-proizvodstve.html [L,R=301]
+RewriteRule ^nashi-uslugi/tisnenie/tisneniya-upakovki.html$ /services/tisnenie/upakovka-s-tisneniem-mnogofunkczionalnyij-upakovochnyij-material.html [L,R=301]
+RewriteRule ^nashi-uslugi/pereplet/$ /services/pereplet/ [L,R=301]
+RewriteRule ^nashi-uslugi/pereplet/franczuzskij-pereplet.html$ /services/pereplet/ruchnoj-franczuzskij-pereplet.html [L,R=301]
+RewriteRule ^nashi-uslugi/pereplet/tverdyij-pereplet.html$ /services/pereplet/tverdyij-pereplet-broshyur.html [L,R=301]
+RewriteRule ^nashi-uslugi/pereplet/myagkij-pereplet.html$ /services/pereplet/myagkij-pereplet-broshyur.html [L,R=301]
+
+RewriteRule ^nashi-uslugi/pereplet-bukletov.html$ /services/pereplet/pereplet-s-dekorativnoj-otdelkoj.html [L,R=301]
+RewriteRule ^nashi-uslugi/pereplet/pereplet-s-tisneniem.html$ /services/pereplet/pereplet-s-dekorativnoj-otdelkoj.html [L,R=301]
+RewriteRule ^nashi-uslugi/pereplet/pereplet-s-kongrevom.html$ /services/pereplet/pereplet-s-dekorativnoj-otdelkoj.html [L,R=301]
+RewriteRule ^nashi-uslugi/pereplet/pereplet-s-rustom.html$ /services/pereplet/pereplet-s-dekorativnoj-otdelkoj.html [L,R=301]
+
+RewriteRule ^nashi-uslugi/pereplet/pereplet-na-vintax.html$ /services/pereplet/pereplet-broshyur-na-vintax-i-boltax.html [L,R=301]
+RewriteRule ^nashi-uslugi/pereplet/pereplet-na-boltax.html$ /services/pereplet/pereplet-broshyur-na-vintax-i-boltax.html [L,R=301]
+RewriteRule ^nashi-uslugi/kaptal/$ /services/kaptal/ [L,R=301]
+RewriteRule ^nashi-uslugi/kaptal/pereplet-broshyur-lentoy.html$ /services/kaptal/izgotovlenie-broshyur-s-kaptalnoj-lentoj.html [L,R=301]
+RewriteRule ^nashi-uslugi/kaptal/pereplet-knig.html$ /services/kaptal/kaptalnaya-lenta-dlya-perepleta-knig.html [L,R=301]
+RewriteRule ^nashi-uslugi/kaptal/pereplet-albomov.html$ /services/kaptal/pereplet-albomov-na-kaptalnuyu-lentu.html [L,R=301]
+
+RewriteRule ^informacziya-o-produktax-i-czenax/$ /production/ [L,R=301]
+RewriteRule ^informacziya-o-produktax-i-czenax/podarochnaya-upakovka/$ /production/upakovka/ [L,R=301]
+RewriteRule ^informacziya-o-produktax-i-czenax/podarochnaya-upakovka/vidyi-upakovki.html$ /production/upakovka/vidyi-upakovki/ [L,R=301]
+RewriteRule ^informacziya-o-produktax-i-czenax/podarochnaya-upakovka/vidyi-podarochnoj-korobki.html$ /production/upakovka/izgotovlenie-podarochnoj-upakovki/ [L,R=301]
+RewriteRule ^informacziya-o-produktax-i-czenax/podarochnaya-upakovka/korobki-iz-perepletnogo-kartona.html$ /production/upakovka/korobki-iz-perepletnogo-kartona/ [L,R=301]
+RewriteRule ^informacziya-o-produktax-i-czenax/izgotovlenie-bumazhnyix-paketov/$ /production/izgotovlenie-bumazhnyix-paketov/ [L,R=301]
+RewriteRule ^informacziya-o-produktax-i-czenax/izgotovlenie-bumazhnyix-paketov/laminirovannyie-paketyi.html$ /production/izgotovlenie-bumazhnyix-paketov/laminirovannyie-paketyi/ [L,R=301]
+RewriteRule ^informacziya-o-produktax-i-czenax/izgotovlenie-bumazhnyix-paketov/paketyi-iz-dizajnerskix-bumag.html$ /production/izgotovlenie-bumazhnyix-paketov/paketyi-iz-dizajnerskix-bumag/ [L,R=301]
+RewriteRule ^informacziya-o-produktax-i-czenax/izgotovlenie-bumazhnyix-paketov/kraft-paketyi.html$ /production/izgotovlenie-bumazhnyix-paketov/kraft-paketyi/ [L,R=301]
+RewriteRule ^informacziya-o-produktax-i-czenax/papki.html$ /production/papki/ [L,R=301]
+RewriteRule ^informacziya-o-produktax-i-czenax/pos-materialyi/$ /production/pos-materialyi/ [L,R=301]
+RewriteRule ^informacziya-o-produktax-i-czenax/birki,-yarlyiki.html$ /production/birki,-yarlyiki/ [L,R=301]
+RewriteRule ^informacziya-o-produktax-i-czenax/paketyi-vyisokogo-davleniya.html$ /production/polietilenovyie-paketyi-(pvd)/ [L,R=301]
+
+
+# Rewrite www.domain.com -> domain.com -- used with SEO Strict URLs plugin
+#RewriteCond %{HTTP_HOST} .
+#RewriteCond %{HTTP_HOST} ^www.(.*)$ [NC]
+#RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+#
+# or for the opposite domain.com -> www.domain.com use the following
+# DO NOT USE BOTH
+#
+#RewriteCond %{HTTP_HOST} !^$
+#RewriteCond %{HTTP_HOST} !^www\. [NC]
+#RewriteCond %{HTTP_HOST} (.+)$
+#RewriteRule ^(.*)$ http://www.%1/$1 [R=301,L] .
+
+
+# Rewrite secure requests properly to prevent SSL cert warnings, e.g. prevent 
+# https://www.domain.com when your cert only allows https://secure.domain.com
+#RewriteCond %{SERVER_PORT} !^443
+#RewriteRule (.*) https://example-domain-please-change.com/$1 [R=301,L]
+
+
+# The Friendly URLs part
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
+
+
+
+RewriteRule ^fotogalereya.html$ /galereya/ [R=301,L]
+
+
+# Make sure .htc files are served with the proper MIME type, which is critical
+# for XP SP2. Un-comment if your host allows htaccess MIME type overrides.
+
+#AddType text/x-component .htc
+
+
+
+# If your server is not already configured as such, the following directive
+# should be uncommented in order to set PHP's register_globals option to OFF.
+# This closes a major security hole that is abused by most XSS (cross-site
+# scripting) attacks. For more information: http://php.net/register_globals
+#
+# To verify that this option has been set to OFF, open the Manager and choose
+# Reports -> System Info and then click the phpinfo() link. Do a Find on Page
+# for "register_globals". The Local Value should be OFF. If the Master Value
+# is OFF then you do not need this directive here.
+#
+# IF REGISTER_GLOBALS DIRECTIVE CAUSES 500 INTERNAL SERVER ERRORS :
+#
+# Your server does not allow PHP directives to be set via .htaccess. In that
+# case you must make this change in your php.ini file instead. If you are
+# using a commercial web host, contact the administrators for assistance in
+# doing this. Not all servers allow local php.ini files, and they should
+# include all PHP configurations (not just this one), or you will effectively
+# reset everything to PHP defaults. Consult www.php.net for more detailed
+# information about setting PHP directives.
+
+#php_flag register_globals Off
+
+
+
+# For servers that support output compression, you should pick up a bit of
+# speed by un-commenting the following lines.
+
+#php_flag zlib.output_compression On
+#php_value zlib.output_compression_level 5
+
+
+
+# The following directives stop screen flicker in IE on CSS rollovers. If
+# needed, un-comment the following rules. When they're in place, you may have
+# to do a force-refresh in order to see changes in your designs.
+
+#ExpiresActive On
+#ExpiresByType image/gif A2592000
+#ExpiresByType image/jpeg A2592000
+#ExpiresByType image/png A2592000
+#BrowserMatch "MSIE" brokenvary=1
+#BrowserMatch "Mozilla/4.[0-9]{2}" brokenvary=1
+#BrowserMatch "Opera" !brokenvary
+#SetEnvIf brokenvary 1 force-no-vary

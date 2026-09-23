@@ -1,0 +1,1 @@
+<div class="banner_r advert_google"><!-- noindex --><?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('RotaBan') ) : endif;?><!-- /noindex --></div>

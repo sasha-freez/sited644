@@ -1,0 +1,13 @@
+
+
+.tp_spinners {
+	position: absolute;
+	display: inline-block;
+	vertical-align: middle;
+	margin-top: -7px;
+	top:50%;
+	right:20px;
+}
+.tp_spinners span { border: 5px solid transparent; cursor: pointer; display: block; }
+.tp_spinners .tp_spinup { border-bottom-color: black; border-top: 0; margin-bottom: 4px; }
+.tp_spinners .tp_spindown { border-top-color: black; border-bottom: 0; }

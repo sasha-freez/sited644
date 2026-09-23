@@ -1,0 +1,41 @@
+#timeline{width: 920px;height: 630px;overflow: hidden;position: relative;background: url(../images/bg/line.png) left 37px repeat-x; margin:0 30px; font-family: 'MyriadProCondensed';}
+#timeline ul{margin:0px; padding:0px; list-style:none;}
+#timeline li{margin:0px; padding:0px;}
+#dates{width: 980px;height: 60px;overflow: hidden;}
+
+#dates li{list-style: none;float: left; height: 50px;font-size: 18px;
+text-align: center;background: url(../images/bg/dot.png) center bottom no-repeat; width:180px; white-space:nowrap; overflow:hidden;}
+
+#dates a{padding-bottom: 10px; text-decoration:none;}
+#dates a:hover{ text-decoration:underline;}
+#dates .selected{font-size: 24px; color:#333; text-decoration:underline;}
+
+#issues{width: 980px;height: 600px;overflow: hidden;}
+#issues li{width:980px; float:left; position:relative;}
+#issues li a{ text-decoration:none;}
+#issues li img{float: left; margin:0 140px; border:5px solid #3a3c3c; border:none medium;}
+#issues li h1{color:#ffcc00;font-size: 48px;margin: 20px 0;text-shadow:#000 1px 1px 2px;}
+#issues li h3{position:absolute; z-index:10; margin: 25px 0 0 140px; width:620px;
+ padding:0 20px 0 0px; width:620px; text-align:right; font-size:63px;
+filter:progid:DXImageTransform.Microsoft.Alpha(opacity=70); /* IE 5.5+*/
+-moz-opacity: 0.7; /* Mozilla 1.6 и ниже */
+-khtml-opacity: 0.7; /* Konqueror 3.1, Safari 1.1 */
+opacity: 0.7;
+text-shadow: 1px 1px 4px #000000;
+filter: dropshadow(color=#000000, offx=1, offy=1);
+font-family: 'MyriadProCondensed';
+}
+#issues li h3 a{ color:#fff; line-height: 60px;}
+#issues li p{font-size: 14px;margin-right: 70px;font-weight: normal;line-height: 22px;text-shadow:#000 1px 1px 2px;}
+
+#grad_left, #grad_right{width: 100px;height: 600px;position: absolute;top: 0;}
+#grad_left{left: 0;background: url(../images/grad_left.png) repeat-y;}
+#grad_right{right: 0;background: url(../images/grad_right.png) repeat-y;}
+
+#next,#prev{position: absolute;top: 0;top: 300px;width: 20px;height: 50px; cursor:pointer;}
+
+#prev{left: 0;background: url(/images/bg/arrow.png) no-repeat 0px 0;}
+#next{right: 0;background: url(/images/bg/arrow.png) no-repeat -25px 0;}
+#next:hover, #prev:hover{opacity: 0.7;}
+
+#next.disabled,#prev.disabled{opacity: 0.2;}

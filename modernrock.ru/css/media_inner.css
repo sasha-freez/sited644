@@ -1,0 +1,40 @@
+/* 	Library Style Developer coder Alexander Moskvin  sasha-freez@mail.ru. for site http://sasha-freez.ru */
+/* media css */
+
+/* width 1200 to all */
+@media (min-width:1280px){
+.container{width:930px;}
+
+.block_left{width:610px;}
+.block_right{margin-top:0;}
+footer .fmenu ul{text-align:left;}
+footer .partners{text-align:left;}
+
+
+}
+
+
+
+
+
+
+/* maket media screen css  */
+/* design 1200 to 960 */
+@media screen and (max-width:1200px){
+
+}
+
+/* design 959 to 760 */
+@media screen and (max-width:959px){ 
+
+
+}
+/* design 719 to 320 */
+@media screen and (max-width:719px){
+
+
+}
+/* design 420 - 320 */
+@media screen and (max-width:420px){
+
+}

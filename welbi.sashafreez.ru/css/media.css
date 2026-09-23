@@ -1,0 +1,58 @@
+/* 	Library Style Developer coder Alexander Moskvin  sasha-freez@mail.ru. for site http://sasha-freez.ru */
+/* media css */
+
+/* maket media screen css  */
+/* design 1200 to 960  body{width:1000px; margin:0 auto;}*/
+@media screen and (max-width:1340px){
+.container{width:980px;}
+.wrap_lr{padding:0 20px;}
+.w1160{width:100%;}
+.w1060{width:100%;}
+
+.b_eaves .row{padding-left:28px; padding-right:28px;}
+
+.automation_txt .row{width:410px; padding-left:30px; padding-right:30px;}
+.automation_txt .row img{max-width:100%;}
+.gal_row{width:245px; height:245px;}
+
+.b_advantage_txt .row{padding:0 35px; width:400px;}
+.b_advantage_txt .row img{max-width:100%;}
+.b_delivery_txt .row{padding:0 35px; width:400px;}
+.b_delivery_txt .row img{max-width:100%;}
+
+.b_question_answer .question{width:380px; padding-left:20px;}
+
+.b_clients .row img{max-width:100%;}
+
+footer .row .txt{font-size:18px;}
+
+footer .logo{width:210px;}
+footer .row.ft1{width:220px;}
+footer .row.ft2{width:220px;}
+footer .row.ft3{width:265px; float:right;}
+
+.b_clients_section .row img{height:60px;}
+
+.section_details .item{background-size:100% auto;}
+.section_details .desc_row .row .label{width:350px;}
+
+}
+
+/* design 959 to 760 */
+@media screen and (max-width:2959px){ 
+
+}
+
+/* design 590 to 320 */
+@media screen and (max-width:2595px){
+
+}
+
+/* design 520 to 320 */
+@media screen and (max-width:2520px){ 
+
+}
+
+@media screen and (max-width:420px){ 
+
+}

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="shortcut icon" href="favicon.ico"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Услуги</title>
+	<meta name="description" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="MobileOptimized" content="100%"/>
+	<link rel="stylesheet" href="gotham/gotham.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="css/master.css?v=76218741" type="text/css" media="all" />
+	<link rel="stylesheet" href="css/media.css?v=76218741" type="text/css" media="all" />
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/main.js?v=76218741"></script>
+	<script type="text/javascript" src="scrollflow/jquery.scrollflow.min.js"></script>
+	
+	<link rel="stylesheet" href="owl.carousel/owlcarousel/assets/owl.carousel.min.css">
+    <script src="owl.carousel/owlcarousel/owl.carousel.js"></script>
+</head>
+<body class="p_service intro_video">
+	<div class="page_wrapper">
+		<header>
+			<div class="container">
+				<div class="imenu" id="imenu"><span></span></div>
+				<div class="logo">
+					<a href="/"></a> 
+				</div>
+				<div class="menu">
+					<nav>
+						<ul>
+							<li><a href="abouts.html">О нас</a></li>
+							<li class="active"><a href="index.html">Услуги</a></li>
+							<li><a href="jobs.html">Работы</a></li>
+							<li><a href="clients.html">Клиенты</a></li>
+							<li><a href="contacts.html">Контакты</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</header>
+
+		<!-- -->
+		<div class="video_service">
+			
+			<video id="video_service" width="100%" height="500" style="position:fixed; width:100%; height:100%;" autoplay="autoplay" muted="muted" preload="none">
+				<source src="video/job_ud.mp4" type="video/mp4">
+			</video>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.6/mediaelementplayer.css">
+			<link rel="stylesheet" href="mediaelement/video_style.css">
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.6/mediaelement-and-player.min.js"></script>
+			<script>
+				if(getCookie('introVideoPage') == 1){
+					document.querySelector('body').classList.remove('intro_video');
+				}
+				document.addEventListener("DOMContentLoaded", function () {
+					if(getCookie('introVideoPage') == 1){
+						return;
+					}
+					setCookie('introVideoPage','1',365,'/');
+					var videoService = document.querySelector('#video_service');
+					var features = ['playpause','volume','progress','current','duration','fullscreen'];
+					new MediaElementPlayer(videoService, {
+						startVolume: 0.1,
+						autoRewind: false,
+						features: features,
+						autoplay: true,
+						controls:false,
+						videoVolume: 'horizontal',
+						alwaysShowControls:false,
+						hideVideoControlsOnLoad: true,
+						hideVideoControlsOnPause: true,
+						clickToPlayPause:false,
+						success: function (mediaElement, domObject) {
+							mediaElement.load();
+							mediaElement.play();
+						}
+					});
+					videoService.addEventListener('ended', function(e){
+						document.querySelector('body').classList.remove('intro_video');
+					});
+				});
+			</script>
+		</div>
+		
+
+		<div class="page_service">
+			<div class="service_popup__bg"><div class="wrap"></div></div>
+			<div class="service_popup__txt service_desc">
+				<div class="flex_item" id="service_popup__txt"></div>
+			</div>
+
+			<div class="owl-carousel service_carousel">
+				<div class="item s1" data-number="0">
+					<div class="service_desc">
+						<div class="h1">
+							разработка и запуск<br/>
+							продукта
+						</div>
+						<ul>
+							<li>Создание идеи</li>
+							<li>Разработка концепции</li>
+							<li>Маркетинговое исследование и анализ</li>
+							<li>Брендинг и POS - материалы</li>
+							<li>Продвижение</li>
+						</ul>
+					</div>
+					<div class="media_content">
+						<img src="images/service/1.jpg" alt=""/>
+					</div>
+				</div>
+				
+				<div class="item s2" data-number="1">
+					<div class="service_desc">
+						<div class="h1">
+							сопровождение<br/>
+							непрерывности<br/>
+							бизнеса
+						</div>
+						<ul>
+							<li>Аудит и инвестиционная оценка проектов</li>
+							<li>
+								Внедрение и сопровождение CRM
+							</li>
+							<li>
+								Развертывание системы хранения и аналитики данных
+							</li>
+							<li>
+								Автоматизация финансовой отчетности<br/>
+								по стандарту МСФО
+							</li>
+							<li>Анализ и сопровождение баз данных</li>
+							<li>Разработка прикладного ПО </li>
+						</ul>
+					</div>
+					<div class="media_content">
+						<img src="images/service/2.jpg" alt=""/>
+					</div>
+				</div>
+
+				<div class="item s3" data-number="2">
+					<div class="service_desc">
+						<div class="h1">
+							коммуникационный<br/>
+							консалтинг
+						</div>
+						<ul>
+							<li>Медиапланирование</li>
+							<li>PR сопровождение</li>
+							<li>Интернет маркетинг</li>
+							<li>Выставочный маркетинг</li>
+							<li>Организация мероприятий</li>
+							<li>Видеопродакшн</li>
+						</ul>
+					</div>
+					<div class="media_content">
+						<img src="images/service/3.jpg" alt=""/>
+					</div>
+				</div>
+				<div class="item s4" data-number="3">
+					<div class="service_desc">
+						<div class="h1">
+							Организация<br/>
+							и сопровождение<br/>
+							продаж
+						</div>
+						<ul>
+							<li>Формирование структуры отдела</li>
+							<li>Разработка архитектуры офисов</li>
+							<li>
+								Внедрение стандартов работы 
+								и образовательных программ
+							</li>
+							<li>
+								Интеграция партнерских программ 
+								ипотечного кредитования
+							</li>
+							<li>Введение AXO</li>
+						</ul>
+					</div>
+					<div class="media_content">
+						<img src="images/service/4.jpg" alt=""/>
+					</div>
+				</div>
+				
+				<div class="item s5" data-number="4">
+					<div class="service_desc">
+						<div class="h1">
+							клиентский
+							сервис
+						</div>
+						<ul>
+							<li>Внедрение оптимальной бонусной системы</li>
+							<li>Разработка и запуск программ лояльности</li>
+							<li>Создание концепции и основ социальной ответственности</li>
+						</ul>
+					</div>
+					<div class="media_content">
+						<img src="images/service/5.jpg" alt=""/>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="fpadd"></div>
+	</div>
+</body>
+</html>

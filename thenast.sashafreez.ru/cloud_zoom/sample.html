@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<!-- Загружаем файл CSS для плагина Cloud Zoom -->
+<link href="css/cloud-zoom.css" rel="stylesheet" type="text/css" />
+
+<!-- Библиотеку jQuery можно загружать из сети Google. -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+<!-- Загружаем JavaScript файл плагина Cloud Zoom -->
+<script type="text/JavaScript" src="js/cloud-zoom.1.0.2.js"></script>
+
+</head>
+    <body>
+        <!--	
+        Ссылка с классом 'cloud-zoom' должна содержать уменьшенную копию изображения.
+        Атрибут href должен указывать на большое изображение.
+        Опции задаются через атрибут rel ссылки в формате JavaScript но без скобок.
+        -->
+    	
+        <a href='img/bigimage00.jpg' class = 'cloud-zoom' id='zoom1'
+            rel="adjustX: 10, adjustY:-4, softFocus:true">
+            <img src="img/smallimage.jpg" alt='' align="left" title="Текст заголовка" />
+        </a>
+      
+      
+        
+    <p>Содержание старницы</p>
+        
+<!--	
+        Можно создать галерею с помощью класса 'cloud-zoom-gallery'.
+        Атрибут href ссылки должен указывать на большое изображение.
+        В атрибуте rel нужно указать ID элемента для вывода большого изображения (useZoom: 'zoom1'),
+        и используемую уменьшенную копию (smallImage: img/....)
+        -->
+        
+		<a href='/cloud_zoom/img/bigimage00.jpg' class='cloud-zoom-gallery' title='Миниатюра 1'
+		rel="useZoom: 'zoom1', smallImage: '/cloud_zoom/img/smallimage.jpg' ">
+		<img src="/cloud_zoom/img/tinyimage.jpg" alt = "Миниатюра 1"/></a>
+
+		<a href='/cloud_zoom/img/bigimage01.jpg' class='cloud-zoom-gallery' title='Миниатюра 2'
+		rel="useZoom: 'zoom1', smallImage: ' /cloud_zoom/img/smallimage-1.jpg'">
+		<img src="/cloud_zoom/img/tinyimage-1.jpg" alt = "Миниатюра 2"/></a>                  
+
+		<a href='/cloud_zoom/img/bigimage02.jpg' class='cloud-zoom-gallery' title='Миниатюра 3'
+		rel="useZoom: 'zoom1', smallImage: '/cloud_zoom/img/smallimage-2.jpg' ">
+		<img src="/cloud_zoom/img/tinyimage-2.jpg" alt = "Миниатюра 3"/></a>
+    
+    </body>
+</html>

@@ -1,0 +1,120 @@
+/* 	Library Style Developer coder Alexander Moskvin  sasha-freez@mail.ru. for site http://sasha-freez.ru */
+/* media css */
+/* maket media screen css  */
+@media screen and (max-width:1220px){
+.container{padding:0 20px;}
+}
+
+@media screen and (max-width:1160px){
+	.b_abouts .img_r{width:360px; height:353px;}
+	.idx_recreation .rr1 .img{width:395px; height:395px;}
+	.idx_recreation .rr2 .img{width:405px; height:413px;}
+	.idx_recreation .rr3 .img{width:410px; height:402px;}
+}
+
+/* design 980 */
+@media screen and (max-width:980px){
+	.idx_price{max-width:800px; margin:0 auto;}
+	.idx_price .wrap{display:block; width:auto; margin:0 -20px;}
+	.idx_price .wrap .row{display:block; width:auto; height:350px; border:none !important; background-position:right 0 !important;}
+	.idx_price .wrap .desc{display:table-cell; vertical-align:middle; height:350px; padding-left:90px;}
+	
+	.b_gal-albums .item{width:50%;}
+}
+
+
+@media screen and (max-width:950px){
+	.b_cloud:after{left:-180px;}
+	.b_cloud:before{right:-180px;}
+	
+	.ttop .b_menu{float:none; display:inline-block; vertical-align:top; margin:20px 20px 0 0;}
+	.ttop .logo{float:none; display:inline-block; vertical-align:top;}
+	
+	.menu .bl_menu{display:none;}
+	.menu .socials{float:none; margin:0; padding:10px 0;}
+	.socials a{margin:0 2px;}
+	
+	.b_slider_top .img{min-height:340px; background-size:auto 340px; background-image:url('../images/slider_top/1_340.jpg');}
+	
+	.b_abouts .img_r{width:270px; height:265px;}
+	.idx_recreation .rr1 .img{width:296px; height:296px;}
+	.idx_recreation .rr2 .img{width:304px; height:310px;}
+	.idx_recreation .rr3 .img{width:308px; height:302px;}
+	
+	.section_questions{padding:80px 0 85px 0;}
+	.section_questions .sq_title{font-size:28px; padding:0 0 15px 0;}
+	.section_questions .form_questions{padding-bottom:0;}
+	.section_questions .input{display:block; margin:0 auto 15px; padding:0;}
+	.section_questions .btn-red{text-align:center;}
+	.section_questions .btn-red > *{width:210px; display:block; margin:0 auto;}
+
+	.ftop{padding:0 0 10px 0; text-align:center;}
+	.ftop .row{float:none !important; margin:0 0 40px 0 !important; width:auto !important;}
+	.ftop .p_title{display:inline-block; vertical-align:top;}
+	.ftop .f_addr{max-width:1000px;}
+	.ftop .btn-order{margin:0 auto;}
+	
+}
+
+@media screen and (max-width:759px){
+	.b_cloud:after{left:-200px;}
+	.b_cloud:before{right:-200px;}
+	
+	.b_slider_top .img{min-height:300px; background-size:auto 300px; background-image:url('../images/slider_top/1_300.jpg');}
+	
+	.b_abouts .img_r{float:none; margin:0 auto; padding:0 0 15px 0;}
+	.idx_recreation{padding-bottom:10px;}
+	.idx_recreation .row{display:block; width:auto;}
+	.idx_recreation .row > *{display:block; width:auto; padding:0 0 25px 0;}
+	.idx_recreation .row .img{margin:0 auto; padding:0 0 15px 0 !important;}
+	.idx_recreation .row.rr3 .img{display:none;}
+}
+
+@media screen and (max-width:680px){
+	.idx_price .wrap .row{height:320px; background-size:auto 320px;}
+	.idx_price .wrap .desc{height:320px; padding-left:80px;}
+	
+	.form_popup{width:100%; box-sizing:border-box; left:0; margin-left:0; height:400px;}
+	.form_order{padding:10px 15px;}
+	.form_order .hform{font-size:26px; padding:10px 0 15px 0;}
+}
+
+@media screen and (max-width:560px){
+	.b_slider_top .img{min-height:275px; background-size:auto 250px; background-image:url('../images/slider_top/1_250.jpg');}
+	.ttop{text-align:center;}
+	.ttop .b_menu{margin-left:30px;}
+	.ttop .logo{margin-right:30px; margin-bottom:23px;}
+	.ttop .ml_r{float:none; display:inline-block; vertical-align:top; padding:0 0 17px 0;}
+	
+	.idx_price .wrap .row{height:300px; background-size:auto 300px;}
+	.idx_price .wrap .desc{height:300px; padding-left:70px;}
+	
+	.b_gal-albums .item{width:auto; display:block; text-align:center;}
+	
+	.b_map .map{margin-bottom:25px;}
+	.b_map .map:before, .b_map .map:after, .b_map .map .bg:before{display:none;}
+	
+	.fbottom .copyright{float:none; text-align:center; padding:0 0 15px 0;}
+	.socials{float:none; text-align:center;}
+	
+	.form_order .hform{font-size:22px;}
+}
+
+@media screen and (max-width:480px){
+	.b_slider_top .img{min-height:250px; background-size:auto 220px;}
+	.b_map .map iframe{height:550px;}
+	
+}
+
+
+@media screen and (max-width:450px){
+	.container{padding:0 15px;}
+	.idx_price .wrap{margin:0 -15px;}
+	.ttop .b_menu{margin-left:0;}
+	.ttop .logo{margin-right:0;}
+}
+
+@media screen and (max-width:360px){
+	.container{padding:0 10px;}
+	.idx_price .wrap{margin:0 -10px;}
+}

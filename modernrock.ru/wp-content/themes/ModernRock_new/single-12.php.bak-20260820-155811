@@ -1,0 +1,300 @@
+<?php
+get_header();
+?>
+<?php $date = new DateTime(); ?>
+<link rel="stylesheet" href="/css/media_inner.css" type="text/css" media="all" />
+<div class="block_left">
+	<?php include('sn_breadcrumbs.php'); ?>
+
+	<div class="bdetails d_groups">
+		<?php wp_reset_query(); if (have_posts()) : ?>
+		<?php while (have_posts()) : the_post(); ?>
+		<?php
+			$large = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full');
+			if ($large[0]=='') $large[0]='/wp-content/uploads/2012/11/small_'.get_post_meta(get_the_ID(), 'attached_img', true);
+			$tmp_tag = get_the_tag_list('<div class="h3">Теги:</div>', '<span class="qt">&nbsp;</span>', '');
+			$tmp_title = get_the_title();
+			$tmp_count = get_post_meta(get_the_ID(), 'country', true);
+			$sql_title = get_the_title(get_the_ID());
+			$gigsbot_artist_name = $sql_title;
+
+			// Прошедшие концерты из WordPress
+			global $wpdb;
+			$rowID = $wpdb->get_results("SELECT * FROM `wp_postmeta` WHERE `meta_key` = 'group_afisha' AND `meta_value` = '$sql_title' LIMIT 100");
+			$g = 0; $groupID = '';
+			foreach ($rowID as $resID) {
+				if ($g != 0) $groupID .= ',';
+				$groupID .= $resID->post_id;
+				$g++;
+			}
+			$now = time();
+			$ticketPrevID = ['0'];
+			if ($groupID) {
+				$rowTickets = $wpdb->get_results("SELECT * FROM `wp_posts` JOIN `wp_postmeta` WHERE `post_status`='publish' AND `ID`=`post_id` AND `ID` IN ($groupID) and `meta_key`= 'data_afisha' LIMIT 100");
+				foreach ($rowTickets as $rt) {
+					if (strtotime($rt->meta_value) < $now) {
+						$ticketPrevID[] = $rt->post_id;
+					}
+				}
+			}
+		?>
+
+		<!-- Schema.org MusicGroup -->
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "MusicGroup",
+			"name": "<?php echo esc_js($sql_title); ?>",
+			"url": "<?php echo esc_js(get_permalink()); ?>",
+			"image": "<?php echo esc_js($large[0]); ?>"
+		}
+		</script>
+
+		<h1 style="padding-bottom: 0 !important;"><?php the_title(); ?> <?php if ($tmp_count<>''): ?>(<?php echo $tmp_count; ?>)<?php endif; ?> — концерты</h1>
+		<h2 style="font-size: 13px; line-height: 17px;">Афиша концертов артиста в Москве, СПБ и других городах России</h2>
+		<?php include('sn_social.php'); ?>
+		<div class="img"><img src="<?php echo $large[0]; ?>" alt="<?php the_title(); ?>" /></div>
+		<div style="margin-bottom: 30px;"></div>
+		<?php endwhile; ?>
+		<?php endif; ?>
+
+		<?php
+		// === GigsBot: все концерты артиста ===
+$cache_key = 'gigsbot_web_artist_' . md5($gigsbot_artist_name);
+		
+$gigsbot_concerts = get_transient($cache_key);
+		if ($gigsbot_concerts === false) {
+$gigsbot_url = 'https://api.tcket.ru/api/concerts_web?artist=' . urlencode($gigsbot_artist_name) . '&token=gigsbot2026';
+			$gigsbot_response = wp_remote_get($gigsbot_url, ['timeout' => 8]);
+			$gigsbot_concerts = [];
+			if (!is_wp_error($gigsbot_response)) {
+				$gigsbot_data = json_decode(wp_remote_retrieve_body($gigsbot_response), true);
+				if (!empty($gigsbot_data['concerts'])) $gigsbot_concerts = $gigsbot_data['concerts'];
+			}
+			set_transient($cache_key, $gigsbot_concerts, DAY_IN_SECONDS);
+		}
+
+		// Разделяем на Москву, Питер и другие города
+		$concerts_msk = [];
+		$concerts_spb = [];
+		$concerts_other = [];
+		foreach ($gigsbot_concerts as $c) {
+			if ($c['city'] === 'Москва') $concerts_msk[] = $c;
+			elseif ($c['city'] === 'Санкт-Петербург') $concerts_spb[] = $c;
+			else $concerts_other[$c['city']][] = $c;
+		}
+
+		// Форматирование даты
+		$format_date = function($date_str) {
+			$date_str = preg_replace('/\+\d{2}:\d{2}$/', '', $date_str);
+			$ts = strtotime($date_str);
+			if (!$ts) return $date_str;
+			$months = [1=>'января',2=>'февраля',3=>'марта',4=>'апреля',5=>'мая',6=>'июня',
+					   7=>'июля',8=>'августа',9=>'сентября',10=>'октября',11=>'ноября',12=>'декабря'];
+			$time = date('H:i', $ts);
+			return date('j', $ts) . ' ' . $months[(int)date('n', $ts)] . ' ' . date('Y', $ts)
+				   . ($time !== '00:00' ? ', ' . $time : '');
+		};
+
+		// Функция вывода карточки концерта
+		$gigsbot_internal_url = function($item, $artist_name) {
+    $external_url = $item['url'];
+    if (function_exists('concert_city_to_slug')) {
+        $item_date_str = preg_replace('/\+\d{2}:\d{2}$/', '', $item['date']);
+        $ts = strtotime($item_date_str);
+        $city_slug = concert_city_to_slug($item['city']);
+        if ($ts && $city_slug) {
+            $artist_slug = sanitize_title($artist_name);
+            $internal_url = home_url('/concert/' . $artist_slug . '-' . $city_slug . '-' . date('Y-m-d', $ts) . '/');
+            return ['url' => $internal_url, 'internal' => true];
+        }
+    }
+    return ['url' => $external_url, 'internal' => false];
+};
+
+$render_card = function($c, $artist_name, $artist_photo) use ($format_date, $gigsbot_internal_url) {
+    $gigsbot_card_url = $gigsbot_internal_url($c, $artist_name)['url'];
+			$date_fmt = $format_date($c['date']);
+			$date_iso = substr(preg_replace('/\+\d{2}:\d{2}$/', '', $c['date']), 0, 19);
+			$is_yandex = ($c['source'] === 'yandex');
+			?>
+			<script type="application/ld+json"><?php echo json_encode([
+				'@context' => 'https://schema.org',
+				'@type' => 'Event',
+				'name' => $artist_name,
+				'startDate' => $date_iso,
+				'location' => ['@type' => 'Place', 'name' => $c['place'], 'address' => ['@type' => 'PostalAddress', 'addressLocality' => $c['city'], 'addressCountry' => 'RU']],
+				'offers' => ['@type' => 'Offer', 'price' => $c['price'], 'priceCurrency' => 'RUB', 'url' => $c['url'], 'availability' => 'https://schema.org/InStock'],
+				'performer' => ['@type' => 'MusicGroup', 'name' => $artist_name]
+			], JSON_UNESCAPED_UNICODE); ?></script>
+			<div class="item">
+				<div class="img">
+					<a href="<?php echo esc_url($gigsbot_card_url); ?>" rel="nofollow" target="_blank">
+						<b></b><img src="<?php echo esc_url(kama_thumb_src('w=140&h=80', $artist_photo)); ?>" width="140" height="80" alt="<?php echo esc_attr($artist_name); ?>" />
+					</a>
+				</div>
+				<div class="desc">
+					<div class="date">
+						<a href="<?php echo esc_url($gigsbot_card_url); ?>" rel="nofollow" target="_blank"><?php echo esc_html($date_fmt); ?></a>
+					</div>
+					<div class="club"><?php echo esc_html($c['place']); ?></div>
+					<?php if ($c['price']): ?>
+					<div class="price">билеты от <?php echo number_format($c['price'], 0, '', ' '); ?> руб.</div>
+					<?php endif; ?>
+					</div>
+				<div class="buytickets">
+					<div class="buy">
+						<a href="<?php echo esc_url($gigsbot_card_url); ?>" rel="nofollow" target="_blank">Купить билет</a>
+					</div>
+					<?php if ($is_yandex): ?>
+					<div style="font-size:11px; color:#888; margin-top:4px;">🏷️ Скидка 100% на сервисный сбор (при покупке от 3 000 руб.) по промокоду → <b>ZZ326487</b></div>
+					<?php endif; ?>
+				</div>
+			</div>
+			<?php
+		};
+
+		// Москва
+		echo '<h2 class="h2bl">Концерты ' . esc_html($gigsbot_artist_name) . ' в Москве:</h2>';
+		echo '<div class="ticket_list ticket_list_cont">';
+		if (!empty($concerts_msk)) {
+			foreach ($concerts_msk as $c) $render_card($c, $gigsbot_artist_name, $large[0]);
+		} else {
+			echo '<div class="ticket_no">В ближайшее время событий не запланировано.</div>';
+		}
+		echo '</div>';
+
+		// Питер
+		echo '<br/><h2 class="h2bl">Концерты ' . esc_html($gigsbot_artist_name) . ' в Санкт-Петербурге:</h2>';
+		echo '<div class="ticket_list ticket_list_cont">';
+		if (!empty($concerts_spb)) {
+			foreach ($concerts_spb as $c) $render_card($c, $gigsbot_artist_name, $large[0]);
+		} else {
+			echo '<div class="ticket_no" style="margin-bottom: 44px;">В ближайшее время событий не запланировано.</div>';
+		}
+		echo '</div>';
+
+		// Другие города
+		if (!empty($concerts_other)) {
+			echo '<br/><h2 class="h2bl">Концерты в других городах:</h2>';
+			echo '<div class="ticket_list ticket_list_cont2" style="background:#f5f5f5; border-radius:8px; padding:16px 20px; margin:16px 0 24px 0;">';
+			foreach ($concerts_other as $gigsbot_city => $events) {
+				foreach ($events as $ge) {
+					$ge_date_str = preg_replace('/\+\d{2}:\d{2}$/', '', $ge['date']);
+					$ge_ts = strtotime($ge_date_str);
+					$months = [1=>'января',2=>'февраля',3=>'марта',4=>'апреля',5=>'мая',6=>'июня',7=>'июля',8=>'августа',9=>'сентября',10=>'октября',11=>'ноября',12=>'декабря'];
+					$ge_date_fmt = date('j', $ge_ts) . ' ' . $months[(int)date('n', $ge_ts)] . ' ' . date('Y', $ge_ts);
+					$ge_date_iso = substr($ge_date_str, 0, 19);
+					$gigsbot_other_url = $gigsbot_internal_url($ge, $gigsbot_artist_name)['url'];
+					echo '<script type="application/ld+json">' . json_encode([
+						'@context' => 'https://schema.org',
+						'@type' => 'Event',
+						'name' => $gigsbot_artist_name,
+						'startDate' => $ge_date_iso,
+						'location' => ['@type' => 'Place', 'name' => $ge['place'], 'address' => ['@type' => 'PostalAddress', 'addressLocality' => $gigsbot_city, 'addressCountry' => 'RU']],
+						'offers' => ['@type' => 'Offer', 'price' => $ge['price'], 'priceCurrency' => 'RUB', 'url' => $ge['url'], 'availability' => 'https://schema.org/InStock'],
+						'performer' => ['@type' => 'MusicGroup', 'name' => $gigsbot_artist_name]
+					], JSON_UNESCAPED_UNICODE) . '</script>';
+					echo '<div class="row">';
+					echo '<a href="' . esc_url($gigsbot_other_url) . '" rel="nofollow" target="_blank">' . esc_html($ge_date_fmt) . ' — ' . esc_html($gigsbot_city) . ', ' . esc_html($ge['place']) . ' 🎟</a>';
+					if ($ge['source'] === 'yandex') echo '<br><span style="color:#888; font-size:12px;">🏷️ Скидка 100% на сервисный сбор (при покупке от 3 000 руб.) по промокоду → <b>ZZ326487</b></span>';
+					echo '</div>';
+				}
+			}
+			echo '</div>';
+		}
+		// === конец GigsBot ===
+		?>
+
+		<div style="background:#f5f5f5; border-radius:8px; padding:16px 20px; margin:16px 0 24px 0;">
+			<div style="font-size:15px; font-weight:bold; margin-bottom:6px;">🎟 Концерты <?php echo esc_html($sql_title); ?> по всей России</div>
+			<div style="font-size:13px; color:#555; margin-bottom:12px;">Билеты на Яндекс Афише — скидка 100% на сервисный сбор (при покупке от 3 000 руб.) по промокоду <b style="color:#333;">ZZ326487</b></div>
+			<div class="buytickets" style="padding-top:0 !important;">
+				<div class="buy">
+					<a target="_blank" href="https://bednari.com/g/9y9zbxr10lbc0786bc43342c94faa7/?erid=25H8d7vbP8SRTvHZrUcdLB&ulp=https%3A%2F%2Fafisha.yandex.ru%2Fsearch%3Fcity%3Dmoscow%26search-text=<?php echo urlencode($sql_title); ?>">Найти концерты →</a>
+				</div>
+			</div>
+		</div>
+
+		<?php
+		// Прошедшие концерты из WordPress
+		wp_reset_query();
+		$arh_tmp = ['showposts' => 20, 'cat' => 2872, 'post__in' => $ticketPrevID];
+		query_posts($arh_tmp);
+		if (have_posts()):
+		?>
+		<br/>
+		<h3>Прошедшие концерты:</h3>
+		<div class="ticket_list ticket_list_cont2">
+		<?php while (have_posts()) : the_post(); ?>
+		<div class="row">
+			<a href="<?php the_permalink(); ?>"><?php echo date('d', strtotime(get_post_meta(get_the_ID(), 'data_afisha', true))); ?> <?php echo date_gigs(get_post_meta(get_the_ID(), 'data_afisha', true), 0); ?> <?php echo date('Y', strtotime(get_post_meta(get_the_ID(), 'data_afisha', true))); ?> - <?php echo get_post_meta(get_the_ID(), 'club', true); ?>, <?php echo get_post_meta(get_the_ID(), 'city', true); ?></a>
+		</div>
+		<?php endwhile; ?>
+		</div>
+		<?php endif; ?>
+
+		<?php wp_reset_query(); if (have_posts()) : ?>
+		<?php while (have_posts()) : the_post(); ?>
+		<div class="post_content" id="cat_more">
+			<?php if (get_post_time() > 1416839400): ?>
+				<?php the_content('', true); ?>
+			<?php else: ?>
+				<?php the_content(); ?>
+			<?php endif; ?>
+		</div>
+		<?php endwhile; ?>
+		<?php endif; ?>
+	</div>
+
+	<div class="tags"><?php echo $tmp_tag; ?></div>
+
+	<?php
+		wp_reset_query();
+		$arh = ['showposts'=>'6','cat'=>'3','meta_key'=>'news_group','meta_value'=>$tmp_title];
+		query_posts($arh); $i=0;
+	?>
+	<?php if (have_posts()) : ?>
+	<div class="n-item bnews relative_news">
+		<div class="h3">Новости об этом исполнителе</div>
+		<?php while (have_posts()) : the_post(); ?>
+		<?php $large = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full'); if ($large[0]=='') $large[0]='/wp-content/uploads/2012/11/small_'.get_post_meta(get_the_ID(), 'attached_img', true); ?>
+		<div class="row">
+			<a href="<?php the_permalink(); ?>">
+				<span class="img"><img src="<?php echo kama_thumb_src('w=47&h=47',$large[0]); ?>" width="47" height="47" alt="<?php the_title_attribute(); ?>" /></span>
+				<span class="desc"><span class="name"><?php the_title(); ?></span></span>
+			</a>
+		</div>
+		<?php $i++; endwhile; ?>
+	</div>
+	<?php endif; ?>
+
+	<?php
+		wp_reset_query();
+		$arh = ['showposts'=>'6','cat'=>'7','meta_key'=>'video_group','meta_value'=>$tmp_title];
+		query_posts($arh); $i=0;
+	?>
+	<?php if (have_posts()) : ?>
+	<div class="n-item bnews relative_news">
+		<div class="h3">Видео с этим исполнителем</div>
+		<?php while (have_posts()) : the_post(); ?>
+		<?php $large = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full'); if ($large[0]=='') $large[0]='/wp-content/uploads/2012/11/small_'.get_post_meta(get_the_ID(), 'attached_img', true); ?>
+		<div class="row">
+			<a href="<?php the_permalink(); ?>">
+				<span class="img"><img src="<?php echo kama_thumb_src('w=47&h=47',$large[0]); ?>" width="47" height="47" alt="<?php the_title_attribute(); ?>" /></span>
+				<span class="desc"><span class="name"><?php the_title(); ?></span></span>
+			</a>
+		</div>
+		<?php $i++; endwhile; ?>
+	</div>
+	<?php endif; ?>
+</div>
+
+<aside class="block_right">
+	<?php include('sn_adv_google.php'); ?>
+	<?php include('sn_banners_r.php'); ?>
+</aside>
+<div class="block_popup" id="block_popup"><span class="close"></span>
+	<div class="wrapper_popup" id="wrapper_popup"></div>
+</div>
+<?php get_footer(); ?>

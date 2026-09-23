@@ -1,0 +1,217 @@
+/* 	Library Style Developer coder Alexander Moskvin  sasha-freez@mail.ru. */
+
+
+
+/* main css */
+
+/* Default css style for xhtml tag */
+
+body{font-family: Arial; font-size: 12px; color: #000000;background:#C1C1C1 url(/images/bg/bg-shadom.gif) repeat-y center top; margin: 0px;padding: 0px;}
+
+
+
+a{color:#ED1C24; text-decoration:none;}
+
+a:hover{ text-decoration:underline;}
+
+
+
+h1{font-size: 18px; color:#ED1C24; margin: 0px;}
+
+h2{font-size: 14px; color:#0228C0; margin: 0px; padding-bottom:20px;}
+
+h3{font-size: 12px; color:#ED1C24; margin: 0px; padding-bottom:20px; font-weight:normal;}
+
+h4{font-size: 12px; color:#ED1C24; margin: 0px; padding-bottom:7px;}
+
+h5{font-size: 12px; color:#000; margin: 0px;}
+
+
+
+p{margin:0px; padding:0px 0 11px 0px;}
+
+ol{}
+
+ul{ margin:0px; padding:0px;}
+
+li{background:url(../images/icon/li.gif) no-repeat scroll 5px 6px;line-height:14px;list-style:none;margin:0;padding:0 0 5px 15px;}
+
+
+
+/* /Default css style for xhtml tag */
+
+
+
+
+
+/* content */
+
+#container{ width:100%;}
+
+
+
+
+
+.content{ padding:0px 0 0px 0px; position:relative; z-index:10; width:999px; margin:0px auto;}
+
+.content table td{ vertical-align:top;}
+
+
+
+.footer{ padding:0 0px; background:url(../images/flag.jpg) no-repeat 0 0; height:80px;}
+
+/* /content */
+
+
+
+
+
+.block-left{ padding:0px 0 0 0px; width:204px;}
+
+.block-left .spacer{ width:204px; height:1px;}
+
+
+
+.block-center{ width:593px; background:#FFF url(../images/bg/shadom.png) repeat-y 0 0; }
+
+.block-center .fon{ background:url(../images/bg/shadom_r.png) repeat-y right 0;}
+
+
+
+.block-right{width:202px;padding:0px 0px 218px 0px; background:url(../images/bg/right-bottom.jpg) no-repeat 0 bottom;}
+
+.block-right .spacer{ width:202px; height:1px;}
+
+
+
+ padding:0 15px 0 15px;
+
+
+
+/* Used regularly css */
+
+.pngfix{}
+
+* strong, * b{font-weight:bold;}
+
+* i, * em{font-style: italic;}
+
+html{font-size:100.01%;}
+
+.fleft{float:left;}
+
+.fright{float:right;}
+
+.clear{clear:both;}
+
+.clear_right{ clear:right;}
+
+a img{ border:none medium;}
+
+.color-red{ color:#ED1C24; font-size:12px;}
+
+.color-blue{ color:#0228C0; font-size:12px;}
+
+
+
+/* Default css style for regular block */
+
+.gerb{ text-align:center; padding:0 0 0 0px; height:193px;}
+
+.gerb img{ margin:39px 0 0 0px;}
+
+.logo{height:193px;}
+
+.logo img{ margin:50px 0 0 25px;}
+
+
+
+.block-title{ background:url(../images/bg/title.jpg) repeat-x 0 0; height:47px; overflow:hidden; text-align:center; padding:12px 0 20px 0px;}
+
+.block-title h2{ font-size:12px; color:#ED1C24; text-transform:uppercase;}
+
+.block-title h2 a{font-size:12px; color:#ED1C24; text-decoration:none;}
+
+
+
+.block-content{ padding:0 15px 0 15px;}
+
+
+
+.block-left .menu{padding:0 0 10px 30px; }
+
+.block-left .menu a{ display:block; font-weight:bold; font-size:12px; color:#0228C0; background:url(../images/bg/round-red.png) no-repeat 0 5px; 
+
+padding:0px 0 12px 10px; text-transform:uppercase;}
+
+.block-left .menu a:hover{ color:#ED1C24; font-size:12px; text-decoration:underline;}
+
+.block-left .menu a.active{color:#ED1C24; font-size:12px; text-decoration:underline;}
+
+
+
+.block-center .menu{ padding:0px 0px 10px 0px; background:#C1C1C1; height:41px; margin-bottom:20px; overflow:hidden;}
+
+.block-center .menu a{font-weight:bold; font-size:12px; color:#0228C0; float:left;  border:1px solid #9B9B9B; background:url(../images/bg/menu.gif) repeat-x 0 0;
+
+padding:3px 10px 3px 10px; display:inline; margin:0 1px 1px 1px; text-transform:uppercase;}
+
+
+
+.block-center .menu a:hover{ color:#ED1C24; font-size:12px; text-decoration:underline;}
+
+.block-center .menu a.active{color:#ED1C24; font-size:12px; text-decoration:underline; background-image:none;}
+
+.block-center .menu .m5{ margin-left:70px;}
+
+.block-center .menu .sh_r{ padding:2px 10px 2px 17px;}
+
+
+
+
+
+.block-name-title{ height:31px; color:#fff; font-size:21px; text-align:center; background:#0228C0; padding:4px 0 0 0px;}
+
+
+
+.small-text{ font-size:9px; text-align:center; padding:30px 0 0 0px;}
+
+
+
+.sh_l{ background:url(../images/bg/shadom.png) repeat-y 0 0;}
+
+.sh_r{ background:url(../images/bg/shadom_r.png) repeat-y right 0; }
+
+
+
+.block-content{ padding-bottom:20px; min-height:600px;}
+
+
+
+.notary{ background:url(../images/bg/list.png) no-repeat 0 0; height:215px; padding:0 10px 40px 10px; font-size:12px;}
+
+.notary td{ padding:0 0 3px 0px;}
+
+.notary .font{ font-size:11px; padding-bottom:10px;}
+
+
+
+.block-contact{ text-align:center; padding:0 10px 0 10px;}
+
+.block-contact p{ font-size:12px;}
+
+.block-contact .tel{ font-size:16px; color:#ED1C24;}
+
+.block-images{ width:593px; overflow:hidden; height:162px; text-align:center;}
+
+.block-images img{}
+
+
+
+.table table{ border-collapse:collapse; border:1px solid #ccc;}
+
+.table table td{border:1px solid #ccc; vertical-align:middle;}
+
+.table table td p{ padding:5px 0 5px 0px;}
+
+.LiveInternet{ text-align:center;}

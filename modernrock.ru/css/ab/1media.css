@@ -1,0 +1,217 @@
+/* 	Library Style Developer coder Alexander Moskvin  sasha-freez@mail.ru. for site http://sasha-freez.ru */
+/* fonts */
+@import url('/css/gotham/stylesheet.css');
+/* root css */
+@import url('/css/master.css');
+/* maket media screen css  */
+/* width 1200 to all */
+@media (min-width:1290px){
+.container{width:1240px;}
+.block_left{width:930px;}
+.block_right{margin-top:-121px;}
+footer .fmenu ul{text-align:center;}
+footer .partners{text-align:center;}
+}
+
+@media (max-width:1310px){ /* ipad and 19-17 */
+.container{width:930px;}
+body.custom-background{background-size:1500px auto;}
+.bannerHeader, .bannerHeader a{height:255px;}
+
+.banner_t{height:auto; margin:0 0 5px 0;}
+.banner_t img{width:100%; height:auto;}
+.banner_t img:hover{float:none;}
+}
+
+/* design 999 to 760 */
+@media screen and (max-width:999px){
+body.custom-background{background-size:1200px auto;}
+.bannerHeader, .bannerHeader a{height:200px;}
+
+.container{width:100% !important; min-width:100% !important; max-width:100% !important; box-sizing:border-box; padding:0 20px;}
+
+footer{margin: 0 -20px;}
+footer .fline, footer .fmenu, footer .partners{padding-left:20px; padding-right:20px;}
+.head_bottom .menu, footer .fmenu{display:none;}
+
+header .icon-menu{margin:-10px 0px 0 -10px; display:block;}
+header .head_top{text-align:center; padding:15px 0 0 0;}
+header .logo{padding:1px 0 0 0; float:none; display:inline-block; vertical-align:top;}
+header .lg_sounds{float:right; margin:6px 0 0 0;}
+
+header .search{float:left; width:100%; margin:25px 0 25px 0}
+header .search .inp{width:100% !important;}
+
+.block_left{float:none; width:auto;}
+.block_right{float:none; width:auto;}
+
+.socials{margin:0 0 8px 0;}
+.socials .social_shape{text-align:center; margin:0 -10px;}
+.socials .at300b{float:none !important; display:inline-block; vertical-align:top; padding:0 !important;}
+footer .partners{text-align:center !important;}
+footer .partners a{margin:0 9px 15px 9px !important;}
+
+div[id^="vk_post_"]{width:100% !important;}
+#vkwidget1{width:100% !important;}
+
+.banners_r > div{display:block; width:auto; margin-left:auto; margin-right:auto;}
+.banners_r, .banner_r{margin-left:auto; margin-right:auto; width:280px;}
+
+/* row items in pages */
+.section_list{width:656px; margin:0 auto;}
+.section_list ul li .row{padding-left:20px; padding-right:20px;}
+.section_list ul li .row .img{max-width:100%;}
+.section_list ul li .row .img img{max-width:100%;}
+.section_list ul .small .row .img{max-width:47px;}
+.section_list ul .small .row .img img{max-width:275px;}
+
+.section_notices{width:765px; margin:0 auto; overflow:hidden;}
+.section_notices .tiles3{width:auto; margin:0;}
+.section_notices .tiles3 li{width:255px; text-align:left;}
+.section_notices .tiles3 li .row{padding-left:27px; padding-right:27px;}
+/* leaks */
+.leaks_top{padding:15px; text-align:center; margin-bottom:-25px;}
+.leaks_top ul{margin:0 -15px;}
+.leaks_top ul li{margin:0 15px; text-align:left; width:220px;}
+.leaks_top .row{margin:0 0 25px 0;}
+.leaks_top .row .img img{max-width:100%;}
+
+.leaks_list{width:auto; text-align:center;}
+.leaks_list .tiles3 li{width:232px; text-align:left;}
+.leaks_list .tiles3 li .row{padding-left:16px; padding-right:16px;}
+.leaks_list .tiles3 li .row .img{width:auto;}
+.leaks_list .tiles3 li .row .img img{max-width:100%;}
+
+
+/* sounds */
+.gr_sounds{width:auto; text-align:center;}
+.gr_sounds .tiles3 .gr_first{margin:0 0 35px 0;}
+.gr_sounds .tiles3 .gr_first .row{margin:0 auto; width:500px; padding-left:0; padding-right:0;}
+.gr_sounds .tiles3 li{width:232px; text-align:left;}
+.gr_sounds .tiles3 li .row{padding-left:16px; padding-right:16px;}
+.gr_sounds .tiles3 li .row .img{width:auto;}
+
+
+/* tickets */
+.tk-recommended{float:none; max-width:560px; width:auto; margin:0 0 25px 0;}
+.last-tickets{float:none; width:auto;}
+}
+@media screen and (max-width:820px){
+.section_notices{width:711px;}
+.section_notices .tiles3{margin:0 -27px;}
+.leaks_top ul{margin:0 -15px;}
+.leaks_top ul li{margin:0 15px; width:205px;}
+.leaks_top .row .img img{max-width:100%;}
+}
+@media screen and (max-width:765px){
+.section_notices{width:auto; text-align:center;}
+.section_notices .tiles3{margin:0;}
+
+.leaks_top ul li{width:245px;}
+.leaks_list .tiles3 li{width:230px;}
+.leaks_list .tiles3 li .row{padding-left:15px; padding-right:15px;}
+.leaks_list .tiles3 li .row .img{width:auto;}
+.leaks_list .tiles3 li .row .img img{max-width:100%;}
+
+.gr_sounds .tiles3 li{width:245px;}
+.gr_sounds .tiles3 li .row{padding-left:15px; padding-right:15px;}
+.gr_sounds .tiles3 li .row .img{width:auto;}
+.gr_sounds .tiles3 li .row .img img{max-width:100%;}
+ 
+.sounds_album .wrap{padding:10px;}
+.sounds_album .img{display:block; padding:0; margin:0 auto 25px auto; width:100%; max-width:320px;}
+.sounds_album .img img{width:100%;}
+.sounds_album .desc{display:block; margin:0 auto 25px auto;}
+.sounds_album .desc .kname{font-size:20px; line-height:22px;}
+
+}
+
+/* design 660 */
+@media screen and (max-width:660px){
+body.custom-background{background-size:1000px auto;}
+.bannerHeader{height:170px;}
+
+iframe{width:100% !important;}
+
+footer .fline .flogo{float:none; width:auto; text-align:center; margin:5px 0 20px 0;}
+footer .fline .flogo a{display:inline-block; vertical-align:top;}
+footer .social{float:none; width:auto; padding:0 0 20px 0; text-align:center;}
+footer .social a{float:none; display:inline-block; vertical-align:top; margin:0 4px;}
+footer .fline .copyright{font-size:12px; margin:0; text-align:center; margin:0 0 5px 0;}
+
+.banners_r > div{display:block; width:auto; margin-left:auto; margin-right:auto;}
+.banners_r, .banner_r{margin-left:auto; margin-right:auto; width:280px;}
+
+.section_list{margin:0; width:auto;}
+.section_list .tiles li{width:280px !important;}
+.section_list ul li{margin:0 auto; position:static !important; display:block;}
+.section_list ul li .row{padding-left:0; padding-right:0;}
+.section_notices{width:auto; text-align:center;}
+.section_notices .tiles3 li{width:230px;}
+.section_notices .tiles3 li .row{padding-left:15px; padding-right:15px;}
+
+.r_leaks ul li .row .img{width:115px !important; margin-right:20px;}
+.r_leaks ul li .row .img img{width:115px !important;}
+
+.gr_sounds .tiles3 .gr_first .row{width:285px;}
+.gr_sounds .tiles3 .gr_first .row .img{float:none; margin:0 0 15px 0; max-width:100%; width:auto;}
+.gr_sounds .tiles3 .gr_first .row .img img{max-width:100%;}
+.gr_sounds .tiles3 .gr_first .row .desc{display:block; height:auto;}
+.gr_sounds .gr_first br{display:none;}
+
+}
+
+
+@media screen and (max-width:600px){
+	.post_content img, .bimg img, .bdetails .img img, .bdetails img{max-width:100%; min-width:280px; width:auto; height:auto;}
+	#slider{width:100% !important; background-size:100% auto !important;}
+	.nivo-slice{width:100% !important; background-size:100% auto !important; border-radius: 4px;}
+	.nivo-caption .line .club{width:100px;}
+}
+/* design 520 to 320 body{margin:0 auto; width:340px;} */
+@media screen and (max-width:520px){
+body.custom-background{background-size:700px auto;}
+.bannerHeader, .bannerHeader a{height:115px;}
+
+.container{padding:0 10px;}
+footer{margin: 0 -10px;}
+footer .fline, footer .fmenu, footer .partners{padding-left:10px; padding-right:10px;}
+
+iframe{width:100% !important; height:240px;}
+
+.icon-menu{margin:-10px 0px 0 -10px;}
+header .head_top{padding:5px 0 0 0;}
+header .logo{padding:3px 0 0 0;}
+header .logo a{width:150px; height:24px; background-size:150px 24px;}
+header .lg_sounds{float:right; background-size:45px auto; width:45px; margin:11px 0 0 0;}
+header .search{margin:10px 0 25px 0;}
+
+.tk-recommended{float:none; width:auto; margin:0 0 20px 0;}
+.last-tickets{float:none; width:auto;}
+
+.ticket_list .item{float:none; width:auto; margin:0 0 20px 0;}
+.ticket_list .item .desc{margin-left:180px;}
+.ticket_list .item .desc .club{font-size:11px;}
+.ticket_list .item .desc .date{font-size:11px;}
+
+.one_ticket{margin:0 auto 0 auto; width:250px;}
+.one_ticket .img{float:none; margin:0 0 10px 0;}
+.one_ticket .desc{margin:0;}
+
+.gr_sounds .tiles3 .gr_first .row{width:260px;}
+.gr_sounds .tiles3 .gr_first .row .album{font-size:24px; line-height:24px;}
+.gr_sounds .tiles3 .gr_first .row .name{font-size:22px; line-height:22px;}
+
+.nivo-caption{bottom:10px; height:90px;}
+.nivo-caption p{height:100px;}
+.nivo-directionNav a{top:29px;}
+.nivo-caption .line{height:50px; float:none; width:auto; display:block; border-radius:0;}
+.nivo-caption .buy{position:static; height:50px; float:none; width:auto; display:block;}
+
+.socials .social_shape img{height:20px;}
+}
+
+@media screen and (max-width:420px){ 
+body.custom-background{background-size:550px auto;}
+.bannerHeader, .bannerHeader a{height:82px;}
+}

@@ -1,0 +1,155 @@
+/* 	Library Style Developer coder Alexander Moskvin  sasha-freez@mail.ru. for site http://sasha-freez.ru */
+/* media css */
+
+/* maket media screen css  */
+/* design 1200 to 960 */
+@media screen and (max-width:1200px){
+
+}
+
+/* design 959 to 760 */
+@media screen and (max-width:970px){ 
+iframe{width:100%; height:auto;}
+h1,.h1{font-size:24px; padding:0 20px 20px 20px;}
+h2,.h2{font-size:22px; padding:0 20px 10px 20px;}
+
+
+.container{width:auto;}
+.b_event .container{width:auto;}
+
+header .logo{float:none; text-align:center; display:block;}
+header .logo img{max-height:120px;}
+
+
+header .cont{float:none; text-align:center; padding-top:20px;}
+header .cont .tel{font-size:24px;line-height:32px;}
+header .cont .addr{padding:0 0 0 0;}
+header .cont .time{padding:0 0 15px 0;}
+
+header .social{text-align:center; padding-bottom:20px;}
+header .social a{margin:0 7px 0 7px;}
+
+
+.menu ul li{display:block; padding:0 25px 10px 25px;}
+.menu ul li a{font-size:22px;}
+.menu ul li ul{display:block; position:relative; padding:15px 0 0 0; left:0; top:0; text-align:center; border-bottom:1px solid #fff; width:auto;}
+.menu ul li ul li{padding-bottom:10px;}
+
+.b_two{padding:0 15px 40px 15px;}
+.b_two .block_left{float:none; width:auto;}
+.b_two .block_right{float:none; width:auto; text-align:center;}
+
+.b_banner img{max-width:200px;}
+
+
+footer{height:auto;}
+footer .container{padding-top:20px;}
+footer .flogo{float:none; width:60px; display:block; margin:0 auto 20px auto;}
+footer .copyright{float:none; width:140px; margin:0 auto 20px auto;}
+
+.fmenu{margin:0;}
+.fmenu ul li{display:block; padding:0 8px 5px 8px;}
+
+.events_list{margin-left:0;}
+.events_list .row{width:280px; margin:0 9px 20px 9px;}
+
+.events_details .img img{max-width:300px;}
+
+.tm_nav{text-align:center;}
+
+.foto_dlist{font-size:0; line-height:0; margin:0 0 0 0;}
+.foto_dlist .row{display:inline-block; vertical-align:top; width:180px; margin:0 10px 20px 10px;}
+
+.foto_list{margin:0 -10px 20px 0; font-size:0; line-height:0; text-align:center;}
+.foto_list .row{display:inline-block; vertical-align:top; width:480px; margin:0 0 35px 0;}
+
+.breadcrumbs, .foto_details .fltop .date{padding-left:15px; padding-right:15px;}
+
+.btn_form_order{float:none; margin:20px auto 0 auto; width:300px;}
+.menu ul li ul{border:none;}
+
+.paralax{height:300px; background-size:auto 300px;}
+}
+/* design 719 to 320 */
+@media screen and (max-width:599px){
+.paralax{height:200px; background-size:auto 200px;}
+body{font-size:13px;}
+h1,.h1{font-size:22px; padding:0 10px 15px 10px;}
+h2,.h2{font-size:20px; padding:0 10px 10px 10px;}
+.container{width:auto;}
+header .logo img{max-height:80px;}
+header .cont{font-size:13px;}
+header .cont .tel{font-size:20px;}
+
+.menu ul li a{font-size:18px;}
+
+.b_banner img{max-width:180px;}
+
+.sliders{padding:0 0 15px 0;}
+.sliders .owl-dots{margin-top:10px;}
+
+.foto_list{margin:0 -10px 20px 0; font-size:0; line-height:0;}
+.foto_list .row{display:inline-block; vertical-align:top; width:100%; margin:0 0 35px 0;}
+
+.foto_list .fltop{line-height:20px; font-size:13px;}
+.foto_list .fltop .date{ margin:0 10px 0 0; font-size:14px; height:20px; line-height:20px; width:80px;}
+.foto_list .fltop .name{font-size:16px;}
+.foto_list .fltop a:hover{opacity:0.8;}
+.foto_list .wrap{margin:0 auto; width:315px;}
+.foto_list .wrap .img img{display:block; width:95px; height:auto;}
+.foto_list .wrap .img:first-child img{width:200px;}
+
+.events_list{text-align:center;}
+.events_list .row{width:280px; margin:0 10px 20px 10px;}
+.events_list .row .name{font-size:15px;}
+.events_list .row .desc{font-size:13px;}
+
+.events_details{margin:0 10px;}
+.events_details .img{margin:0 auto; width:310px; padding:0 0 10px 0; float:none;}
+.events_details .img img{max-width:310px;}
+
+.foto_dlist{text-align:center;}
+.foto_dlist .row{display:inline-block; vertical-align:top; width:150px; margin:0 5px 15px 5px;}
+
+.tm_nav ul li{font-size:12px;}
+.ltitle{font-size:14px;}
+.menu_tab .td1 strong{font-size:14px;}
+
+.breadcrumbs, .foto_details .fltop .date{padding-left:10px; padding-right:10px;}
+
+
+.btn_form_order{width:230px;}
+
+.form_popup{width:260px; margin:-150px 0 0 -130px;}
+.form_popup form{padding:15px;}
+
+.form_popup .h1{font-size:14px; padding:0 0 5px 0;}
+.form_popup label{font-size:13px; display:block; padding:0 0 10px 0;}
+.form_popup .input{padding:0 0 10px 0;}
+
+.form_popup .textarea{padding:0 0 15px 0; margin-right:15px;}
+
+input[type="text"]{font-size:12px; height:22px; padding:0 0 0 10px;}
+textarea{font-size:13px; border-radius:4px; border:1px solid #cecece; width:100%; padding:8px 0 0 15px; height:50px;}
+
+.form_popup .person label{white-space:nowrap;}
+.form_popup .inp{font-size:13px; height:22px; border-radius:4px; border:1px solid #cecece; background:#fff; padding:0 5px 0 10px;}
+.form_popup .input select{width:100%; height:22px; background:none; border:none; cursor:pointer;}
+
+.form_popup .submit a, .btn-primary{font-size:18px; color:#fff; display:block; height:28px; line-height:28px;}
+
+.xdsoft_datetimepicker .xdsoft_label{font-size:12px !important;}
+.xdsoft_datetimepicker .xdsoft_month{width:70px !important;}
+.xdsoft_datetimepicker .xdsoft_datepicker{width:190px !important;}
+
+
+.ec-form{max-width:280px; margin:0 auto;}
+.ec-form .ec-rating{width:auto;}
+
+
+
+}
+/* design 420 - 320 */
+@media screen and (max-width:420px){
+
+}

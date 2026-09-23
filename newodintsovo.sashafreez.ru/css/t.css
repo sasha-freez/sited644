@@ -1,0 +1,48 @@
+body{font-family: 'Open Sans', sans-serif; color:#333; font-size:14px; margin:0px; padding:0px; background:#fff;}
+
+h1, h2, h3{font-weight:500;}
+h1{padding:0 0 5px 0; margin:0 0 10px 0px; font-size:30px;}
+h1 span{font-size:18px;}
+h1.big{font-size:44px; text-align:left; padding:0 0 0 56px;}
+h2{font-size:24px; padding:0 0 20px 0;}
+h3{font-size:18px;}
+
+a{color:#4F83C4;}
+
+.main_object{font-size:12px; background:url('/images/dot.png') repeat-x 0 bottom; padding:0 0 20px 0;}
+.main_object .container:after{content:""; clear:both; display:block;}
+.main_object .item{float:left; width:140px; margin:0 20px 0 0;}
+.main_object .dom2{}
+.main_object .dom5{margin-right:0; width:140px;}
+.main_object .name{text-align:left; padding:0 0 5px 0;}
+.main_object .name span{display:block; min-height:50px; font-size:14px; font-weight:600;}
+.main_object .name a{color:#000; text-decoration:none;}
+
+.contact_manager{float:right; width:204px; font-size:14px; color:#000;}
+.contact_manager .phone{text-align:center; display:block;}
+.contact_manager .phone .number{display:block; padding:5px 0 0 0; font-weight:600; color:#de0019; font-weight:bold; text-align:center; font-size:15px;}
+.contact_manager .map{padding:0 0 10px 0; text-align:center;}
+
+.contact_manager .soc a{display:block; margin:0 0 2px 0;}
+.contact_manager .soc img{vertical-align:middle; margin:0 10px 0 15px;}
+
+.main_object img{}
+
+.t_banner{background:url('/images/dot.png') repeat-x 0 bottom; padding:0 0 2px 0; text-align:center;}
+
+
+.content{background:url('/images/dot.png') repeat-x 0 bottom #f8f8f8; padding:20px 0 20px 0;}
+.content ul{margin:0; padding:0 0 20px 0; list-style:none; color:#000;}
+.content ul li{background:url('/images/red_dot.png') no-repeat 0 6px; padding:0 0 5px 20px; margin:0 0 0 15px;}
+.content p{line-height: normal;}
+
+
+
+
+.certificat{padding:10px 0 10px 0; margin:0 0 30px 0;}
+.certificat h3{font-size:32px; padding:0 0 20px 0;}
+.certificat .row{text-align:center;} 
+.certificat .row a{display:inline-block; border:1px solid #d0d0d0; padding:5px; margin:0 5px;} 
+.certificat .row img{height:200px; width:auto;}
+
+.red{color:#ea0101;}
