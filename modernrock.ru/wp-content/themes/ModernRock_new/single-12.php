@@ -17,6 +17,7 @@ get_header();
 			$tmp_count = get_post_meta(get_the_ID(), 'country', true);
 			$sql_title = get_the_title(get_the_ID());
 			$gigsbot_artist_name = $sql_title;
+            $gigsbot_artist_id = get_the_ID();
 
 			// Прошедшие концерты из WordPress
 			global $wpdb;
@@ -81,40 +82,27 @@ $gigsbot_url = 'https://api.tcket.ru/api/concerts_web?artist=' . urlencode($gigs
 			else $concerts_other[$c['city']][] = $c;
 		}
 
-		// Форматирование даты
-		$format_date = function($date_str) {
-			$date_str = preg_replace('/\+\d{2}:\d{2}$/', '', $date_str);
-			$ts = strtotime($date_str);
-			if (!$ts) return $date_str;
-			$months = [1=>'января',2=>'февраля',3=>'марта',4=>'апреля',5=>'мая',6=>'июня',
-					   7=>'июля',8=>'августа',9=>'сентября',10=>'октября',11=>'ноября',12=>'декабря'];
-			$time = date('H:i', $ts);
-			return date('j', $ts) . ' ' . $months[(int)date('n', $ts)] . ' ' . date('Y', $ts)
-				   . ($time !== '00:00' ? ', ' . $time : '');
-		};
-
-		// Функция вывода карточки концерта
-		$gigsbot_internal_url = function($item, $artist_name) {
-    $external_url = $item['url'];
-    if (function_exists('concert_city_to_slug')) {
-        $item_date_str = preg_replace('/\+\d{2}:\d{2}$/', '', $item['date']);
-        $ts = strtotime($item_date_str);
-        $city_slug = concert_city_to_slug($item['city']);
-        if ($ts && $city_slug) {
-            $artist_slug = sanitize_title($artist_name);
-            $internal_url = home_url('/concert/' . $artist_slug . '-' . $city_slug . '-' . date('Y-m-d', $ts) . '/');
-            return ['url' => $internal_url, 'internal' => true];
+        $format_date = function($value) {
+            $date = modernrock_event_date($value);
+            return $date ? $date['label'] : 'Дата уточняется';
+        };
+        $gigsbot_internal_url = function($item, $artist_name) use ($gigsbot_artist_id) {
+            return modernrock_event_link($item, $gigsbot_artist_id);
+        };
+        $gigsbot_empty_message = !empty($artist_data['_modernrock_api_unavailable'])
+            ? 'Афиша временно недоступна. Попробуйте немного позже.'
+            : 'В ближайшее время событий не запланировано.';
+        if (!empty($artist_data['_modernrock_api_unavailable']) && !empty($gigsbot_concerts)) {
+            echo '<p class="ticket_no">Не удалось обновить афишу. Показаны последние доступные события.</p>';
         }
-    }
-    return ['url' => $external_url, 'internal' => false];
-};
 
 $render_card = function($c, $artist_name, $artist_photo) use ($format_date, $gigsbot_internal_url) {
     $gigsbot_card_link = $gigsbot_internal_url($c, $artist_name);
     $gigsbot_card_url = $gigsbot_card_link['url'];
     $gigsbot_card_rel = $gigsbot_card_link['internal'] ? '' : ' rel="nofollow" target="_blank"';
 			$date_fmt = $format_date($c['date']);
-			$date_iso = substr(preg_replace('/\+\d{2}:\d{2}$/', '', $c['date']), 0, 19);
+			$event_date = modernrock_event_date($c['date']);
+            $date_iso = $event_date ? $event_date['iso'] : '';
 			$is_yandex = ($c['source'] === 'yandex');
 			$is_ticketland = ($c['source'] === 'ticketland');
 			?>
@@ -144,7 +132,7 @@ $render_card = function($c, $artist_name, $artist_photo) use ($format_date, $gig
 					</div>
 				<div class="buytickets">
 					<div class="buy">
-						<a href="<?php echo esc_url($gigsbot_card_url); ?>"<?php echo $gigsbot_card_rel; ?>>Купить билет</a>
+						<a href="<?php echo esc_url($c['url']); ?>" rel="nofollow noopener" target="_blank">Купить билет</a>
 					</div>
 				<?php if ($is_ticketland): ?>
 					<div class="nofee-badge">✓ Билеты без сервисного сбора</div>
@@ -160,7 +148,7 @@ $render_card = function($c, $artist_name, $artist_photo) use ($format_date, $gig
 		if (!empty($concerts_msk)) {
 			foreach ($concerts_msk as $c) $render_card($c, $gigsbot_artist_name, $large[0]);
 		} else {
-			echo '<div class="ticket_no">В ближайшее время событий не запланировано.</div>';
+			echo '<div class="ticket_no">' . esc_html($gigsbot_empty_message) . '</div>';
 		}
 		echo '</div>';
 
@@ -170,7 +158,7 @@ $render_card = function($c, $artist_name, $artist_photo) use ($format_date, $gig
 		if (!empty($concerts_spb)) {
 			foreach ($concerts_spb as $c) $render_card($c, $gigsbot_artist_name, $large[0]);
 		} else {
-			echo '<div class="ticket_no" style="margin-bottom: 44px;">В ближайшее время событий не запланировано.</div>';
+			echo '<div class="ticket_no" style="margin-bottom: 44px;">' . esc_html($gigsbot_empty_message) . '</div>';
 		}
 		echo '</div>';
 
@@ -180,11 +168,9 @@ $render_card = function($c, $artist_name, $artist_photo) use ($format_date, $gig
 			echo '<div class="ticket_list ticket_list_cont2" style="background:#f5f5f5; border-radius:8px; padding:16px 20px; margin:16px 0 24px 0;">';
 			foreach ($concerts_other as $gigsbot_city => $events) {
 				foreach ($events as $ge) {
-					$ge_date_str = preg_replace('/\+\d{2}:\d{2}$/', '', $ge['date']);
-					$ge_ts = strtotime($ge_date_str);
-					$months = [1=>'января',2=>'февраля',3=>'марта',4=>'апреля',5=>'мая',6=>'июня',7=>'июля',8=>'августа',9=>'сентября',10=>'октября',11=>'ноября',12=>'декабря'];
-					$ge_date_fmt = date('j', $ge_ts) . ' ' . $months[(int)date('n', $ge_ts)] . ' ' . date('Y', $ge_ts);
-					$ge_date_iso = substr($ge_date_str, 0, 19);
+                    $ge_date = modernrock_event_date($ge['date']);
+                    $ge_date_fmt = $ge_date ? $ge_date['label'] : 'Дата уточняется';
+                    $ge_date_iso = $ge_date ? $ge_date['iso'] : '';
 					$gigsbot_other_link = $gigsbot_internal_url($ge, $gigsbot_artist_name);
 					$gigsbot_other_url = $gigsbot_other_link['url'];
 					$gigsbot_other_rel = $gigsbot_other_link['internal'] ? '' : ' rel="nofollow" target="_blank"';

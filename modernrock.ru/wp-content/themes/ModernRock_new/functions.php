@@ -12,6 +12,7 @@ function modernrock_concerts_response($cache_key, $response, $ttl, $fallback) {
     $data = !is_wp_error($response) && wp_remote_retrieve_response_code($response) === 200
         ? json_decode(wp_remote_retrieve_body($response), true) : null;
     if (is_array($data) && isset($data['concerts']) && is_array($data['concerts'])) {
+        $data['_modernrock_api_unavailable'] = false;
         set_transient($cache_key, $data, $ttl);
         set_transient($cache_key . '_last_good', $data, 7 * DAY_IN_SECONDS);
         return $data;
@@ -19,10 +20,63 @@ function modernrock_concerts_response($cache_key, $response, $ttl, $fallback) {
     $last_good = get_transient($cache_key . '_last_good');
     $data = is_array($last_good) && isset($last_good['concerts']) && is_array($last_good['concerts'])
         ? $last_good : $fallback;
+    $data['_modernrock_api_unavailable'] = true;
     set_transient($cache_key, $data, MINUTE_IN_SECONDS);
     return $data;
 }
 
+
+
+/** Preserve the event's local time and offset rather than converting it to Moscow. */
+function modernrock_event_date($value) {
+    if (!is_string($value) || !preg_match('/^\d{4}-\d{2}-\d{2}(?:[T ]\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:?\d{2})?)?$/D', $value)) {
+        return null;
+    }
+    try {
+        $date = new DateTimeImmutable($value);
+        $errors = DateTimeImmutable::getLastErrors();
+        if ($errors && ($errors['warning_count'] || $errors['error_count'])) return null;
+    } catch (Exception $e) {
+        return null;
+    }
+    $months = [1=>'января',2=>'февраля',3=>'марта',4=>'апреля',5=>'мая',6=>'июня',7=>'июля',8=>'августа',9=>'сентября',10=>'октября',11=>'ноября',12=>'декабря'];
+    $has_time = strlen($value) > 10;
+    $has_offset = (bool) preg_match('/(?:Z|[+-]\d{2}:?\d{2})$/', $value);
+    return [
+        'day' => $date->format('Y-m-d'),
+        'iso' => $date->format($has_time ? ($has_offset ? 'Y-m-d\TH:i:sP' : 'Y-m-d\TH:i:s') : 'Y-m-d'),
+        'label' => $date->format('j') . ' ' . $months[(int)$date->format('n')] . ' ' . $date->format('Y')
+            . ($has_time && $date->format('H:i') !== '00:00' ? ', ' . $date->format('H:i') : ''),
+    ];
+}
+
+/** Reuse only genuine artist posts for internal concert URLs. */
+function modernrock_event_link($item, $artist_id = 0) {
+    $external = isset($item['url']) ? esc_url_raw($item['url']) : '';
+    $fallback = ['url' => $external, 'internal' => false];
+    if (!function_exists('concert_city_to_slug')) return $fallback;
+    $date = modernrock_event_date(isset($item['date']) ? $item['date'] : '');
+    $city = concert_city_to_slug(isset($item['city']) ? $item['city'] : '');
+    if (!$date || !$city) return $fallback;
+    if ($artist_id) {
+        $slug = get_post_field('post_name', $artist_id);
+    } else {
+        global $wpdb;
+        $name = isset($item['artist']) ? $item['artist'] : '';
+        $slug = $wpdb->get_var($wpdb->prepare(
+            "SELECT p.post_name FROM {$wpdb->posts} p
+             INNER JOIN {$wpdb->term_relationships} r ON p.ID = r.object_id
+             INNER JOIN {$wpdb->term_taxonomy} t ON r.term_taxonomy_id = t.term_taxonomy_id
+             WHERE p.post_status = 'publish' AND p.post_type = 'post'
+             AND t.taxonomy = 'category' AND t.term_id = 12
+             AND (p.post_name = %s OR p.post_title = %s) LIMIT 1",
+            sanitize_title($name), $name
+        ));
+    }
+    // The concert router only accepts Latin letters, digits and hyphens.
+    if (!$slug || !preg_match('/^[a-z0-9-]+$/D', $slug)) return $fallback;
+    return ['url' => home_url('/concert/' . $slug . '-' . $city . '-' . $date['day'] . '/'), 'internal' => true];
+}
 
 add_action('wp_dashboard_setup', 'add_new_dashboard_widget' );
 add_action( 'login_enqueue_scripts', 'login_enqueue_scripts' );//Кастомная форма входа с полноразмерным фоном
