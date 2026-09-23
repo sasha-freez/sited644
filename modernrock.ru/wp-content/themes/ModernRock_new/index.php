@@ -54,7 +54,7 @@
 	<div class="pagination"><?php if(function_exists('wp_pagenavi')){ wp_pagenavi();}?></div>
 </div>
 
-<aside class="block_right">
+<aside class="block_right home-sidebar">
 	
 	<!-- Концерты сегодня -->
 	<div class="n-item concert_last">
@@ -180,4 +180,5 @@
 		<?php endif; ?>	
 	</div>
 </aside>
+<script src="<?php echo esc_url(get_template_directory_uri() . '/home-sidebar.js?ver=' . filemtime(get_template_directory() . '/home-sidebar.js')); ?>" defer></script>
 <?php get_footer(); ?>

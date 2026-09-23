@@ -29,7 +29,7 @@ header .search_first {
     top: 3px;
 }
 header .search{
-    margin-top: 10px;
+    margin-top: 3px;
 }
 .search_first form{
     height: 33px;
@@ -81,5 +81,16 @@ display: none;
     }
     header .search{
         display: none;
+    }
+}
+
+/* Keep the homepage sidebar aligned with the news content. */
+.block_right.home-sidebar {
+    margin-top: 0;
+}
+
+@media (min-width:1290px) {
+    .block_right.home-sidebar.has-top-banner {
+        margin-top: -121px;
     }
 }

@@ -1,20 +1,22 @@
 <?php get_header(); ?>
 <link rel="stylesheet" href="/css/media_inner.css" type="text/css" media="all" />
 <style>
-.venue-list{display:grid;grid-template-columns:1fr 1fr;gap:0 20px;}
-.venue-card{display:flex;gap:15px;align-items:flex-start;width:100%;box-sizing:border-box;padding:0 0 20px 0;margin:0 0 20px 0;border-bottom:1px solid #eee;}
-.venue-card-media{flex:0 0 165px;display:block;}
-.venue-card-media img{width:100%;height:auto;border-radius:6px;display:block;}
-.venue-card-body{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;align-self:stretch;}
+.venue-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px;width:100%;min-width:0;}
+.venue-card{display:flex;gap:15px;align-items:flex-start;width:100%;min-width:0;box-sizing:border-box;padding:0 0 20px 0;margin:0 0 20px 0;border-bottom:1px solid #eee;}
+.venue-card-media{flex:0 0 38%;min-width:0;max-width:165px;display:block;}
+.bdetails .venue-card-media img{width:100%;min-width:0;max-width:100%;height:auto;border-radius:6px;display:block;}
+.venue-card-body{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-self:stretch;overflow-wrap:anywhere;}
 .venue-card-title{font-size:16px;font-weight:600;margin:0 0 6px;line-height:1.3;}
 .venue-card-title a{color:#000;text-decoration:none;}
 .venue-card-meta{font-size:13px;color:#555;margin:0 0 4px;}
 .venue-card-price{font-size:13px;color:#000;margin:0 0 10px;font-weight:500;}
-.venue-card-buy{display:inline-block;background:#0e920e!important;color:#fff!important;text-align:center;border-radius:6px;padding:8px 18px;font-size:14px;font-weight:600;text-decoration:none!important;margin-top:auto;align-self:flex-start;}
+.venue-card-buy{box-sizing:border-box;max-width:100%;white-space:normal;display:inline-block;background:#0e920e!important;color:#fff!important;text-align:center;border-radius:6px;padding:8px 18px;font-size:14px;font-weight:600;text-decoration:none!important;margin-top:auto;align-self:flex-start;}
+@media screen and (max-width:600px){
+.venue-list{grid-template-columns:minmax(0,1fr);}
+}
 @media screen and (max-width:480px){
-.venue-list{grid-template-columns:1fr;}
 .venue-card{flex-direction:column;}
-.venue-card-media{width:100%;}
+.venue-card-media{flex:0 0 auto;width:100%;max-width:100%;}
 .venue-card-buy{display:block;width:100%;box-sizing:border-box;text-align:center;align-self:stretch;}
 }
 .venue-card-nofee{font-size:12px;color:#2e7d32;font-weight:600;margin-top:6px;}
