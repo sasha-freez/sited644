@@ -2,10 +2,10 @@
 	<div class="h3">МЫ РЕКОМЕНДУЕМ</div>
 	<div class="tabs_s">
 		<ul>
-			<li class="t1 active"><a data-tab=".tab-n1">Посты</a></li>
-			<li class="t2"><a data-tab=".tab-n2">Конкурсы</a></li>
-			<li class="t3"><a data-tab=".tab-n3">Рецензии</a></li>
-			<li class="t4"><a data-tab=".tab-n4">TV</a></li>
+			<li class="t1 active"><a href="#recommend-tab-1" data-tab=".tab-n1">Посты</a></li>
+			<li class="t2"><a href="#recommend-tab-2" data-tab=".tab-n2">Конкурсы</a></li>
+			<li class="t3"><a href="#recommend-tab-3" data-tab=".tab-n3">Рецензии</a></li>
+			<li class="t4"><a href="#recommend-tab-4" data-tab=".tab-n4">TV</a></li>
 		</ul>
 	</div>
 	<div class="js-toggle">
@@ -25,7 +25,7 @@
 				<?php while (have_posts()) : the_post(); ?>
 				<?php 
 					$large = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full');
-					if ($large[0]=='') $large[0]='/wp-content/uploads/2012/11/small_'.get_post_meta(get_the_ID(), 'attached_img', true);
+					if (empty($large[0])) $large[0]='/wp-content/uploads/2012/11/small_'.get_post_meta(get_the_ID(), 'attached_img', true);
 				?>
 				
 				<div class="row">
@@ -58,7 +58,7 @@
 				<div class="item"><a href="<?php the_permalink(); ?>" class="type<?php echo get_post_meta(get_the_ID(), 'type_contest', true);?>"><?php the_title();?></a></div>
 				<?php $i++; endwhile; ?>
 			</div>
-			<?php endif; ?>
+			<?php else: ?><p class="recommend-empty">Сейчас нет активных конкурсов.</p><?php endif; ?>
 		</div>
 		<div class="tab-content tab-n3">
 			<div class="n-item reviews_mini">
@@ -68,7 +68,7 @@
 					<?php while (have_posts()) : the_post(); ?>
 						<?php 
 							$large = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full');
-							if ($large[0]=='') $large[0]='/wp-content/uploads/2012/11/small_'.get_post_meta(get_the_ID(), 'attached_img', true);
+							if (empty($large[0])) $large[0]='/wp-content/uploads/2012/11/small_'.get_post_meta(get_the_ID(), 'attached_img', true);
 						?>
 						<div class="item">
 							<div class="img"><a href="<?php the_permalink(); ?>"><img src="<?php echo kama_thumb_src('w=47&h=47',$large[0]);?>" width="47" height="47" alt="<?php the_title();?>"/></a></div>
@@ -97,7 +97,7 @@
 				<?php while (have_posts()) : the_post(); ?>
 				<?php 
 					$large = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full');
-					if ($large[0]=='') $large[0]='/wp-content/uploads/2012/11/small_'.get_post_meta(get_the_ID(), 'attached_img', true);
+					if (empty($large[0])) $large[0]='/wp-content/uploads/2012/11/small_'.get_post_meta(get_the_ID(), 'attached_img', true);
 				?>
 				<div class="row">
 					<a href="<?php the_permalink(); ?>">

@@ -7,6 +7,54 @@ function modernrock_search_term($key) {
         ? sanitize_text_field(wp_unslash($_GET[$key])) : '';
 }
 
+/** Search the artist/venue directory by title without matching biographies. */
+function modernrock_concert_search($term, $page = 1, $limit = 15) {
+    global $wpdb;
+    $filter = function ($where, $query) use ($term, $wpdb) {
+        if ($query->get('modernrock_concert_search')) {
+            $where .= $wpdb->prepare(" AND {$wpdb->posts}.post_title LIKE %s", '%' . $wpdb->esc_like($term) . '%');
+        }
+        return $where;
+    };
+    add_filter('posts_where', $filter, 10, 2);
+    $query = new WP_Query([
+        'post_type' => 'post', 'post_status' => 'publish',
+        'category__in' => [12, 13], 'category__not_in' => [97],
+        'posts_per_page' => $limit, 'paged' => $page,
+        'orderby' => 'title', 'order' => 'ASC',
+        'ignore_sticky_posts' => true, 'modernrock_concert_search' => true,
+        'post__in' => $term === '' ? [0] : [],
+    ]);
+    remove_filter('posts_where', $filter, 10);
+    return $query;
+}
+
+function modernrock_concert_search_cities($term) {
+    $matches = [];
+    if ($term === '' || !function_exists('gigsbot_city_slugs')) return $matches;
+    foreach (gigsbot_city_slugs() as $slug => $city) {
+        if (mb_stripos($city, $term, 0, 'UTF-8') !== false) {
+            $matches[] = ['title' => $city, 'url' => home_url('/afisha/' . $slug . '/')];
+        }
+    }
+    return $matches;
+}
+
+function modernrock_search_page() {
+    return max(1, min(1000, (int) modernrock_search_term('search_page')));
+}
+
+function modernrock_search_pagination($path, $term, $page, $pages) {
+    if ($pages <= 1) return;
+    echo '<nav class="navigation pagination" aria-label="Страницы результатов">';
+    echo paginate_links([
+        'base' => add_query_arg(['q' => $term, 'search_page' => '%#%'], home_url($path)),
+        'format' => '', 'current' => $page, 'total' => $pages,
+        'prev_text' => '← Назад', 'next_text' => 'Далее →',
+    ]);
+    echo '</nav>';
+}
+
 /** Keep the last successful API response during a short upstream outage. */
 function modernrock_concerts_response($cache_key, $response, $ttl, $fallback) {
     $data = !is_wp_error($response) && wp_remote_retrieve_response_code($response) === 200
@@ -50,6 +98,8 @@ function modernrock_event_date($value) {
     ];
 }
 
+require_once __DIR__ . '/concert-events.php';
+
 /** Reuse only genuine artist posts for internal concert URLs. */
 function modernrock_event_link($item, $artist_id = 0) {
     $external = isset($item['url']) ? esc_url_raw($item['url']) : '';
@@ -60,6 +110,7 @@ function modernrock_event_link($item, $artist_id = 0) {
     if (!$date || !$city) return $fallback;
     if ($artist_id) {
         $slug = get_post_field('post_name', $artist_id);
+        $item['artist'] = get_post_field('post_title', $artist_id);
     } else {
         global $wpdb;
         $name = isset($item['artist']) ? $item['artist'] : '';
@@ -75,7 +126,9 @@ function modernrock_event_link($item, $artist_id = 0) {
     }
     // The concert router only accepts Latin letters, digits and hyphens.
     if (!$slug || !preg_match('/^[a-z0-9-]+$/D', $slug)) return $fallback;
-    return ['url' => home_url('/concert/' . $slug . '-' . $city . '-' . $date['day'] . '/'), 'internal' => true];
+    $event_key = modernrock_remember_event($item);
+    if ($event_key === '') return $fallback;
+    return ['url' => add_query_arg('event', $event_key, home_url('/concert/' . $slug . '-' . $city . '-' . $date['day'] . '/')), 'internal' => true];
 }
 
 add_action('wp_dashboard_setup', 'add_new_dashboard_widget' );
@@ -622,7 +675,7 @@ add_action('save_post', 'example_save_postdata');
 
 function example_save_postdata($post_id) {
 
-    if (!wp_verify_nonce($_POST['town_submit'], 'city')) return $post_id;
+    if (empty($_POST['town_submit']) || !is_string($_POST['town_submit']) || !wp_verify_nonce($_POST['town_submit'], 'city')) return $post_id;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
 
     $t = $_POST['city'];
@@ -749,7 +802,7 @@ function sounds_custom_box() {
 add_action('save_post', 'active_sounds_postdata');
 
 function active_sounds_postdata($post_id){
-	if (!wp_verify_nonce($_POST['town_submit'], 'active_post')) return $post_id;
+	if (empty($_POST['town_submit']) || !is_string($_POST['town_submit']) || !wp_verify_nonce($_POST['town_submit'], 'active_post')) return $post_id;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
 	
 	
@@ -838,7 +891,7 @@ function leaks_custom_box() {
 add_action('save_post', 'active_leaks_postdata');
 
 function active_leaks_postdata($post_id){
-	if (!wp_verify_nonce($_POST['town_submit'], 'active_post')) return $post_id;
+	if (empty($_POST['town_submit']) || !is_string($_POST['town_submit']) || !wp_verify_nonce($_POST['town_submit'], 'active_post')) return $post_id;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
 	
 	$cat = get_the_category(); // текущая категория
@@ -913,7 +966,7 @@ function active_post_custom_box() {
 add_action('save_post', 'active_post_save_postdata');
 
 function active_post_save_postdata($post_id){
-    if (!wp_verify_nonce($_POST['town_submit'], 'active_post')) return $post_id;
+    if (empty($_POST['town_submit']) || !is_string($_POST['town_submit']) || !wp_verify_nonce($_POST['town_submit'], 'active_post')) return $post_id;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
 	
 	if ($_POST['active_post']=='true'){
@@ -973,7 +1026,7 @@ function active_kon_custom_box() {
 add_action('save_post', 'active_kon_save_postdata');
 
 function active_kon_save_postdata($post_id){
-    if (!wp_verify_nonce($_POST['town_submit'], 'active_contest')) return $post_id;
+    if (empty($_POST['town_submit']) || !is_string($_POST['town_submit']) || !wp_verify_nonce($_POST['town_submit'], 'active_contest')) return $post_id;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
 	
 	if ($_POST['active_contest']=='true'){
@@ -1042,7 +1095,7 @@ function new_club_city_custom_box() {
 add_action('save_post', 'new_club_city_save_postdata');
 
 function new_club_city_save_postdata($post_id){
-    if (!wp_verify_nonce($_POST['town_submit'], 'city')) return $post_id;
+    if (empty($_POST['town_submit']) || !is_string($_POST['town_submit']) || !wp_verify_nonce($_POST['town_submit'], 'city')) return $post_id;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
 	$cat = get_the_category();
 	if ($cat[0]->term_id==13){
@@ -1066,14 +1119,26 @@ function new_name_group_add_custom_box(){
 }
 
 function new_name_group_custom_box() {
-
-	$cat = get_the_category();
-	if ($cat[0]->term_id<>12){
-		print('<style>#select_your_new_name_group{display:none;}</style>');
-		return "";
-	}
-	
     global $post, $wpdb;
+    if (!$post) return;
+    if (!has_category(12, $post->ID)) {
+        print('<style>#select_your_new_name_group{display:none;}</style>');
+    }
+    // A new artist can select category 12 and fill the genre before the first save.
+    echo '<script>document.addEventListener("DOMContentLoaded", function () {
+        var box = document.getElementById("select_your_new_name_group");
+        function updateArtistFields() {
+            var fields = document.querySelectorAll("input[name=\"post_category[]\"][value=\"12\"]");
+            if (!fields.length || !box) return;
+            var selected = Array.prototype.some.call(fields, function (field) { return field.checked; });
+            box.style.display = selected ? "block" : "none";
+        }
+        document.addEventListener("change", function (event) {
+            if (event.target.name === "post_category[]") updateArtistFields();
+        });
+        updateArtistFields();
+    });</script>';
+
     $data = get_post_meta($post->ID,'new_name_group',true);
 	if ($data=='true'){
 		$tmp_data="true";
@@ -1093,7 +1158,7 @@ function new_name_group_custom_box() {
 		<br/><br/>
 	';
 	
-    print '<input type="hidden" name="town_submit" id="town_submit" value="'.wp_create_nonce('new_name_group').'" />';
+    wp_nonce_field('modernrock_artist_fields', 'modernrock_artist_nonce');
 	print '<input type="checkbox" name="new_name_group" id="new_name_group" '.$tmp_check.' value="'.$tmp_data.'" onclick="if (this.checked) this.value=\'true\'; else this.value=\'false\';">';
 	print '<label> Показать в списке новые</label>';
 	print '<br/><br/>';
@@ -1103,17 +1168,18 @@ function new_name_group_custom_box() {
 	print '<br/><br/>';
 	print '<label for="genre_group">Жанр:</label><br/>';
 	print '<select name="genre_group" id="genre_group" style="width:210px;">';
-	print '<option value="0">Не выбран</option>';
+	print '<option value="0">Автоматически из старой афиши</option>';
 	$categories = get_categories('orderby=id&show_count=0&depth=1&hide_empty=0&title_li=&use_desc_for_title=1&child_of=2872');
 	
 	foreach($categories as $cat){
 		if($genre_group == $cat->name){
-			echo '<option selected="selected">'.$cat->name.'</option>';
+			echo '<option selected="selected">'.esc_html($cat->name).'</option>';
 		}else{
-			echo '<option>'.$cat->name.'</option>';
+			echo '<option>'.esc_html($cat->name).'</option>';
 		}
 	}
 	print "</select>";
+    echo '<p class="description">Автоматический режим использует жанры прошлых концертов артиста. Выбранный вручную жанр имеет приоритет.</p>';
 	wp_reset_postdata();
 	print '<br/><br/>';
 	
@@ -1127,25 +1193,25 @@ function new_name_group_custom_box() {
 add_action('save_post', 'new_name_group_save_postdata');
 
 function new_name_group_save_postdata($post_id){
-    if (!wp_verify_nonce($_POST['town_submit'], 'new_name_group')) return $post_id;
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
-	
-	if ($_POST['new_name_group']=='true'){
-		$t = 'true';
-	}
-	else{
-		$t = 'false';
-	}
-	$cat = get_the_category();
-	if ($cat[0]->term_id==12){
-		update_post_meta($post_id, 'new_name_group', $t);
-		update_post_meta($post_id, 'country', $_POST['met_country']);
-		update_post_meta($post_id, 'genre_group', $_POST['genre_group']);
-		update_post_meta($post_id, 'gr_banner1', $_POST['gr_banner1']);
-		update_post_meta($post_id, 'gr_banner2', $_POST['gr_banner2']);
-		update_post_meta($post_id, 'auto_seo', $_POST['auto_seo']);
-		
-	}
+    if (!isset($_POST['modernrock_artist_nonce']) || !is_string($_POST['modernrock_artist_nonce'])
+        || !wp_verify_nonce(wp_unslash($_POST['modernrock_artist_nonce']), 'modernrock_artist_fields')) return;
+    if ((defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || wp_is_post_revision($post_id)
+        || !current_user_can('edit_post', $post_id) || !has_category(12, $post_id)) return;
+    // An omitted field (REST, quick edit, another metabox) must not erase a genre.
+    if (isset($_POST['genre_group']) && is_string($_POST['genre_group'])) {
+        $genre = sanitize_text_field(wp_unslash($_POST['genre_group']));
+        $allowed = get_categories(['child_of' => 2872, 'hide_empty' => false]);
+        if ($genre === '0' || in_array($genre, wp_list_pluck($allowed, 'name'), true)) {
+            update_post_meta($post_id, 'genre_group', $genre);
+        }
+    }
+    update_post_meta($post_id, 'new_name_group', isset($_POST['new_name_group']) && $_POST['new_name_group'] === 'true' ? 'true' : 'false');
+    update_post_meta($post_id, 'auto_seo', isset($_POST['auto_seo']) && $_POST['auto_seo'] === '1' ? '1' : '');
+    foreach (['met_country' => 'country', 'gr_banner1' => 'gr_banner1', 'gr_banner2' => 'gr_banner2'] as $field => $meta) {
+        if (!isset($_POST[$field]) || !is_string($_POST[$field])) continue;
+        $value = wp_unslash($_POST[$field]);
+        update_post_meta($post_id, $meta, $field === 'met_country' ? sanitize_text_field($value) : esc_url_raw($value));
+    }
 }
 /*Параметры для Групп конец*/
 
@@ -1193,7 +1259,7 @@ function video_custom_box() {
 add_action('save_post', 'video_save_postdata');
 
 function video_save_postdata($post_id){
-    if (!wp_verify_nonce($_POST['town_submit'], 'video_group')) return $post_id;
+    if (empty($_POST['town_submit']) || !is_string($_POST['town_submit']) || !wp_verify_nonce($_POST['town_submit'], 'video_group')) return $post_id;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
 	$cat = get_the_category();
 	if ($cat[0]->term_id==7 || $cat[0]->category_parent==7){
@@ -1261,7 +1327,7 @@ function interview_custom_box() {
 add_action('save_post', 'interview_save_postdata');
 
 function interview_save_postdata($post_id){
-    if (!wp_verify_nonce($_POST['town_submit'], 'interview_group')) return $post_id;
+    if (empty($_POST['town_submit']) || !is_string($_POST['town_submit']) || !wp_verify_nonce($_POST['town_submit'], 'interview_group')) return $post_id;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
 	$cat = get_the_category();
 	if ($cat[0]->term_id==10){
@@ -1336,7 +1402,7 @@ function notices_custom_box() {
 add_action('save_post', 'notices_save_postdata');
 
 function notices_save_postdata($post_id){
-    if (!wp_verify_nonce($_POST['town_submit'], 'notices_group')) return $post_id;
+    if (empty($_POST['town_submit']) || !is_string($_POST['town_submit']) || !wp_verify_nonce($_POST['town_submit'], 'notices_group')) return $post_id;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
 	$cat = get_the_category();
 	if ($cat[0]->term_id==9){
@@ -1423,7 +1489,7 @@ function reports_custom_box() {
 add_action('save_post', 'reports_save_postdata');
 
 function reports_save_postdata($post_id){
-    if (!wp_verify_nonce($_POST['town_submit'], 'club')) return $post_id;
+    if (empty($_POST['town_submit']) || !is_string($_POST['town_submit']) || !wp_verify_nonce($_POST['town_submit'], 'club')) return $post_id;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
 	$cat = get_the_category();
 	if ($cat[0]->term_id==5){
@@ -1501,7 +1567,7 @@ function news_custom_box() {
 add_action('save_post', 'news_save_postdata');
 
 function news_save_postdata($post_id){
-    if (!wp_verify_nonce($_POST['town_submit'], 'news_group')) return $post_id;
+    if (empty($_POST['town_submit']) || !is_string($_POST['town_submit']) || !wp_verify_nonce($_POST['town_submit'], 'news_group')) return $post_id;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
 	$cat = get_the_category();
 	if ($cat[0]->term_id==3){
@@ -1564,7 +1630,7 @@ function disko_custom_box() {
 add_action('save_post', 'disko_save_postdata');
 
 function disko_save_postdata($post_id){
-    if (!wp_verify_nonce($_POST['town_submit'], 'group')) return $post_id;
+    if (empty($_POST['town_submit']) || !is_string($_POST['town_submit']) || !wp_verify_nonce($_POST['town_submit'], 'group')) return $post_id;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
 	$cat = get_the_category();
 	if ($cat[0]->term_id==24){
@@ -1658,28 +1724,6 @@ function true_remove_default_image_sizes( $sizes ) {
 }
  
 add_filter('intermediate_image_sizes_advanced', 'true_remove_default_image_sizes');
-/* запретить индексирование отдельных страниц для attachment */
-function wph_noindex_for_attachment() {
-    if(get_post_mime_type()!= false) {
-        echo '<meta name="robots" content="noindex, nofollow" />'.PHP_EOL;
-    }
-}
-add_action('wp_head', 'wph_noindex_for_attachment');
-
-
-/* Удаление всех редакций 
-global $wpdb;
-$wpdb->query(
-	"
-	DELETE a,b,c FROM $wpdb->posts a  
-	LEFT JOIN $wpdb->term_relationships b ON (a.ID = b.object_id)  
-	LEFT JOIN $wpdb->postmeta c ON (a.ID = c.post_id)  
-	WHERE a.post_type = 'revision'
-	"
-);
-*/
- 
- 
 /* SEO Headers Last-Modified  */ 
 add_action( 'template_redirect', 'Sheensay_HTTP_Headers_Last_Modified' );
  
@@ -1762,261 +1806,6 @@ function Sheensay_HTTP_Headers_Last_Modified() {
             }
         }
     }
-}
-
-/* Зачистить текст от пробелов и переносов строк */
-function clear_txt($txt){
-	$txt = str_replace(array("\r","\n")," ",strip_tags($txt));
-	$txt = preg_replace("!\s++!u",' ', $txt);
-	return 	$txt;
-}
-/* Склонение городов */
-function dec_city($city){
-	if($city == 'Москва'){
-		$city='Москве';
-	}else if($city=='Санкт-Петербург' || $city=='Санкт-петербург'){
-		$city='Санкт-Петербурге';
-	}else{
-		$city;
-	}
-	return $city;
-}
-
-/* del /tickets?post_type=attachment */
-add_action( 'init', 'my_remove_post_formats_support', 10 );
-function my_remove_post_formats_support() {
-	global $_wp_post_type_features;
-	unset( $_wp_post_type_features[ $post_type ][ $feature ] );
-}
-
-$postType=explode('?post_type=', $_SERVER['REQUEST_URI']);
-if($postType[1]=='attachment'){
-	wp_redirect('https://modernrock.ru/', 301); 
-	exit;
-}
-
-/* SEO блок для modernrock.ru */
-add_filter( 'wp_title', 'title_seo', 0); // title page
-
-add_filter( 'aioseo_title', 'title_seo', 0);
-
-function title_seo($title){// title page
-	global $post, $wpdb;
-	$is_paged = is_paged(); // страница пагинации
-	$is_category = is_category(); // страница категория
-	$is_single = is_single(); // страница пост
-	$auto_seo = get_post_meta(get_the_ID(), 'auto_seo', true); // параметр, если активен, то сбросить автосео
-	$cat = get_the_category($post->ID); // категория поста
-	$postmeta = get_post_custom($post->ID); // собрать данные о посте
-	
-	$serv = $_SERVER['REQUEST_URI'];
-	$section=explode('/', $serv); //$section[1]
-	$page=explode('page/', $serv); //$page[1]
-	
-	if($section[2]=='russkaya-scena'){
-		$title = 'Родные – современные русские группы';
-	}
-	
-	if($section[1]=='gigs'){ // title для детальной страницы старой афиши
-		if(!$page[1]){
-			$club = get_post_meta(get_the_ID(), 'club', true);
-			$title = 'Афиша группы '.htmlentities($post->post_title).' в '.$club.' '.date('d').'.'.date('m').'.'.date('Y').'';
-		}else{
-			$title = 'Группы – Страница '.$page[1].'';
-		}
-	}
-	if($section[1]=='leaks'){ // title для страниц leaks
-		if($section[3] && !$page[1]){ // Третий уровень детальная страница
-			$gr = get_post_meta(get_the_ID(), 'data_ngroup', true);
-			if(!$gr) {$gr = get_post_meta(get_the_ID(), 'group_afisha', true);}
-			
-			$album = get_post_meta(get_the_ID(), 'album', true);
-			$year = get_post_meta(get_the_ID(), 'data_leaks', true);
-			
-			$title = ''.$gr.' — '.$album.' ('.$year.') слушать онлайн бесплатно';
-			
-		}else if($section[2] && !$page[1] || ($section[4] && $page[1])){ // второй уровень жанры
-			$title = 'Новинки '.mb_strtolower($cat[0]->cat_name).' музыки '.date('Y').' - слушать онлайн бесплатно';
-		}else{ // корневая
-			$title = 'Слушать новинки музыки '.date('Y').' онлайн бесплатно, новые альбомы и песни '.date('Y').'';
-		}
-		if($page[1]) $title.=' - cтраница №'.$page[1].'';
-	}
-	
-	/* [12] meta для детальной страницы группы (концерт группы) */
-	if($is_single && $cat[0]->term_id == 12 && !$auto_seo){
-		$city = get_post_meta(get_the_ID(), 'city', true);
-		$title = ''.htmlentities($post->post_title).': концерты '.date('Y').'-'.date('Y', strtotime('+1 year')).' и билеты';
-	}
-	
-	/* [13] meta для детальной страницы клубы */
-	if($is_single && $cat[0]->term_id == 13 && !$auto_seo){
-		$city = get_post_meta(get_the_ID(), 'city', true);
-		$title = ''.htmlentities($post->post_title).' — афиша и концерты '.date('Y').'';	
-	}
-	
-	/* [2872] title для детальной страницы билеты  */
-	if($is_single && $cat[0]->category_parent == 2872 && !$auto_seo){
-		$city = get_post_meta(get_the_ID(), 'city', true);
-		$club = get_post_meta(get_the_ID(), 'club', true);
-		$data = get_post_meta(get_the_ID(), 'data_afisha', true);
-		
-		$title = ''.htmlentities($post->post_title).' в '.dec_city($city).', билеты на '.ceil(substr($data, 8, 2)).' '.date_gigs($data,0).' '.substr($data, 0, 4).'';
-	}
-	
-	/* title активация ручного режима */
-	if($is_single && $auto_seo == 1){
-		$title = $postmeta["_aioseop_title"][0];
-	}
-	
-	/* title для всех категорий - патч плагина Category SEO */
-	if($is_category){
-		$field_name = 'title-element-first-page'; // выбрать сео тайтл
-		$terms = get_queried_object(); // берем объекты категории
-		$category_seo_title_field = category_seo_get_fields( $field_name ); // ищем по связке title-element-first-page тайтл
-		$title = get_option( $category_seo_title_field[ 'id' ] . '-' . $terms->term_id);
-		if(empty($title)) $title = $terms->cat_name;
-		if($is_paged) {
-			$paged = get_query_var('paged');
-			$title.=' – cтраница '.$paged.'';
-		}
-	}
-	
-	global $seo_title; $seo_title = $title; // Делаю переменную и заголовок глобальным
-	
-	return $title;
-}
-
-add_action("wp_head", "meta_tags", 1); // meta tags seo
-
-/* meta description, социальное мета + остальные вставки в шапку */
-function meta_tags() {
-	global $post;
-	global $seo_title;
-	
-	$is_paged = is_paged(); // страница пагинации
-	$is_category = is_category(); // страница категория
-	$is_single = is_single(); // страница пост
-	$auto_seo = get_post_meta(get_the_ID(), 'auto_seo', true); // параметр, если активен, то сбросить автосео
-	$cat = get_the_category($post->ID); // категория поста
-	$postmeta = get_post_custom($post->ID); // собрать данные о посте
-
-	$serv = $_SERVER['REQUEST_URI'];
-	$section = explode('/', $serv); //$section[1]
-	$page = explode('page/', $serv); //$page[1]
-
-	if($section[1]=='groups'){ // meta для детальной страницы группы
-		if(!isset($page[1])){
-			if(!empty($postmeta["_aioseop_description"][0])){
-				$desc = $postmeta["_aioseop_description"][0];
-			}else{
-				$desc = 'Афиша концертов '.htmlentities($post->post_title).' в Москве, Петербурге и других городах России';
-			}
-			echo '<meta name="description" content="'.$desc.'"/>';	
-		}else{
-			echo '<meta name="description" content="Группы – Страница '.isset($page[1]).'"/>';
-		}
-		echo '<meta name="keywords" content="'.htmlentities($post->post_title).',купить билет '.isset($postmeta["_aioseop_keywords"][0]).'" />';
-	}
-
-	
-	if($section[1]=='gigs'){ // title для детальной страницы старой афиши
-		if(!$page[1]){
-			$club = get_post_meta(get_the_ID(), 'club', true);
-			echo '<meta name="description" content="'.htmlentities($post->post_title).' — афиша ближайших концертов и билеты по официальным ценам в '.$club.'"/>';	
-		}else{
-			echo '<meta name="description" content="Афиша – Страница '.$page[1].'"/>';
-		}
-		echo '
-<meta name="keywords" content="'.$postmeta["club"].'" />
-';
-	}
-	
-	if($section[1]=='leaks'){ // meta для страниц leaks
-		$title='';
-		if($section[3] && !$page[1]){ // Третий уровень детальная страница
-			$gr = get_post_meta(get_the_ID(), 'data_ngroup', true);
-			if(!$gr) {$gr = get_post_meta(get_the_ID(), 'group_afisha', true);}
-			
-			$album = get_post_meta(get_the_ID(), 'album', true);
-			$year = get_post_meta(get_the_ID(), 'data_leaks', true);
-			
-			$title =''.$gr.' — '.$album.' ('.$year.') слушать онлайн бесплатно на музыкальном портале modernrock.ru';
-			
-		}else if($section[2] && !$page[1] || ($section[4] && $page[1])){ // второй уровень жанры
-			$title = 'Новинки '.mb_strtolower($cat[0]->cat_name).' музыки '.date('Y').' - слушать онлайн бесплатно на музыкальном портале modernrock.ru';
-		}else{ // корневая
-			$title = 'Слушать новинки музыки '.date('Y').' онлайн бесплатно, новые альбомы и песни '.date('Y').' на музыкальном портале modernrock.ru';
-		}
-		if($page[1]) $title.='. Cтраница №'.$page[1].'';
-		
-		echo '
-		<meta name="description" content="'.$title.'"/>
-		<meta name="keywords" content="'.$postmeta["_aioseop_keywords"][0].'" />
-		';
-	}
-	
-	/* [13] meta для детальной страницы клубы */
-	if($is_single && $cat[0]->term_id == 13 && !$auto_seo){
-		$city = get_post_meta(get_the_ID(), 'city', true);
-		echo '
-<meta name="description" content="Билеты на концерты в '.htmlentities($post->post_title).' в '.dec_city($city).'. По официальным ценам. Расписание, события, адрес, отзывы."/>
-<meta name="keywords" content="'.$postmeta["_aioseop_keywords"][0].'" />
-		';
-	}
-	
-	/* [2872] meta для детальной страницы билеты  */
-	if($is_single && $cat[0]->category_parent == 2872 && !$auto_seo){
-		$city = get_post_meta(get_the_ID(), 'city', true);
-		$club = get_post_meta(get_the_ID(), 'club', true);
-		echo '
-<meta name="description" content="'.htmlentities($post->post_title).'. '.$city.', '.$club.'. Все билеты - на modernrock.ru"/>
-<meta name="keywords" content="'.$postmeta["_aioseop_keywords"][0].'" />
-		';
-	}
-	
-	/* meta активация ручного режима */
-	if($is_single && $auto_seo == 1){
-		echo '
-<meta name="description" content="'.$postmeta["_aioseop_description"][0].'"/>
-<meta name="keywords" content="'.$postmeta["_aioseop_keywords"][0].'" />
-';
-		$title = $postmeta["_aioseop_title"][0];
-	}
-	
-	/* meta для всех категорий */
-	if($is_category){
-		$field_name = 'title-element-first-page';
-		$terms = get_queried_object();
-		$cat_description = clear_txt($terms->description);
-		echo '	
-<meta name="description" content="'.$cat_description.'"/>
-<meta name="keywords" content="'.$terms->cat_name.','.$terms->category_nicename.'" />
-';
-	}
-	
-	/* социальные мета теги */
-	if($is_single){
-		$meta_desc = clear_txt($post->post_content);
-		$large = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full'); if ($large[0]=='') $large[0]='/wp-content/uploads/2012/11/small_'.get_post_meta(get_the_ID(), 'attached_img', true);
-		if(strlen($meta_desc) > 300){
-			$meta_desc = substr($meta_desc,0,350).'...';
-		}
-		echo '
-<meta property="og:site_name" content="ModernRock.ru"/>
-<meta property="og:title" content="'.$seo_title.'"/>
-<meta property="og:description" content="'.$meta_desc.'"/> 
-<meta property="og:url" content="https://modernrock.ru'.$_SERVER['REQUEST_URI'].'"/>
-';
-		if (isset($large[0])){
-		echo '
-<meta property="og:image" content="'.$large[0].'"/>
-<link rel="image_src" href="'.$large[0].'"/>
-';
-		}
-
-	}
-
 }
 
 /* function base pagination */
@@ -2167,12 +1956,6 @@ function gigsbot_banner() {
     <?php
 }
 add_action('wp_footer', 'gigsbot_banner');
-add_action('template_redirect', function() {
-    if (is_category(2872)) {
-        wp_redirect('https://modernrock.ru/afisha/moskva/', 301);
-        exit;
-    }
-});
 add_shortcode('news_rewriter', function() {
     if (!current_user_can('edit_posts')) {
         return '<p>Для создания новости войдите под учётной записью редактора.</p>';
@@ -2319,3 +2102,4 @@ add_action('init', function() {
         echo 'OK: cache cleared';
     }
 });
+require_once __DIR__ . "/seo.php";

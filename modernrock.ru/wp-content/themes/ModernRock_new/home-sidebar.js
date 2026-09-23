@@ -1,8 +1,9 @@
 (function () {
     'use strict';
-    var sidebar = document.querySelector('.home-sidebar');
+    var sidebars = document.querySelectorAll('.aligned-sidebar');
     var banner = document.querySelector('header .banner_t');
-    if (!sidebar || !banner) return;
+    if (!sidebars.length) return;
+    if (!banner) return;
 
     function visible(element) {
         var rect = element.getBoundingClientRect();
@@ -15,7 +16,9 @@
         // Reserve the sidebar offset whenever the banner occupies layout space,
         // including an empty ad slot that has not loaded its creative yet.
         var hasBanner = visible(banner);
-        sidebar.classList.toggle('has-top-banner', hasBanner);
+        sidebars.forEach(function (sidebar) {
+            sidebar.classList.toggle('has-top-banner', hasBanner);
+        });
     }
 
     var observer = null;

@@ -34,7 +34,7 @@
 				if($q->have_posts()) { //проверяем, существуют ли посты по заданным параметрам(необязательно)
 					while($q->have_posts()){ $q->the_post();
 						if($gr == get_the_title()){
-							echo '<div class="h1"><a href="' .get_permalink(). '">' . get_the_title() . '</a></div>';
+							echo '<h1 class="h1">' . esc_html(get_the_title()) . '</h1>';
 						}
 					}
 				}else{

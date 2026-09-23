@@ -1,5 +1,6 @@
 <?php get_header(); ?>
 <div class="block_left">
+    <?php modernrock_archive_heading(); ?>
 	<?php include('sn_breadcrumbs.php'); ?>
 	
 	<div class="section_list section_club">
@@ -35,7 +36,7 @@
 	<div class="pagination"><?php if(function_exists('wp_pagenavi')){ wp_pagenavi();}?></div>
 </div>
 
-<aside class="block_right">
+<aside class="block_right aligned-sidebar">
 	<?php include('sn_adv_google.php'); ?>
 	<?php include('sn_banners_r1.php'); ?>
 	<?php include('sn_subscribe.php'); ?>

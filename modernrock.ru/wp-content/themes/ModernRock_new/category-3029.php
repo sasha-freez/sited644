@@ -1,6 +1,7 @@
 <?php get_header(); ?>
 <link rel="stylesheet" href="/css/media_inner.css" type="text/css" media="all" />
 <?php include('sn_breadcrumbs.php'); ?>
+<?php modernrock_archive_heading(); ?>
 
 <div class="section_list gr_sounds">
 	<ul class="tiles3">

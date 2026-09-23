@@ -1,19 +1,3 @@
-<?php
-/*
-$LastModified_unix = 1294844676; // время последнего изменения страницы
-$LastModified = gmdate("D, d M Y H:i:s \G\M\T", $LastModified_unix);
-$IfModifiedSince = false;
-if (isset($_ENV['HTTP_IF_MODIFIED_SINCE']))
-    $IfModifiedSince = strtotime(substr($_ENV['HTTP_IF_MODIFIED_SINCE'], 5));  
-if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']))
-    $IfModifiedSince = strtotime(substr($_SERVER['HTTP_IF_MODIFIED_SINCE'], 5));
-if ($IfModifiedSince && $IfModifiedSince >= $LastModified_unix) {
-    header($_SERVER['SERVER_PROTOCOL'] . ' 304 Not Modified');
-    exit;
-}
-header('Last-Modified: '. $LastModified);
-*/
-?>
 <!DOCTYPE html>
 <html itemscope="itemscope" itemtype="http://schema.org/WebPage" lang="ru">
 <head>
@@ -25,19 +9,17 @@ header('Last-Modified: '. $LastModified);
 
 <meta name="google-site-verification" content="3PwJOFAib-gAGNIsIQtkDh_40hpOLah2rTPkkiR7R_c" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="MobileOptimized" content="100%"/>
 <!--[if lt IE 9]><script src="/js/html5shiv.min.js"></script> <link rel="stylesheet" href="/css/old_ie.css" type="text/css" media="all" /><![endif]-->
 
 <link rel="stylesheet" href="/css/gotham/stylesheet.css?v=23495338" type="text/css" media="all" />
 <link rel="stylesheet" href="/css/master.css?v=23495338" type="text/css" media="all" />
 <link rel="stylesheet" href="/css/media.css?v=23495338" type="text/css" media="all" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="<?php echo get_template_directory_uri();?>/style.css">
+<link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri() . '/style.css?ver=' . filemtime(__DIR__ . '/style.css')); ?>">
 <meta name="yandex-verification" content="c0ff9f5c692f3f1f"/>
 <?php wp_deregister_script('jquery'); ?>
 <?php wp_head(); ?>
 
-<meta name="yandex-verification" content="c0ff9f5c692f3f1f" />
 <meta name="fo-verify" content="68d9896f-9d91-4510-9764-de0b78ededeb"/>
 
 <!-- Yandex.RTB -->
@@ -60,16 +42,7 @@ header('Last-Modified: '. $LastModified);
 					<input type="text" name="q" id="s" class="inp first_inp" value="" placeholder="Поиск по концертам" autocomplete="off" />
 					<input name="submit" class="submit" type="image" src="/images/i_search.png" alt="Найти"/>
 				</form>
-				<div class="search_hints">
-					<!-- <a href="#"><div class="hint_item">
-						<div class="hint_image"><img src="https://dev.modernrock.ru/wp-content/cache/thumb/d4/6ea7521946585d4_275x160.jpg" alt=""></div>
-						<div class="hint_title">Миша Житов</div>
-					</div></a>
-					<a href="#"><div class="hint_item">
-						<div class="hint_image"><img src="https://dev.modernrock.ru/wp-content/cache/thumb/d4/6ea7521946585d4_275x160.jpg" alt=""></div>
-						<div class="hint_title">Миша Житов</div>
-					</div></a> -->
-				</div>
+				<div class="search_hints"></div>
 			</div>
 			<div class="search" id="search">
 				<form method="get" name="searchform" id="searchform" action="/search/">

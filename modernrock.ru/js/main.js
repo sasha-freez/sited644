@@ -35,14 +35,20 @@ $(function(){
 	/* tabs jquery freezee */
 	$('.tabs_s li a').click(function(e){
 		e.preventDefault();
-		var t=$(this); cl = t.attr('rel'), tc = t.closest('.tabs_s');
-		tc.stop().find('li').removeClass('active');
-		t.stop().closest('.container').find('.tab-content').hide();
-		t.stop().parent().addClass('active');
-		$(cl).stop().fadeIn();
-		if(t.closest('.b_news').attr('class')=='b_news' && $('.b_news .js-toggle').css('display')=='none'){
-			$('.b_news .js-b_arrow').stop().trigger('click');	
-		}
+        var t = $(this), tc = t.closest('.tabs_s');
+        var panels = tc.next('.js-toggle').find('.tab-content');
+        var selector = t.attr('data-tab') || t.attr('rel');
+        if (!selector || !/^\.[a-zA-Z0-9_-]+$/.test(selector)) return;
+        var target = panels.filter(selector);
+        if (!target.length) return;
+        tc.find('li').removeClass('active');
+        t.parent().addClass('active');
+        panels.stop(true, true).removeClass('tc-act').hide();
+        target.addClass('tc-act').show();
+        var news = t.closest('.b_news');
+        if (news.length && news.find('.js-toggle').css('display') === 'none') {
+            news.find('.js-b_arrow').trigger('click');
+        }
 	});
 	
 	/* mrok ipade slide */

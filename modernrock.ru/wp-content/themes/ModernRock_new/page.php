@@ -13,7 +13,9 @@
 		<?php else: ?>
 			<link rel="stylesheet" href="/css/media_inner.css" type="text/css" media="all" />
 			<?php while (have_posts()) : the_post(); ?>
-			<?php the_content();?>
+			<?php if (!preg_match('/<h1(?:\s|>)/i', get_the_content())): ?><h1 class="h1"><?php the_title(); ?></h1><?php endif; ?>
+            <?php the_content(); ?>
+            <?php if (is_page('redkassa')): ?><p>Актуальные концерты и ссылки на билеты доступны в <a href="/afisha/">афише ModernRock</a>.</p><?php endif; ?>
 			<?php endwhile; ?>
 		<?php endif; ?>
 	</div>

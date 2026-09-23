@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 <div class="block_left">
-	<div class="h1">Ошибка 404</div>
-	<p>Страница не найдена. Перейти <a href="http://modernrock.ru">на главную</a></p>
+	<h1 class="h1">Ошибка 404</h1>
+	<p>Страница не найдена. Перейти <a href="<?php echo esc_url(home_url('/')); ?>">на главную</a></p>
 </div>
 
 <aside class="block_right">

@@ -34,26 +34,78 @@ header .search{
 .search_first form{
     height: 33px;
 }
-.hint_item{
-    background: #e2f1f6;
-    max-width: 100%;
-    display: flex;
-    align-items: center;
-    padding: 5px 0;
-    margin-bottom: 10px;
-    width: 100%;
-    border-radius: 4px;
-    border: 1px solid white;
-    animation: shows 0.3s 1 alternate forwards;
-}
-.hint_image img{
-    width: 59px;
-    margin: 0 10px;
-}
-.search_hints{
+/* One opaque panel keeps suggestions separate from the page below. */
+.search_first .search_hints {
     position: absolute;
+    top: 100%;
+    left: 0;
     z-index: 999;
     width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+    border: 1px solid #dce8ed;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(35, 59, 72, .2);
+    max-height: min(480px, 60vh);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 4px 0;
+}
+.search_first .search_hints:empty {
+    display: none;
+}
+.search_first .search_hints > a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #edf2f4;
+}
+.search_first .search_hints > a:last-child {
+    border-bottom: 0;
+}
+.search_first .search_hints > a:hover {
+    background: #f3f8fa;
+}
+.search_first .search_hints > a:focus-visible {
+    background: #f3f8fa;
+    outline: 1px solid #a9c9d6;
+    outline-offset: -2px;
+}
+.search_first .hint_item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 12px;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+.search_first .hint_image {
+    flex: 0 0 52px;
+}
+.search_first .hint_image img {
+    display: block;
+    width: 52px;
+    height: 44px;
+    margin: 0;
+    object-fit: cover;
+    border-radius: 4px;
+}
+.search_first .hint_title {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+.search_first .hint_kind {
+    display: block;
+    color: #71828a;
+    font-size: 12px;
+    margin-top: 2px;
+}
+.search_first .hint_all {
+    color: #438fae;
+    background: #f3f9fb;
 }
 .subsform{
 display: none;
@@ -84,13 +136,95 @@ display: none;
     }
 }
 
-/* Keep the homepage sidebar aligned with the news content. */
-.block_right.home-sidebar {
+/* Shared sidebar alignment for homepage, archives and recommendations. */
+.block_right.aligned-sidebar {
     margin-top: 0;
 }
 
 @media (min-width:1290px) {
-    .block_right.home-sidebar.has-top-banner {
+    .block_right.aligned-sidebar.has-top-banner {
         margin-top: -121px;
     }
 }
+
+/* Keep all four recommendation tabs inside the sidebar. */
+.b-recommend .tabs_s ul {display:flex;flex-wrap:wrap;gap:4px;margin:0;}
+.b-recommend .tabs_s ul li[class] {float:none;width:auto;padding:0;}
+.b-recommend .tabs_s ul li a {padding:4px 5px;}
+.b-recommend .tabs_s ul li a:focus-visible {outline:2px solid #00a5d8;outline-offset:1px;}
+.b-recommend .recommend-empty {font-size:13px;line-height:1.5;color:#71828a;}
+
+/* Concert directory results use normal grid flow, independent of masonry. */
+.concert-search-page {padding-bottom:30px;}
+.concert-search-page .concert-city-tabs {
+    display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0 0 24px;
+}
+.concert-search-page .concert-city-tabs li {margin:0;padding:0;}
+.concert-city-tabs a {
+    display:block;padding:9px 16px;border-radius:5px;background:#e2f1f6;
+    color:#438fae;text-decoration:none;font-size:14px;line-height:1.4;
+}
+.concert-city-tabs a:hover,.concert-city-tabs a:focus-visible {background:#00a5d8;color:#fff;}
+.concert-results-grid {
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));
+    gap:24px;list-style:none;margin:20px 0 24px;padding:0;
+}
+.concert-results-grid .concert-result {min-width:0;margin:0;padding:0;}
+.concert-result-card {max-width:320px;}
+.concert-result-image {margin-bottom:10px;}
+.concert-result-image img {
+    display:block;width:100%;height:auto;aspect-ratio:275/160;object-fit:cover;border-radius:5px;
+}
+.concert-result-kind {font-size:12px;line-height:1.4;color:#71828a;margin-bottom:5px;}
+.concert-result-name {font-size:16px;line-height:1.4;overflow-wrap:anywhere;}
+.concert-result-name a {color:#303030;text-decoration:none;}
+.concert-result-name a:hover {color:#068db6;}
+
+.search_first .hint_toolbar {
+    position:sticky;top:0;height:0;z-index:2;padding:0;margin:0;
+}
+.search_first .hint_close {
+    position:absolute;top:0;right:6px;width:32px;height:32px;
+    display:flex;align-items:center;justify-content:center;
+    border:0;border-radius:4px;background:#fff;color:#71828a;cursor:pointer;
+    font:inherit;padding:0;line-height:1;
+}
+.search_first .hint_close span {font-size:30px;line-height:1;}
+.search_first .search_hints .hint_item {padding-right:46px;}
+.search_first .hint_close:hover {color:#438fae;}
+.search_first .hint_close:focus-visible {outline:1px solid #a9c9d6;border-radius:3px;}
+
+.ticket_list .gigsbot-filter-note {font-size:12px;line-height:1.5;color:#71828a;margin:0 0 16px;}
+.ticket_list a.gigsbot-card-buy {transition:background-color .15s ease;color:#fff;text-decoration:none;}
+.ticket_list a.gigsbot-card-buy:hover {background:#357d27;color:#fff;text-decoration:none;}
+.ticket_list a.gigsbot-card-buy:focus-visible {outline:2px solid #357d27;outline-offset:3px;color:#fff;}
+
+.afisha-filter-panel {margin-bottom:25px;}
+.afisha-filter-panel .h3 {margin:0 0 12px;}
+.afisha-city-tabs {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;}
+.afisha-genre-tabs {display:flex;flex-wrap:wrap;gap:8px;}
+.afisha-filter-tab {
+    display:block;box-sizing:border-box;height:22px;padding:0 8px;border-radius:3px;
+    background:#f0f1f2;color:#59636a;text-decoration:none;font-size:12px;line-height:22px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.afisha-city-tabs .afisha-filter-tab {text-align:center;}
+.afisha-filter-tab:hover {background:#e5e8ea;color:#46545e;text-decoration:none;}
+.afisha-filter-tab.is-active {background:#0086c5;color:#fff;}
+.afisha-filter-tab:focus-visible {outline:2px solid #549cc2;outline-offset:2px;}
+.afisha-filter-count {font-size:11px;opacity:.8;margin-left:4px;}
+.afisha-all-cities {margin:10px 0 22px;}
+.afisha-all-cities summary {cursor:pointer;color:#438fae;font-size:13px;padding:6px 0;}
+.afisha-all-cities .afisha-city-tabs {margin-top:10px;}
+.afisha-hide-cities,.afisha-all-cities[open] .afisha-show-cities {display:none;}
+.afisha-all-cities[open] .afisha-hide-cities {display:inline;}
+.afisha-filter-panel > .afisha-city-tabs {margin-bottom:20px;}
+.afisha-filter-help {font-size:13px;line-height:1.5;color:#71828a;}
+@media(max-width:760px) {.afisha-city-tabs {grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media(max-width:480px) {.afisha-city-tabs {grid-template-columns:repeat(2,minmax(0,1fr));}}
+
+.afisha-main-cities {margin-top:0;margin-bottom:10px;}
+.afisha-filter-label {font-size:12px;line-height:16px;font-weight:bold;color:#59636a;margin:0 0 5px;}
+
+/* Genre labels shared by artist and venue concert cards. */
+.event-genres { color: #777; font-size: 12px; line-height: 1.4; margin: 4px 0; }

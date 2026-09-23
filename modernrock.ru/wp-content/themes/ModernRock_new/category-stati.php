@@ -1,5 +1,6 @@
 <?php get_header(); ?>
 <div class="block_left">
+    <?php modernrock_archive_heading(); ?>
 	<?php include('sn_breadcrumbs.php'); ?>
 	
 	<div class="events-list">

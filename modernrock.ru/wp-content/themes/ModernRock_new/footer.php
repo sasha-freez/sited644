@@ -50,7 +50,8 @@
 <div id="footer-ext" style="display:none"></div>
 
 <script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
+<script src="<?php echo esc_url(home_url('/js/main.js?ver=' . filemtime(ABSPATH . 'js/main.js'))); ?>" type="text/javascript"></script>
+<script src="<?php echo esc_url(get_template_directory_uri() . '/home-sidebar.js?ver=' . filemtime(__DIR__ . '/home-sidebar.js')); ?>" defer></script>
 <script src="/js/jquery.wookmark.js"></script>
 <script src="/js/wookmark_js.js"></script>
 <!-- inner js -->
@@ -95,6 +96,35 @@ if (srch && hints) {
     let timer;
     let pending;
     let requestId = 0;
+    const searchBox = srch.closest('.search_first');
+    function closeHints() {
+        ++requestId;
+        clearTimeout(timer);
+        if (pending) pending.abort();
+        pending = null;
+        hints.innerHTML = '';
+    }
+    function showHints(html) {
+        hints.innerHTML = '<div class="hint_toolbar"><button type="button" class="hint_close" aria-label="Закрыть подсказки" title="Закрыть"><span aria-hidden="true">×</span></button></div>' + html;
+    }
+    document.addEventListener('pointerdown', function (event) {
+        if (!searchBox.contains(event.target)) closeHints();
+    });
+    searchBox.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            closeHints();
+            srch.focus();
+        }
+    });
+    hints.addEventListener('click', function (event) {
+        if (event.target.closest('.hint_close')) {
+            closeHints();
+            srch.focus();
+        }
+    });
+    srch.addEventListener('click', function () {
+        if (!hints.hasChildNodes()) srch.dispatchEvent(new Event('input'));
+    });
     srch.addEventListener('input', function () {
         const query = srch.value.trim();
         const currentId = ++requestId;
@@ -107,7 +137,12 @@ if (srch && hints) {
                 url: <?php echo wp_json_encode(get_template_directory_uri() . '/ajax_search.php'); ?>,
                 data: {q: query},
                 success: function (html) {
-                    if (currentId === requestId) hints.innerHTML = html;
+                    if (currentId === requestId) showHints(html);
+                },
+                error: function (xhr, status) {
+                    if (status !== 'abort' && currentId === requestId) {
+                        showHints('<div class="hint_item">Подсказки недоступны. Нажмите Enter, чтобы открыть поиск.</div>');
+                    }
                 }
             });
         }, 250);
@@ -126,7 +161,7 @@ if (srch && hints) {
 		<nav class="menu">
 			<ul class="menu_top">
 				<li class="menu-item menu-item-42"><a href="/news">Новости</a></li>
-				<li class="menu-item menu-item-25327"><a href="/tickets">Афиша</a></li>
+				<li class="menu-item menu-item-25327"><a href="/afisha/moskva/">Афиша</a></li>
 				<li class="menu-item menu-item-45"><a href="/reports">Репортажи</a></li>
 				<li class="menu-item menu-item-43"><a href="/posts">Посты</a></li>
 				<li class="menu-item menu-item-68175"><a>Радио</a></li>

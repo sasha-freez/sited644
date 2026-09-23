@@ -97,6 +97,7 @@ $gigsbot_url = 'https://api.tcket.ru/api/concerts_web?artist=' . urlencode($gigs
         }
 
 $render_card = function($c, $artist_name, $artist_photo) use ($format_date, $gigsbot_internal_url) {
+    $event_genres = gigsbot_event_genres(['artist' => $artist_name]);
     $gigsbot_card_link = $gigsbot_internal_url($c, $artist_name);
     $gigsbot_card_url = $gigsbot_card_link['url'];
     $gigsbot_card_rel = $gigsbot_card_link['internal'] ? '' : ' rel="nofollow" target="_blank"';
@@ -111,7 +112,7 @@ $render_card = function($c, $artist_name, $artist_photo) use ($format_date, $gig
 				'@type' => 'Event',
 				'name' => $artist_name,
 				'startDate' => $date_iso,
-				'location' => ['@type' => 'Place', 'name' => $c['place'], 'address' => ['@type' => 'PostalAddress', 'addressLocality' => $c['city'], 'addressCountry' => 'RU']],
+				'location' => ['@type' => 'Place', 'name' => modernrock_event_place($c), 'address' => ['@type' => 'PostalAddress', 'addressLocality' => $c['city'], 'addressCountry' => 'RU']],
 				'offers' => ['@type' => 'Offer', 'price' => $c['price'], 'priceCurrency' => 'RUB', 'url' => $c['url'], 'availability' => 'https://schema.org/InStock'],
 				'performer' => ['@type' => 'MusicGroup', 'name' => $artist_name]
 			], JSON_UNESCAPED_UNICODE); ?></script>
@@ -125,7 +126,8 @@ $render_card = function($c, $artist_name, $artist_photo) use ($format_date, $gig
 					<div class="date">
 						<a href="<?php echo esc_url($gigsbot_card_url); ?>"<?php echo $gigsbot_card_rel; ?>><?php echo esc_html($date_fmt); ?></a>
 					</div>
-					<div class="club"><?php echo esc_html($c['place']); ?></div>
+					<div class="club"><?php echo esc_html(modernrock_event_place($c)); ?></div>
+                    <?php if ($event_genres): ?><div class="event-genres"><?php echo esc_html(implode(' · ', $event_genres)); ?></div><?php endif; ?>
 					<?php if ($c['price']): ?>
 					<div class="price">билеты от <?php echo number_format($c['price'], 0, '', ' '); ?> руб.</div>
 					<?php endif; ?>
@@ -179,12 +181,12 @@ $render_card = function($c, $artist_name, $artist_photo) use ($format_date, $gig
 						'@type' => 'Event',
 						'name' => $gigsbot_artist_name,
 						'startDate' => $ge_date_iso,
-						'location' => ['@type' => 'Place', 'name' => $ge['place'], 'address' => ['@type' => 'PostalAddress', 'addressLocality' => $gigsbot_city, 'addressCountry' => 'RU']],
+						'location' => ['@type' => 'Place', 'name' => modernrock_event_place($ge), 'address' => ['@type' => 'PostalAddress', 'addressLocality' => $gigsbot_city, 'addressCountry' => 'RU']],
 						'offers' => ['@type' => 'Offer', 'price' => $ge['price'], 'priceCurrency' => 'RUB', 'url' => $ge['url'], 'availability' => 'https://schema.org/InStock'],
 						'performer' => ['@type' => 'MusicGroup', 'name' => $gigsbot_artist_name]
 					], JSON_UNESCAPED_UNICODE) . '</script>';
 					echo '<div class="row">';
-					echo '<a href="' . esc_url($gigsbot_other_url) . '"' . $gigsbot_other_rel . '>' . esc_html($ge_date_fmt) . ' — ' . esc_html($gigsbot_city) . ', ' . esc_html($ge['place']) . ' 🎟</a>';
+					echo '<a href="' . esc_url($gigsbot_other_url) . '"' . $gigsbot_other_rel . '>' . esc_html($ge_date_fmt) . ' — ' . esc_html($gigsbot_city) . ', ' . esc_html(modernrock_event_place($ge)) . ' 🎟</a>';
 					echo '</div>';
 				}
 			}

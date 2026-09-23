@@ -10,7 +10,7 @@
 	$month = $_monthsList[date("n")];
 	$month_plus = $_monthsList[date("n")+1];
 ?>
-<h1>Календарь концертов в <?php echo $city_rp .' за '.$month.'-'.$month_plus;  ?> 2018 года</h1>
+<h1>Календарь концертов в <?php echo $city_rp .' за '.$month.'-'.$month_plus;  ?> <?php echo date('Y'); ?> года</h1>
 <div class="events-list">
 	<?php
 		for($ii=0;$ii<30;$ii++){

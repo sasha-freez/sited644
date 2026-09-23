@@ -116,3 +116,15 @@ vendor/
 
 # Local Anthropic API key
 /modernrock.ru/wp-content/themes/ModernRock_new/anthropic.local.php
+
+# Custom city afisha source: keep only this file, not third-party plugins.
+!/modernrock.ru/wp-content/plugins/
+/modernrock.ru/wp-content/plugins/*
+!/modernrock.ru/wp-content/plugins/gigsbot-city-pages/
+/modernrock.ru/wp-content/plugins/gigsbot-city-pages/*
+!/modernrock.ru/wp-content/plugins/gigsbot-city-pages/gigsbot-city-slugs.php
+
+# Custom concert route maintained alongside the theme.
+!/modernrock.ru/wp-content/plugins/gigsbot-concert-pages/
+/modernrock.ru/wp-content/plugins/gigsbot-concert-pages/*
+!/modernrock.ru/wp-content/plugins/gigsbot-concert-pages/gigsbot-concert-pages.php

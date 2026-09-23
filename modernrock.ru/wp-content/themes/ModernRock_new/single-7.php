@@ -26,7 +26,7 @@
 	<?php include('sn_comments.php'); ?>
 </div>
 
-<aside class="block_right">
+<aside class="block_right aligned-sidebar">
 	<?php include('sn_recommend.php'); ?>
 	<?php include('sn_banners_r1.php'); ?>
 	<?php include('sn_adv_google.php'); ?>

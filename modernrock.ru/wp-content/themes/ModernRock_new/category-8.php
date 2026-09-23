@@ -1,6 +1,7 @@
 <?php get_header(); ?>
 <div class="block_left">
 	<?php include('sn_breadcrumbs.php'); ?>
+	<?php modernrock_archive_heading(); ?>
 	
 	<?php
 		wp_reset_query();
@@ -14,7 +15,6 @@
 		query_posts($arh);
 	?>
 	<?php if (have_posts()) : ?>
-	<div class="h1">Активные конкурсы</div>
 	<div class="section_list section_contest_act">
 		<ul>
 			<?php while (have_posts()) : the_post(); ?>
@@ -72,7 +72,7 @@
 	<div class="pagination"><?php if(function_exists('wp_pagenavi')){ wp_pagenavi();}?></div>
 </div>
 
-<aside class="block_right">
+<aside class="block_right aligned-sidebar">
 	<?php include('sn_adv_google.php'); ?>
 	<?php include('sn_banners_r1.php'); ?>
 	<?php include('sn_subscribe.php'); ?>

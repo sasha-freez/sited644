@@ -67,6 +67,7 @@
 		<?php if (!empty($venue_concerts)): ?>
 		<div class="venue-list">
 			<?php foreach ($venue_concerts as $vc):
+                $vc_genres = gigsbot_event_genres($vc);
                 $vc_date = modernrock_event_date($vc['date']);
                 $vc_date_fmt = $vc_date ? $vc_date['label'] : 'Дата уточняется';
                 $vc_link = modernrock_event_link($vc);
@@ -81,6 +82,7 @@
 				<div class="venue-card-body">
 					<div class="venue-card-title"><a href="<?php echo esc_url($vc_url); ?>"<?php echo $vc_rel; ?>><?php echo esc_html($vc['artist']); ?></a></div>
 					<div class="venue-card-meta"><?php echo esc_html($vc_date_fmt); ?></div>
+                    <?php if ($vc_genres): ?><div class="venue-card-meta event-genres"><?php echo esc_html(implode(' · ', $vc_genres)); ?></div><?php endif; ?>
 					<?php if (!empty($vc['city']) && mb_strtolower($vc['city']) !== mb_strtolower($sql_title)): ?>
 					<div class="venue-card-meta"><?php echo esc_html($vc['city']); ?></div>
 					<?php endif; ?>

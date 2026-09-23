@@ -1,6 +1,11 @@
-<?php get_header(); ?>
+<?php
+if (isset($_GET['q'])) {
+    include __DIR__ . '/concert-search.php';
+    return;
+}
+get_header(); ?>
 <div class="block_left">
-	<div class="h1">Поиск групп</div>
+	<h1 class="h1">Группы и исполнители</h1>
 	<div class="csearch">
 		<form action="/groups" method="get">
 			<input type="text" class="inp" name="q" value="<?php if (isset($_GET['q']) && $_GET['q']<>''){echo esc_attr(modernrock_search_term('q'));}else{echo 'Поиск';}?>" onfocus="this.value='';" onblur="if (this.value == ''){this.value='Поиск'};"/>
@@ -194,7 +199,7 @@
 	<div class="pagination"><?php if(function_exists('wp_pagenavi')){ wp_pagenavi();}?></div>
 </div>
 
-<aside class="block_right">
+<aside class="block_right aligned-sidebar">
 	<?php include('sn_adv_google.php'); ?>
 	<?php include('sn_banners_r1.php'); ?>
 	<?php include('sn_subscribe.php'); ?>

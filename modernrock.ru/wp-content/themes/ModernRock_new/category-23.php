@@ -4,7 +4,7 @@
 	
 	<?php include('sn_post-cat_list.php'); ?>
 	
-	<div class="h1">Блог</div>
+	<?php modernrock_archive_heading(); ?>
 	<div class="section_list section_blog">
 		<ul class="tiles">
 			<?php wp_reset_query(); ?>
@@ -36,7 +36,7 @@
 	<div class="pagination"><?php if(function_exists('wp_pagenavi')){ wp_pagenavi();}?></div>
 </div>
 		
-<aside class="block_right">
+<aside class="block_right aligned-sidebar">
 	<?php include('sn_adv_google.php'); ?>
 	<?php include('sn_banners_r1.php'); ?>
 	<?php include('sn_subscribe.php'); ?>

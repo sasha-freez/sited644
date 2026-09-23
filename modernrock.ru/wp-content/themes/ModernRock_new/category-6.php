@@ -1,5 +1,6 @@
 <?php get_header(); ?>
 <div class="block_left">
+    <?php modernrock_archive_heading(); ?>
 	<?php include('sn_breadcrumbs.php'); ?>
 	
 	<?php include('sn_post-cat_list.php'); ?>
@@ -46,7 +47,7 @@
 
 </div>
 		
-<aside class="block_right">
+<aside class="block_right aligned-sidebar">
 	<?php include('sn_adv_google.php'); ?>
 	<?php include('sn_banners_r1.php'); ?>
 	<?php include('sn_subscribe.php'); ?>

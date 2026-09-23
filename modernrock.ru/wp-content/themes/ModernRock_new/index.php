@@ -1,6 +1,7 @@
 <?php get_header();  // редактирование главной страницы ?>
 <!-- 195118a6593aeec1 -->
 <div class="block_left">
+    <h1 class="h3">Новости музыки и афиша концертов</h1>
 	<div class="section_list">
 		<?php wp_reset_query(); ?>
 		<?php 
@@ -54,7 +55,7 @@
 	<div class="pagination"><?php if(function_exists('wp_pagenavi')){ wp_pagenavi();}?></div>
 </div>
 
-<aside class="block_right home-sidebar">
+<aside class="block_right aligned-sidebar">
 	
 	<!-- Концерты сегодня -->
 	<div class="n-item concert_last">
@@ -180,5 +181,4 @@
 		<?php endif; ?>	
 	</div>
 </aside>
-<script src="<?php echo esc_url(get_template_directory_uri() . '/home-sidebar.js?ver=' . filemtime(get_template_directory() . '/home-sidebar.js')); ?>" defer></script>
 <?php get_footer(); ?>
