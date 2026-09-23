@@ -17,11 +17,11 @@
             <?php
             $term = modernrock_search_term('q');
             $search_page = modernrock_search_page();
-            $results = new WP_Query([
+            $results = modernrock_cached_public_query([
                 's' => $term, 'post_type' => ['post', 'page'], 'post_status' => 'publish',
                 'posts_per_page' => 33, 'paged' => $search_page,
                 'ignore_sticky_posts' => true, 'post__in' => $term === '' ? [0] : [],
-            ]);
+            ], 'site:' . $term);
             $i = 0;
             while ($results->have_posts()) : $results->the_post(); ?>
 			<?php 

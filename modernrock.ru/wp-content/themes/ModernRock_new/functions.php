@@ -8,7 +8,7 @@ function modernrock_search_term($key) {
 }
 
 /** Search the artist/venue directory by title without matching biographies. */
-function modernrock_concert_search($term, $page = 1, $limit = 15) {
+function modernrock_concert_search($term, $page = 1, $limit = 15, $count_results = true) {
     global $wpdb;
     $filter = function ($where, $query) use ($term, $wpdb) {
         if ($query->get('modernrock_concert_search')) {
@@ -17,14 +17,14 @@ function modernrock_concert_search($term, $page = 1, $limit = 15) {
         return $where;
     };
     add_filter('posts_where', $filter, 10, 2);
-    $query = new WP_Query([
+    $query = modernrock_cached_public_query([
         'post_type' => 'post', 'post_status' => 'publish',
         'category__in' => [12, 13], 'category__not_in' => [97],
-        'posts_per_page' => $limit, 'paged' => $page,
+        'posts_per_page' => $limit, 'paged' => $page, 'no_found_rows' => !$count_results,
         'orderby' => 'title', 'order' => 'ASC',
         'ignore_sticky_posts' => true, 'modernrock_concert_search' => true,
         'post__in' => $term === '' ? [0] : [],
-    ]);
+    ], 'concerts:' . $term);
     remove_filter('posts_where', $filter, 10);
     return $query;
 }
@@ -99,6 +99,7 @@ function modernrock_event_date($value) {
 }
 
 require_once __DIR__ . '/concert-events.php';
+require_once __DIR__ . '/sql-performance.php';
 
 /** Reuse only genuine artist posts for internal concert URLs. */
 function modernrock_event_link($item, $artist_id = 0) {
@@ -112,17 +113,8 @@ function modernrock_event_link($item, $artist_id = 0) {
         $slug = get_post_field('post_name', $artist_id);
         $item['artist'] = get_post_field('post_title', $artist_id);
     } else {
-        global $wpdb;
-        $name = isset($item['artist']) ? $item['artist'] : '';
-        $slug = $wpdb->get_var($wpdb->prepare(
-            "SELECT p.post_name FROM {$wpdb->posts} p
-             INNER JOIN {$wpdb->term_relationships} r ON p.ID = r.object_id
-             INNER JOIN {$wpdb->term_taxonomy} t ON r.term_taxonomy_id = t.term_taxonomy_id
-             WHERE p.post_status = 'publish' AND p.post_type = 'post'
-             AND t.taxonomy = 'category' AND t.term_id = 12
-             AND (p.post_name = %s OR p.post_title = %s) LIMIT 1",
-            sanitize_title($name), $name
-        ));
+        $entry = modernrock_artist_directory_entry($item['artist'] ?? '');
+        $slug = $entry['artist']['post_name'] ?? '';
     }
     // The concert router only accepts Latin letters, digits and hyphens.
     if (!$slug || !preg_match('/^[a-z0-9-]+$/D', $slug)) return $fallback;
@@ -555,13 +547,11 @@ function city_custom_box() {
 	print '<label for="club">Клуб:</label><br/>';
 	print '<select name="club" id="club" style="width:210px;">';
 	print '<option value="0">Не выбран</option>';
-	$r = new WP_Query('cat=13&showposts=10000&orderby=title&order=ASC');
-	while ($r->have_posts()) : $r->the_post();
-		$tmp_title=get_the_title();
+	foreach (modernrock_directory_titles(13) as $tmp_title):
 		echo '<option value="'.$tmp_title.'"';
 		if ($data_club == $tmp_title) echo ' selected="selected"';
 		echo '>'.$tmp_title.'</option>';
-	endwhile;		
+	endforeach;
 	print "</select>";
 		
 	wp_reset_postdata();
@@ -570,13 +560,11 @@ function city_custom_box() {
 	print '<label for="group_afisha">Группа:</label>';
 	print '<select name="group_afisha" id="group_afisha" style="width:210px;">';
 	print '<option value="0">Не выбрана</option>';
-	$r = new WP_Query('cat=12&showposts=10000&orderby=title&order=ASC');
-	while ($r->have_posts()) : $r->the_post();
-		$tmp_title=get_the_title();
+	foreach (modernrock_directory_titles(12) as $tmp_title):
 		echo '<option value="'.$tmp_title.'"';
 		if ($data_group == $tmp_title) echo ' selected="selected"';
 		echo '>'.$tmp_title.'</option>';
-	endwhile;		
+	endforeach;
 	print "</select>";
 		
 	wp_reset_postdata();
@@ -745,13 +733,11 @@ function sounds_custom_box() {
 	print '<label for="group_afisha">Группа:</label>';
 	print '<select name="group_afisha" id="group_afisha" style="width:210px;">';
 	print '<option value="0">Не выбрана</option>';
-	$r = new WP_Query('cat=12&showposts=10000&orderby=title&order=ASC');
-	while ($r->have_posts()) : $r->the_post();
-		$tmp_title=get_the_title();
+	foreach (modernrock_directory_titles(12) as $tmp_title):
 		echo '<option value="'.$tmp_title.'"';
 		if ($data_group == $tmp_title) echo ' selected="selected"';
 		echo '>'.$tmp_title.'</option>';
-	endwhile;		
+	endforeach;
 	print "</select>";
 		
 	wp_reset_postdata();
@@ -861,13 +847,11 @@ function leaks_custom_box() {
 	print '<label for="group_afisha">Группа:</label>';
 	print '<select name="group_afisha" id="group_afisha" style="width:210px;">';
 	print '<option value="0">Не выбрана</option>';
-	$r = new WP_Query('cat=12&showposts=10000&orderby=title&order=ASC');
-	while ($r->have_posts()) : $r->the_post();
-		$tmp_title=get_the_title();
+	foreach (modernrock_directory_titles(12) as $tmp_title):
 		echo '<option value="'.$tmp_title.'"';
 		if ($data_group == $tmp_title) echo ' selected="selected"';
 		echo '>'.$tmp_title.'</option>';
-	endwhile;		
+	endforeach;
 	print "</select>";
 		
 	wp_reset_postdata();
@@ -1244,13 +1228,11 @@ function video_custom_box() {
 	print '<label>Группа: </label>';
 	print '<select name="video_group" id="video_group" style="width:210px;">';
 	print '<option value="0">Не выбрана</option>';
-	$r = new WP_Query('cat=12&showposts=10000&orderby=title&order=ASC');
-	while ($r->have_posts()) : $r->the_post();
-		$tmp_title=get_the_title();
+	foreach (modernrock_directory_titles(12) as $tmp_title):
 		echo '<option value="'.$tmp_title.'"';
 		if ($data_group == $tmp_title) echo ' selected="selected"';
 		echo '>'.$tmp_title.'</option>';
-	endwhile;		
+	endforeach;
 	print "</select>";
 	wp_reset_postdata();
 	$post=$tmp_post;	
@@ -1305,13 +1287,11 @@ function interview_custom_box() {
 	print '<label>Группа: </label>';
 	print '<select name="interview_group" id="interview_group" style="width:210px;">';
 	print '<option value="0">Не выбрана</option>';
-	$r = new WP_Query('cat=12&showposts=10000&orderby=title&order=ASC');
-	while ($r->have_posts()) : $r->the_post();
-		$tmp_title=get_the_title();
+	foreach (modernrock_directory_titles(12) as $tmp_title):
 		echo '<option value="'.$tmp_title.'"';
 		if ($data_group == $tmp_title) echo ' selected="selected"';
 		echo '>'.$tmp_title.'</option>';
-	endwhile;		
+	endforeach;
 	print "</select>";
 	
 	print '<br/><br/>';
@@ -1377,13 +1357,11 @@ function notices_custom_box() {
 	print '<label>Группа: </label>';
 	print '<select name="notices_group" id="notices_group" style="width:210px;">';
 	print '<option value="0">Не выбрана</option>';
-	$r = new WP_Query('cat=12&showposts=10000&orderby=title&order=ASC');
-	while ($r->have_posts()) : $r->the_post();
-		$tmp_title=get_the_title();
+	foreach (modernrock_directory_titles(12) as $tmp_title):
 		echo '<option value="'.$tmp_title.'"';
 		if ($data_group == $tmp_title) echo ' selected="selected"';
 		echo '>'.$tmp_title.'</option>';
-	endwhile;		
+	endforeach;
 	print "</select>";
 	
 	print '<br/><br/>';
@@ -1454,26 +1432,22 @@ function reports_custom_box() {
 	print '<label>Клуб: </label>';
 	print '<select name="club" id="club" style="width:210px;">';
 	print '<option value="0">Не выбран</option>';
-	$r = new WP_Query('cat=13&showposts=10000&orderby=title&order=ASC');
-	while ($r->have_posts()) : $r->the_post();
-		$tmp_title=get_the_title();
+	foreach (modernrock_directory_titles(13) as $tmp_title):
 		echo '<option value="'.$tmp_title.'"';
 		if ($data_club == $tmp_title) echo ' selected="selected"';
 		echo '>'.$tmp_title.'</option>';
-	endwhile;		
+	endforeach;
 	print "</select>";
 	
 	print '<br/><br/>';
 	print '<label>Группа: </label>';
 	print '<select name="reports_group" id="reports_group" style="width:210px;">';
 	print '<option value="0">Не выбрана</option>';
-	$r = new WP_Query('cat=12&showposts=10000&orderby=title&order=ASC');
-	while ($r->have_posts()) : $r->the_post();
-		$tmp_title=get_the_title();
+	foreach (modernrock_directory_titles(12) as $tmp_title):
 		echo '<option value="'.$tmp_title.'"';
 		if ($data_group == $tmp_title) echo ' selected="selected"';
 		echo '>'.$tmp_title.'</option>';
-	endwhile;		
+	endforeach;
 	print "</select>";
 	
 	print '<br/><br/>';
@@ -1529,13 +1503,11 @@ function news_custom_box() {
 	print '<label for="news_group">Группа: </label>';
 	print '<select name="news_group" id="news_group" style="width:210px;">';
 	print '<option value="0">Не выбрана</option>';
-	$r = new WP_Query('cat=12&showposts=10000&orderby=title&order=ASC');
-	while ($r->have_posts()) : $r->the_post();
-		$tmp_title=get_the_title();
+	foreach (modernrock_directory_titles(12) as $tmp_title):
 		print '<option value="'.$tmp_title.'"';
 		if ($data==$tmp_title) print ' selected="selected"';
 		print '>'.$tmp_title.'</option>';
-	endwhile;		
+	endforeach;
 	print "</select>";
 	
 	$ra = 1;
@@ -1610,13 +1582,11 @@ function disko_custom_box() {
 	print '<label for="group">Группа: </label>';
 	print '<select name="group" id="group" style="width:210px;">';
 	print '<option value="0">Не выбрана</option>';
-	$r = new WP_Query('cat=12&showposts=10000&orderby=title&order=ASC');
-	while ($r->have_posts()) : $r->the_post();
-		$tmp_title=get_the_title();
+	foreach (modernrock_directory_titles(12) as $tmp_title):
 		print '<option value="'.$tmp_title.'"';
 		if ($data==$tmp_title) print ' selected="selected"';
 		print '>'.$tmp_title.'</option>';
-	endwhile;		
+	endforeach;
 	print "</select>";
 	
 	print '<br/><br/>';
@@ -1671,25 +1641,18 @@ function disqus_embed($disqus_shortname) {
     </script>';
 }
 
-function find_id_title($title,$cat){
-	//Поиск поста по названию и категории
-	global $wpdb;
-	$sql = "
-		SELECT 
-			ID
-		FROM $wpdb->posts p 
-			LEFT JOIN $wpdb->term_relationships rel ON (p.ID = rel.object_id) 
-			LEFT JOIN $wpdb->term_taxonomy tax ON (rel.term_taxonomy_id = tax.term_taxonomy_id)
-		where
-			tax.term_id = '13' 
-			AND tax.taxonomy = 'category' 
-			AND p.post_status = 'publish' 
-			AND p.post_type = 'post'
-			AND p.post_title='".$title."'
-	";
-	$res = $wpdb->get_results($sql);
-	wp_reset_postdata();
-	return $res[0]->ID;
+function find_id_title($title, $cat) {
+    global $wpdb;
+    $key = (int) $cat . ':' . (string) $title;
+    if (!isset($GLOBALS['modernrock_venue_ids'][$key])) {
+        $GLOBALS['modernrock_venue_ids'][$key] = (int) $wpdb->get_var($wpdb->prepare(
+            "SELECT p.ID FROM {$wpdb->posts} p
+             JOIN {$wpdb->term_relationships} r ON r.object_id=p.ID
+             JOIN {$wpdb->term_taxonomy} t ON t.term_taxonomy_id=r.term_taxonomy_id
+             WHERE p.post_title=%s AND p.post_status='publish' AND p.post_type='post'
+             AND t.taxonomy='category' AND t.term_id=%d LIMIT 1", $title, (int) $cat));
+    }
+    return $GLOBALS['modernrock_venue_ids'][$key];
 }
 
 
@@ -2067,7 +2030,7 @@ add_shortcode('news_rewriter', function() {
         
         <?php if (isset($_POST['clear_cache'])) {
             global $wpdb;
-            $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_gigsbot_%' OR option_name LIKE '_transient_timeout_gigsbot_%'");
+            $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s", $wpdb->esc_like('_transient_gigsbot_') . '%', $wpdb->esc_like('_transient_timeout_gigsbot_') . '%'));
             echo '<div style="color:green; padding:10px; background:#f0fff0; border-radius:4px; margin-bottom:10px;">✅ Кеш концертов сброшен!</div>';
         } ?>
         
@@ -2098,7 +2061,7 @@ add_action('init', function() {
         && current_user_can('manage_options') && is_string($_GET['_wpnonce'])
         && wp_verify_nonce(wp_unslash($_GET['_wpnonce']), 'modernrock_clear_gigsbot_cache')) {
         global $wpdb;
-        $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_gigsbot_%' OR option_name LIKE '_transient_timeout_gigsbot_%'");
+        $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s", $wpdb->esc_like('_transient_gigsbot_') . '%', $wpdb->esc_like('_transient_timeout_gigsbot_') . '%'));
         echo 'OK: cache cleared';
     }
 });

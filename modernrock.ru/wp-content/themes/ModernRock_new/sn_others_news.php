@@ -5,7 +5,7 @@ $arh=array(
 	'cat'=>'3',
 	'post__not_in'=>array(get_the_ID())
 );
-query_posts($arh);
+query_posts($arh + ['no_found_rows' => true]);
 $i=0;
 ?>
 <?php if (have_posts()) : ?>

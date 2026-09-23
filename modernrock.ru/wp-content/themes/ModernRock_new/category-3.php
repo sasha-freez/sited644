@@ -6,12 +6,7 @@
 		<ul class="tiles">
 			<?php wp_reset_query(); ?>
 			<?php
-				$arh=array(
-					'showposts'=>15,
-					'cat'=>'3',
-					'paged' =>  get_query_var('paged') ? get_query_var('paged') : 1
-				);
-				query_posts($arh);
+				// The main query already contains the 15 paginated news posts.
 				$i=-1;
 				$j=0;
 			?>

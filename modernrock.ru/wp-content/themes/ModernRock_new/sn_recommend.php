@@ -17,7 +17,7 @@
 					'cat'=>'6',
 					'post__not_in'=>array(get_the_ID())
 				);
-				query_posts($arh);
+				query_posts($arh + ['no_found_rows' => true]);
 				$i=0;
 			?>
 			<?php if (have_posts()) : ?>
@@ -50,7 +50,7 @@
 					'meta_key'=>'active_contest',
 					'meta_value'=>'true'
 				);
-				query_posts($arh);
+				query_posts($arh + ['no_found_rows' => true]);
 			?>
 			<?php if (have_posts()) : ?>
 			<div class="n-item concurs_last">
@@ -63,7 +63,7 @@
 		<div class="tab-content tab-n3">
 			<div class="n-item reviews_mini">
 				<?php rewind_posts(); ?>
-				<?php query_posts('showposts=6&cat=9'); ?>
+				<?php query_posts('showposts=6&cat=9&no_found_rows=1'); ?>
 				<?php if (have_posts()) : ?>
 					<?php while (have_posts()) : the_post(); ?>
 						<?php 
@@ -89,7 +89,7 @@
 					'cat'=>'16',
 					'post__not_in'=>array(get_the_ID())
 				);
-				query_posts($arh);
+				query_posts($arh + ['no_found_rows' => true]);
 				$i=0;
 			?>
 			<?php if (have_posts()) : ?>

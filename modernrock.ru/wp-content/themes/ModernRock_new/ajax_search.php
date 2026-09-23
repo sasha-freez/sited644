@@ -3,7 +3,7 @@ require_once dirname(__DIR__, 3) . '/wp-load.php';
 header('Content-Type: text/html; charset=UTF-8');
 $term = modernrock_search_term('q');
 if (mb_strlen($term, 'UTF-8') < 3) exit;
-$results = modernrock_concert_search($term, 1, 6);
+$results = modernrock_concert_search($term, 1, 6, false);
 $cities = array_slice(modernrock_concert_search_cities($term), 0, 3);
 foreach ($cities as $city): ?>
 <a href="<?php echo esc_url($city['url']); ?>"><div class="hint_item"><div class="hint_title"><?php echo esc_html($city['title']); ?><span class="hint_kind">Афиша города</span></div></div></a>

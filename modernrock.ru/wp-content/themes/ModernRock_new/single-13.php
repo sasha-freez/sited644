@@ -47,16 +47,10 @@
 
 
 
-			$venue_get_photo = function($artist, $placeholder) {
-				global $wpdb;
-				$post = $wpdb->get_row($wpdb->prepare(
-					"SELECT ID FROM wp_posts WHERE post_title = %s AND post_status = 'publish' LIMIT 1", $artist));
-				if ($post) {
-					$tid = get_post_thumbnail_id($post->ID);
-					if ($tid) { $img = wp_get_attachment_image_src($tid, 'medium'); if (!empty($img[0])) return $img[0]; }
-				}
-				return $placeholder;
-			};
+            modernrock_prime_concert_rows($venue_concerts);
+            $venue_get_photo = function($artist, $placeholder) {
+                return modernrock_artist_photo($artist, 'medium', $placeholder);
+            };
 
 			$venue_placeholder = 'https://modernrock.ru/wp-content/uploads/2023/07/like-fest.jpg';
 		?>

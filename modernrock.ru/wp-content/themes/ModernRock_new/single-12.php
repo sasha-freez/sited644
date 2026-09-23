@@ -21,7 +21,7 @@ get_header();
 
 			// Прошедшие концерты из WordPress
 			global $wpdb;
-			$rowID = $wpdb->get_results("SELECT * FROM `wp_postmeta` WHERE `meta_key` = 'group_afisha' AND `meta_value` = '$sql_title' LIMIT 100");
+			$rowID = $wpdb->get_results($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s ORDER BY meta_id ASC LIMIT 100", 'group_afisha', $sql_title));
 			$g = 0; $groupID = '';
 			foreach ($rowID as $resID) {
 				if ($g != 0) $groupID .= ',';
@@ -31,7 +31,7 @@ get_header();
 			$now = time();
 			$ticketPrevID = ['0'];
 			if ($groupID) {
-				$rowTickets = $wpdb->get_results("SELECT * FROM `wp_posts` JOIN `wp_postmeta` WHERE `post_status`='publish' AND `ID`=`post_id` AND `ID` IN ($groupID) and `meta_key`= 'data_afisha' LIMIT 100");
+				$rowTickets = $wpdb->get_results("SELECT m.post_id, m.meta_value FROM {$wpdb->posts} p JOIN {$wpdb->postmeta} m ON p.ID=m.post_id WHERE p.post_status='publish' AND p.ID IN ($groupID) AND m.meta_key='data_afisha' LIMIT 100");
 				foreach ($rowTickets as $rt) {
 					if (strtotime($rt->meta_value) < $now) {
 						$ticketPrevID[] = $rt->post_id;
@@ -71,6 +71,8 @@ $gigsbot_url = 'https://api.tcket.ru/api/concerts_web?artist=' . urlencode($gigs
 			$artist_data = modernrock_concerts_response($cache_key, $gigsbot_response, DAY_IN_SECONDS, ['concerts' => []]);
 			$gigsbot_concerts = $artist_data['concerts'];
 		}
+
+        modernrock_prime_concert_rows($gigsbot_concerts, $gigsbot_artist_name);
 
 		// Разделяем на Москву, Питер и другие города
 		$concerts_msk = [];
@@ -208,7 +210,7 @@ $render_card = function($c, $artist_name, $artist_photo) use ($format_date, $gig
 		<?php
 		// Прошедшие концерты из WordPress
 		wp_reset_query();
-		$arh_tmp = ['showposts' => 20, 'cat' => 2872, 'post__in' => $ticketPrevID];
+		$arh_tmp = ['showposts' => 20, 'no_found_rows' => true, 'cat' => 2872, 'post__in' => $ticketPrevID];
 		query_posts($arh_tmp);
 		if (have_posts()):
 		?>
@@ -240,7 +242,7 @@ $render_card = function($c, $artist_name, $artist_photo) use ($format_date, $gig
 
 	<?php
 		wp_reset_query();
-		$arh = ['showposts'=>'6','cat'=>'3','meta_key'=>'news_group','meta_value'=>$tmp_title];
+		$arh = ['no_found_rows'=>true,'showposts'=>'6','cat'=>'3','meta_key'=>'news_group','meta_value'=>$tmp_title];
 		query_posts($arh); $i=0;
 	?>
 	<?php if (have_posts()) : ?>
@@ -260,7 +262,7 @@ $render_card = function($c, $artist_name, $artist_photo) use ($format_date, $gig
 
 	<?php
 		wp_reset_query();
-		$arh = ['showposts'=>'6','cat'=>'7','meta_key'=>'video_group','meta_value'=>$tmp_title];
+		$arh = ['no_found_rows'=>true,'showposts'=>'6','cat'=>'7','meta_key'=>'video_group','meta_value'=>$tmp_title];
 		query_posts($arh); $i=0;
 	?>
 	<?php if (have_posts()) : ?>

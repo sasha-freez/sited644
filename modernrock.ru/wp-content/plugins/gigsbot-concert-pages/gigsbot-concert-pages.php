@@ -400,19 +400,13 @@ function gigsbot_concert_template_redirect() {
         <div class="cp-similar">
             <h3><?php if ($city_url): ?><a href="<?php echo esc_url($city_url); ?>">Ещё концерты в <?php echo esc_html(concert_city_prepositional($concert['city'])); ?></a><?php else: ?>Ещё концерты в <?php echo esc_html(concert_city_prepositional($concert['city'])); ?><?php endif; ?></h3>
             <div class="cp-similar-list">
-            <?php foreach ($similar as $sc):
+            <?php modernrock_prime_concert_rows($similar); foreach ($similar as $sc):
                 $sc_date = preg_replace('/\+\d{2}:\d{2}$/', '', $sc['date']);
                 $sc_ts = strtotime($sc_date);
                 $sc_fmt = date('j', $sc_ts) . ' ' . $months[(int)date('n', $sc_ts)];
                 $sc_link = modernrock_event_link($sc);
                 $sc_url = $sc_link['url'];
-                global $wpdb;
-                $sc_photo = null;
-                $sc_post = $wpdb->get_row($wpdb->prepare("SELECT ID FROM wp_posts WHERE post_title = %s AND post_status = 'publish' LIMIT 1", $sc['artist']));
-                if ($sc_post) {
-                    $sc_tid = get_post_thumbnail_id($sc_post->ID);
-                    if ($sc_tid) { $sc_img = wp_get_attachment_image_src($sc_tid, 'medium'); if (!empty($sc_img[0])) $sc_photo = $sc_img[0]; }
-                }
+                $sc_photo = modernrock_artist_photo($sc['artist'], 'medium');
             ?>
             <a href="<?php echo esc_url($sc_url); ?>" class="cp-similar-item">
                 <?php if ($sc_photo): ?>

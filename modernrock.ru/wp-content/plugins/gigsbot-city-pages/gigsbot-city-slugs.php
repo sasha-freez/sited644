@@ -277,8 +277,9 @@ function gigsbot_artist_name_key($name) {
 
 /** Prefer the editor's artist genre, then the site's existing concert genres. */
 function gigsbot_artist_genres() {
+    if (isset($GLOBALS['modernrock_request_genres'])) return $GLOBALS['modernrock_request_genres'];
     $cached = get_transient('gigsbot_artist_genres_v2');
-    if (is_array($cached)) return $cached;
+    if (is_array($cached)) return $GLOBALS['modernrock_request_genres'] = $cached;
     global $wpdb;
     $rows = $wpdb->get_results("SELECT DISTINCT p.post_title, m.meta_value FROM {$wpdb->posts} p
         JOIN {$wpdb->postmeta} m ON m.post_id=p.ID AND m.meta_key='genre_group'
@@ -291,7 +292,7 @@ function gigsbot_artist_genres() {
         $key = gigsbot_artist_name_key($row['post_title']);
         $manual[$key][] = trim($row['meta_value']);
     }
-    $history = $wpdb->get_results("SELECT DISTINCT p.post_title, m.meta_value artist, term.name genre
+    $history = $wpdb->get_results("SELECT p.post_title, m.meta_value artist, term.name genre
         FROM {$wpdb->posts} p
         JOIN {$wpdb->term_relationships} r ON r.object_id=p.ID
         JOIN {$wpdb->term_taxonomy} t ON t.term_taxonomy_id=r.term_taxonomy_id
@@ -324,7 +325,7 @@ function gigsbot_artist_genres() {
     asort($genres);
     $result = ['artists' => $map, 'genres' => $genres, 'sources' => $sources];
     set_transient('gigsbot_artist_genres_v2', $result, HOUR_IN_SECONDS);
-    return $result;
+    return $GLOBALS['modernrock_request_genres'] = $result;
 }
 
 function gigsbot_event_genres($event, $data = null) {
@@ -341,13 +342,34 @@ function gigsbot_filter_artist_genre($concerts, $genre, $artists) {
 }
 
 function gigsbot_clear_artist_genres() {
+    unset($GLOBALS['modernrock_request_genres']);
     delete_transient('gigsbot_artist_genres_v2');
 }
-add_action('save_post', 'gigsbot_clear_artist_genres');
-add_action('deleted_post', 'gigsbot_clear_artist_genres');
-add_action('set_object_terms', function ($object_id, $terms, $tt_ids, $taxonomy) {
-    if ($taxonomy === 'category') gigsbot_clear_artist_genres();
-}, 10, 4);
+function gigsbot_maybe_clear_post_genres($post_id) {
+    if (get_post_type($post_id) !== 'post') return;
+    foreach (get_the_category($post_id) as $term) {
+        if ((int) $term->term_id === 12 || (int) $term->parent === 2872) {
+            gigsbot_clear_artist_genres();
+            return;
+        }
+    }
+}
+function gigsbot_maybe_clear_term_genres($object_id, $terms, $tt_ids, $taxonomy, $append, $old_tt_ids) {
+    if ($taxonomy !== 'category') return;
+    $affected = array_map('intval', array_merge((array) $tt_ids, (array) $old_tt_ids));
+    $categories = get_terms(['taxonomy' => 'category', 'hide_empty' => false]);
+    if (is_wp_error($categories)) { gigsbot_clear_artist_genres(); return; }
+    foreach ($categories as $term) {
+        if (((int) $term->term_id === 12 || (int) $term->parent === 2872)
+            && in_array((int) $term->term_taxonomy_id, $affected, true)) {
+            gigsbot_clear_artist_genres();
+            return;
+        }
+    }
+}
+add_action('save_post', 'gigsbot_maybe_clear_post_genres');
+add_action('before_delete_post', 'gigsbot_maybe_clear_post_genres');
+add_action('set_object_terms', 'gigsbot_maybe_clear_term_genres', 10, 6);
 foreach (['added_post_meta', 'updated_post_meta', 'deleted_post_meta'] as $hook) {
     add_action($hook, function ($meta_id, $post_id, $meta_key) {
         if (in_array($meta_key, ['genre_group', 'group_afisha'], true)) gigsbot_clear_artist_genres();
@@ -503,15 +525,9 @@ function gigsbot_template_redirect() {
                . ($time !== '00:00' ? ', ' . $time : '');
     };
 
+    modernrock_prime_concert_rows($concerts, '', $city);
     $get_photo = function($artist, $placeholder) {
-        global $wpdb;
-        $post = $wpdb->get_row($wpdb->prepare(
-            "SELECT ID FROM wp_posts WHERE post_title = %s AND post_status = 'publish' LIMIT 1", $artist));
-        if ($post) {
-            $tid = get_post_thumbnail_id($post->ID);
-            if ($tid) { $img = wp_get_attachment_image_src($tid, 'full'); if (!empty($img[0])) return $img[0]; }
-        }
-        return $placeholder;
+        return modernrock_artist_photo($artist, 'full', $placeholder);
     };
 
     get_header();

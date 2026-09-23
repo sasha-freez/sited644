@@ -6,12 +6,7 @@
 		<?php wp_reset_query(); ?>
 		<?php 
 			$tmp_buy='';
-			$arh=array(
-				'showposts'=>21,
-				'cat'=>'3,5,6,16,8,10,23,16,17,141',
-				'paged' =>  get_query_var('paged') ? get_query_var('paged') : 1
-			);
-			query_posts($arh);
+			// The main query already contains the 21 paginated news posts.
 			$i=1;$k=1;
 		?>
 		<ul class="tiles">
@@ -69,7 +64,7 @@
 			// Подключим базу
 			global $wpdb;
 			// Выберу все билеты связанные с артистом
-			$rowID = $wpdb->get_results("SELECT * FROM `wp_postmeta` WHERE `meta_key` = 'data_afisha' AND (`meta_value` >= '".$start_date."' AND `meta_value` < '".$end_date."') ORDER BY `meta_value` DESC LIMIT 50");
+			$rowID = $wpdb->get_results($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'data_afisha' AND meta_value >= %s AND meta_value < %s ORDER BY meta_value DESC LIMIT 50", $start_date, $end_date));
 
 			$groupID = [];
 			foreach($rowID as $resID) {
@@ -82,7 +77,7 @@
 				'post__in' => $groupID
 			);
 
-			query_posts($arh_tmp);
+			query_posts($arh_tmp + ['no_found_rows' => true]);
 			
 			if (have_posts()) :
 			while (have_posts()) : the_post();
@@ -113,7 +108,7 @@
 			'meta_key'=>'active_contest',
 			'meta_value'=>'true'
 		);
-		query_posts($arh);
+		query_posts($arh + ['no_found_rows' => true]);
 	?>
 	<?php if (have_posts()) : ?>
 	<div class="n-item concurs_last">
@@ -128,7 +123,7 @@
 	<div class="n-item leaks_mini">
 		<div class="h3"><a href="/leaks">Послушать</a></div>
 		<?php rewind_posts(); ?>
-		<?php query_posts('showposts=4&cat=3030'); ?>
+		<?php query_posts('showposts=4&cat=3030&no_found_rows=1'); ?>
 		<?php if (have_posts()) : ?>
 			<?php while (have_posts()) : the_post(); ?>
 				<?php 
@@ -162,7 +157,7 @@
 	<div class="n-item reviews_mini">
 		<div class="h3"><a href="/notices">РЕЦЕНЗИИ</a></div>
 		<?php rewind_posts(); ?>
-		<?php query_posts('showposts=2&cat=9'); ?>
+		<?php query_posts('showposts=2&cat=9&no_found_rows=1'); ?>
 		<?php if (have_posts()) : ?>
 			<?php while (have_posts()) : the_post(); ?>
 				<?php 
