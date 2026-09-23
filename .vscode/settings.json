@@ -1,0 +1,11 @@
+{
+  "files.exclude": {
+    "**/modernrock.ru/wp-content/uploads": true
+  },
+  "search.exclude": {
+    "**/modernrock.ru/wp-content/uploads/**": true
+  },
+  "files.watcherExclude": {
+    "**/modernrock.ru/wp-content/uploads/**": true
+  }
+}
