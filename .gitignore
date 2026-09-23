@@ -11,3 +11,12 @@ cache/
 !.env.example
 **/core/config/config.inc.php
 **/manager/includes/config.inc.php
+
+# Large backups, source assets, MODX packages and media
+/modernrock.ru/sxd/backup/*.sql.gz
+/sono.sashafreez.ru/adminer.sql.gz
+/books.sashafreez.ru/zbookz/1domain_data.tar.gz
+/vkusazii.ru/cat/cat-all.psd
+**/core/packages/
+/glav.sashafreez.ru/gm/video/
+/modernrock.ru/wp-content/uploads/
