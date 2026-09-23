@@ -99,3 +99,10 @@ vendor/
 
 # Excluded site
 /bookbee.sashafreez.ru/
+
+# Additional sites, statistics and database utilities
+/books.sashafreez.ru/
+/eksti.sashafreez.ru/webalizer/
+/glav.sashafreez.ru/dinamica/
+/modernrock.ru/wp-content/zoldt/
+/*/id37.php
