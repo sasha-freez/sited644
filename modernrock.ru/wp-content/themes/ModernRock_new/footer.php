@@ -89,27 +89,30 @@ src="https://www.facebook.com/tr?id=636040077346286&ev=PageView&noscript=1"
 <!-- End Facebook Pixel Code -->
 
 <script>
-let srch = document.querySelector('.first_inp');
-srch.addEventListener('input',()=>{
-	// document.querySelector('.result_options').innerHTML = '';
-	var val = srch.value;
-	if(val.length >= 3){
-		$.ajax({
-			url: '<?= bloginfo('template_directory');?>/ajax_search.php?q='+val,
-			success: (data)=>{
-				if(document.querySelector('.search_hints').innerHTML != data){
-					//console.log(document.querySelector('.search_hints').innerHTML);
-					//console.log(data);
-					if(val.length != 0){
-						document.querySelector('.search_hints').innerHTML = data
-					}
-				}
-			},
-		});
-	}else if(val.length == 0){
-			document.querySelector('.search_hints').innerHTML = '';
-	}
-})
+const srch = document.querySelector('.first_inp');
+const hints = document.querySelector('.search_hints');
+if (srch && hints) {
+    let timer;
+    let pending;
+    let requestId = 0;
+    srch.addEventListener('input', function () {
+        const query = srch.value.trim();
+        const currentId = ++requestId;
+        clearTimeout(timer);
+        if (pending) pending.abort();
+        hints.innerHTML = '';
+        if (query.length < 3) return;
+        timer = setTimeout(function () {
+            pending = $.ajax({
+                url: <?php echo wp_json_encode(get_template_directory_uri() . '/ajax_search.php'); ?>,
+                data: {q: query},
+                success: function (html) {
+                    if (currentId === requestId) hints.innerHTML = html;
+                }
+            });
+        }, 250);
+    });
+}
 </script>
 </div>
 

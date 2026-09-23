@@ -33,18 +33,11 @@
 		<h2 class="h2bl"><span class="bl">Ближайшие</span> <span class="wh">концерты</span> в <?php the_title(); ?>:</h2>
 
 		<?php
-			$venue_cache_key = 'gigsbot_venue_web_' . md5($sql_title);
+			$venue_cache_key = 'gigsbot_venue_web_v2_' . md5($sql_title);
 			$venue_data = get_transient($venue_cache_key);
 			if ($venue_data === false) {
 				$vresp = wp_remote_get('https://api.tcket.ru/api/venue_web?token=gigsbot2026&venue=' . urlencode($sql_title) . '&page=1&per_page=50', ['timeout' => 8]);
-				$venue_data = ['concerts' => [], 'total' => 0];
-				if (!is_wp_error($vresp)) {
-					$vdata = json_decode(wp_remote_retrieve_body($vresp), true);
-					if (!empty($vdata['concerts'])) {
-						$venue_data = $vdata;
-					}
-				}
-				set_transient($venue_cache_key, $venue_data, HOUR_IN_SECONDS * 3);
+				$venue_data = modernrock_concerts_response($venue_cache_key, $vresp, HOUR_IN_SECONDS * 3, ['concerts' => [], 'total' => 0]);
 			}
 			$venue_concerts = $venue_data['concerts'];
 

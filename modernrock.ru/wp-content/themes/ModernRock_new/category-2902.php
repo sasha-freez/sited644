@@ -3,13 +3,13 @@
 	<div class="h1">Поиск по сайту</div>
 	<div class="csearch">
 		<form action="/search/" method="get">
-			<input type="text" class="inp" name="q" value="<?php if (isset($_GET['q']) && $_GET['q']<>''){echo $_GET['q'];}?>" placeholder="Поиск по сайту" />
+			<input type="text" class="inp" name="q" value="<?php if (isset($_GET['q']) && $_GET['q']<>''){echo esc_attr(modernrock_search_term('q'));}?>" placeholder="Поиск по сайту" />
 			<input type="image" src="/images/i_search.png" class="submit" name="submit"/>
 		</form>
 	</div>
 	
 	<?php if (isset($_GET['q']) && $_GET['q']<>''):?>
-		<div class="h2">Результаты поиска по запросу: <?php echo $_GET['q']; ?></div>
+		<div class="h2">Результаты поиска по запросу: <?php echo esc_html(modernrock_search_term('q')); ?></div>
 	<?php endif; ?>
 	
 	<div class="section_list section_groups">
@@ -17,7 +17,8 @@
 			<?php wp_reset_query(); ?>
 			<?php
 				function filter_where_find($where = '') {
-					$where .= " AND post_title like '%".$_GET['q']."%'";  
+					global $wpdb;
+                    $where .= $wpdb->prepare(" AND {$wpdb->posts}.post_title LIKE %s", '%' . $wpdb->esc_like(modernrock_search_term('q')) . '%');
 					return $where;
 				}
 				
@@ -28,6 +29,8 @@
 					'cat'=>'3,6,2872,9',
 				);
 				query_posts($arh);
+                    remove_filter('posts_where', 'filter_where_find');
+                    remove_filter('posts_where', 'filter_where');
 			?>
 			<?php $i=0; if (have_posts()) : ?>
 			<?php while (have_posts()) : the_post(); ?>

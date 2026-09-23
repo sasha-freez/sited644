@@ -3,7 +3,7 @@
 	<div class="h1">Поиск групп</div>
 	<div class="csearch">
 		<form action="/groups" method="get">
-			<input type="text" class="inp" name="q" value="<?php if (isset($_GET['q']) && $_GET['q']<>''){echo $_GET['q'];}else{echo 'Поиск';}?>" onfocus="this.value='';" onblur="if (this.value == ''){this.value='Поиск'};"/>
+			<input type="text" class="inp" name="q" value="<?php if (isset($_GET['q']) && $_GET['q']<>''){echo esc_attr(modernrock_search_term('q'));}else{echo 'Поиск';}?>" onfocus="this.value='';" onblur="if (this.value == ''){this.value='Поиск'};"/>
 			<input type="image" src="/images/i_search.png" class="submit" name="submit"/>
 		</form>
 	</div>
@@ -73,7 +73,7 @@
 		</div>
 	</div>
 	
-	<script>select_alfavit('<?php echo $_GET['gr'];?>');</script>
+	<script>select_alfavit(<?php echo wp_json_encode(modernrock_search_term('gr'), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>);</script>
 	
 	<div class="group-list">
 		<div class="left">
@@ -103,7 +103,7 @@
 			</div>
 			<!--<div class="gr-search">
 				<form action="/groups" method="get">
-					<div class="input"><input type="text" name="q" value="<?php if (isset($_GET['q']) && $_GET['q']<>''){echo $_GET['q'];}else{echo 'Поиск';}?>"/></div>
+					<div class="input"><input type="text" name="q" value="<?php if (isset($_GET['q']) && $_GET['q']<>''){echo esc_attr(modernrock_search_term('q'));}else{echo 'Поиск';}?>"/></div>
 					<div class="submit">
 						<input type="submit" value=""/>
 					</div>
@@ -150,12 +150,14 @@
 			<?php wp_reset_query(); ?>
 			<?php
 				function filter_where($where = '') {
-					$where .= " AND post_title like '".$_GET['gr']."%'";  
+					global $wpdb;
+                    $where .= $wpdb->prepare(" AND {$wpdb->posts}.post_title LIKE %s", $wpdb->esc_like(modernrock_search_term('gr')) . '%');
 					return $where;
 				}
 				
 				function filter_where_find($where = '') {
-					$where .= " AND post_title like '%".$_GET['q']."%'";  
+					global $wpdb;
+                    $where .= $wpdb->prepare(" AND {$wpdb->posts}.post_title LIKE %s", '%' . $wpdb->esc_like(modernrock_search_term('q')) . '%');
 					return $where;
 				}
 				
@@ -169,6 +171,8 @@
 					'paged' =>  get_query_var('paged') ? get_query_var('paged') : 1
 				);
 				query_posts($arh);
+                    remove_filter('posts_where', 'filter_where_find');
+                    remove_filter('posts_where', 'filter_where');
 			?>
 			<?php if (have_posts()) : ?>
 			<?php while (have_posts()) : the_post(); ?>

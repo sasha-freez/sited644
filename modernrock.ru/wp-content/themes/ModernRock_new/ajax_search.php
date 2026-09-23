@@ -1,20 +1,18 @@
 <?php 
-require_once($_SERVER['DOCUMENT_ROOT'] .'/wp-config.php');
 require_once($_SERVER['DOCUMENT_ROOT'] .'/wp-load.php');
-define('WP_DEBUG', true);
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Use the site's error reporting configuration; never enable public debug output.
  ?>
 			<?php wp_reset_query(); ?>
 			<?php
 				function filter_where($where = '') {
-					$where .= " AND post_title like '".$_GET['gr']."%'";  
+					global $wpdb;
+                    $where .= $wpdb->prepare(" AND {$wpdb->posts}.post_title LIKE %s", $wpdb->esc_like(modernrock_search_term('gr')) . '%');
 					return $where;
 				}
 				
 				function filter_where_find($where = '') {
-					$where .= " AND post_title like '%".$_GET['q']."%'";  
+					global $wpdb;
+                    $where .= $wpdb->prepare(" AND {$wpdb->posts}.post_title LIKE %s", '%' . $wpdb->esc_like(modernrock_search_term('q')) . '%');
 					return $where;
 				}
 				
@@ -28,6 +26,8 @@ ini_set('display_errors', 1);
 					'paged' =>  get_query_var('paged') ? get_query_var('paged') : 1
 				);
 				query_posts($arh);
+                    remove_filter('posts_where', 'filter_where_find');
+                    remove_filter('posts_where', 'filter_where');
 			?>
 			<?php if (have_posts()) : ?>
 			<?php while (have_posts()) : the_post(); ?>

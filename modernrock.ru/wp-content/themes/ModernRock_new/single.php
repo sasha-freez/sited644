@@ -47,7 +47,7 @@
 	}
 	else
 	if(in_category(97)) {
-		include 'single-97.php'; 
+		include 'single-all.php';
 	}
 	else
 	if(in_category(176)) {

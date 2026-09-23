@@ -60,18 +60,15 @@ get_header();
 
 		<?php
 		// === GigsBot: все концерты артиста ===
-$cache_key = 'gigsbot_web_artist_' . md5($gigsbot_artist_name);
+$cache_key = 'gigsbot_web_artist_v2_' . md5($gigsbot_artist_name);
 		
-$gigsbot_concerts = get_transient($cache_key);
+$artist_data = get_transient($cache_key);
+$gigsbot_concerts = is_array($artist_data) && isset($artist_data['concerts']) ? $artist_data['concerts'] : false;
 		if ($gigsbot_concerts === false) {
 $gigsbot_url = 'https://api.tcket.ru/api/concerts_web?artist=' . urlencode($gigsbot_artist_name) . '&token=gigsbot2026';
 			$gigsbot_response = wp_remote_get($gigsbot_url, ['timeout' => 8]);
-			$gigsbot_concerts = [];
-			if (!is_wp_error($gigsbot_response)) {
-				$gigsbot_data = json_decode(wp_remote_retrieve_body($gigsbot_response), true);
-				if (!empty($gigsbot_data['concerts'])) $gigsbot_concerts = $gigsbot_data['concerts'];
-			}
-			set_transient($cache_key, $gigsbot_concerts, DAY_IN_SECONDS);
+			$artist_data = modernrock_concerts_response($cache_key, $gigsbot_response, DAY_IN_SECONDS, ['concerts' => []]);
+			$gigsbot_concerts = $artist_data['concerts'];
 		}
 
 		// Разделяем на Москву, Питер и другие города
