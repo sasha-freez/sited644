@@ -1,0 +1,13 @@
+# MODX caches (all sites, including future sites)
+cache/
+# MODX distributions and archives
+/modx-2.8.8*/
+/modx*.zip
+/modx*.tar.gz
+/modx*.tgz
+# Local credentials and database configuration
+.env
+.env.*
+!.env.example
+**/core/config/config.inc.php
+**/manager/includes/config.inc.php
