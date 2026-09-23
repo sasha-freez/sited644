@@ -3,18 +3,22 @@
     "**/modernrock.ru/wp-content/uploads": true,
     "**/core/cache": true,
     "**/assets/cache": true,
-    "**/core/packages": true
+    "**/core/packages": true,
+    "**/*.xml": true
   },
   "search.exclude": {
     "**/modernrock.ru/wp-content/uploads/**": true,
     "**/core/cache/**": true,
     "**/assets/cache/**": true,
-    "**/core/packages/**": true
+    "**/core/packages/**": true,
+    "**/*.xml": true
   },
   "files.watcherExclude": {
     "**/modernrock.ru/wp-content/uploads/**": true,
     "**/core/cache/**": true,
     "**/assets/cache/**": true,
-    "**/core/packages/**": true
-  }
+    "**/core/packages/**": true,
+    "**/*.xml": true
+  },
+  "chat.disableAIFeatures": true
 }
