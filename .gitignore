@@ -96,3 +96,6 @@ vendor/
 *.mobi
 # Local WordPress database credentials
 **/wp-config.php
+
+# Excluded site
+/bookbee.sashafreez.ru/
